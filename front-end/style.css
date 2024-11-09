@@ -64,7 +64,44 @@ nav .container {
     justify-content: space-between;
 }
 
+nav .menu-item {
+    color: black;
+}
 
+nav .menu-item {
+    padding: 1.2rem 1.2rem;
+    display: none;
+}
+
+nav .functionPopup {
+    position: absolute;
+    left: 70%; /*change for responsive*/
+    top: 90%; /*change for responsive*/
+    width: 15rem; /*change for responsive*/
+    background-color: var(--inner-color);
+    border-radius: 1rem;
+    padding: .3rem;
+    display: none;
+}
+
+nav .popupBody {
+    padding: 1rem;
+    background-color: var(--theme-color);
+    border-radius: 0.5rem;
+    margin: .3rem;
+}
+
+nav .functionPopup::after {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    display: block;
+    background: var(--inner-color);
+    position: absolute;
+    top: -.6rem; 
+    right: .5rem; 
+    transform: rotate(45deg); 
+}
 /*=======================main=======================*/
 main {
     position: fixed;
@@ -81,6 +118,7 @@ main .container {
 main .container .left {
     margin-left: .5rem;
     height: 100%;
+    z-index: 10;
 }
 
 .left .sidebar {
@@ -114,10 +152,10 @@ main .left .sidebar i {
     font-size: 1.3rem;
 }
 
-main .left .menu-item:hover, .popupBody:hover {
+.left .menu-item:hover, .left .popupBody:hover, nav .menu-item:hover, nav .popupBody:hover{
     background-color: var(--hover-color);
     border-radius: 1rem;
-    transition: all 500ms ease;
+    transition: all 300ms ease;
 }
 
 .left .sidebar .notification-count {
@@ -144,7 +182,6 @@ main .left .menu-item:hover, .popupBody:hover {
     background-color: var(--inner-color);
     border-radius: 1rem;
     padding: .3rem;
-    z-index: 8;
     display: none;
 }
 
@@ -289,6 +326,62 @@ main .left .menu-item:hover, .popupBody:hover {
 }
 
 
+/*=======================responsive=======================*/
+@media screen and (max-width: 768px) {
+    /*=======================nav=======================*/
+    nav .container .logo {
+        margin: 0 auto;
+    }
 
+    nav .container .home, nav .container .log-in{
+        display: none;
+    }
 
+    nav .menu-item {
+        color: black;
+        display: block;
+        padding: 1.2rem 1.2rem;
+    }
 
+    /*=======================sidebar=======================*/
+    .container .left .sidebar .menu-item:nth-child(2) {
+        display: none;
+    }
+
+    main .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    main .middle {
+        width: 100%;
+        border-radius: 0;
+        bottom: 3.2rem;
+        padding-bottom: calc(1.2rem *2 + 1.3rem);
+    }
+
+    main .container .left {
+        width: 100%;
+        order: 1;/* Ensures .left goes below .middle */
+        margin: 0;/* Remove side margins */
+    }
+
+    .container .left .sidebar {
+        top: calc(100vh - (1.2rem *2 + 1.3rem));
+    }
+
+    .container .left .sidebar .group {
+        background-color: var(--theme-color);
+        width: 100vw;
+
+        display: flex;
+        flex-direction: row;
+        gap: calc((100vw - (1.2rem *2 + 1.3rem) * 5 - 30%)/5);
+    }
+
+    /*=======================middle=======================*/
+    .middle .create-post {
+        display: none;
+    }
+}
