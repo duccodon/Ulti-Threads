@@ -348,6 +348,7 @@ main .left .sidebar i {
         left: 75%; /*change for responsive*/
         width: calc(100vw / 5); /*change for responsive*/
         padding: .1rem;
+        display: none;
     }
 
     nav .popupBody {
