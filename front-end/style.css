@@ -81,7 +81,7 @@ nav .functionPopup {
     background-color: var(--inner-color);
     border-radius: 1rem;
     padding: .3rem;
-    display: none;
+    /* display: none; */
 }
 
 nav .popupBody {
@@ -100,7 +100,8 @@ nav .functionPopup::after {
     position: absolute;
     top: -.6rem; 
     right: .5rem; 
-    transform: rotate(45deg); 
+    transform: rotate(45deg);
+    z-index: -1; 
 }
 /*=======================main=======================*/
 main {
@@ -341,6 +342,32 @@ main .left .sidebar i {
         color: black;
         display: block;
         padding: 1.2rem 1.2rem;
+    }
+
+    nav .functionPopup {
+        left: 75%; /*change for responsive*/
+        width: calc(100vw / 5); /*change for responsive*/
+        padding: .1rem;
+    }
+
+    nav .popupBody {
+        padding: calc(100vw / 45);
+        background-color: var(--theme-color);
+        border-radius: 0.5rem;
+        margin: .3rem;
+    }
+    
+    nav .functionPopup::after {
+        content: "";
+        width: calc(100vw / 45);
+        height: calc(100vw / 45);
+        display: block;
+        background: var(--inner-color);
+        position: absolute;
+        top: calc(-.6rem + 100vw / 200); 
+        right: .5rem; 
+        z-index: -1;
+        transform: rotate(45deg); 
     }
 
     /*=======================sidebar=======================*/
