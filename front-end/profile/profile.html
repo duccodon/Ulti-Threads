@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ulti Threads</title>
+
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <h2 class="logo">
+                Ulti Threads
+            </h2>
+            <div class="home">
+                <h2>Profile</h2>
+            </div>
+
+            <div class="log-in">
+                <label class="btn btn-primary" for="log-in">Log in</label>
+            </div>
+
+            <div class="menu-item" id="top-function">
+                <span><i class="fa-solid fa-grip-lines"></i></span>
+                <div class="functionPopup">
+                    <div>
+                        <div class="popupBody">
+                            <b>Theme</b>
+                        </div>
+                        <div class="popupBody">
+                            <b>Theme</b>
+                        </div>
+                        <div class="popupBody">
+                            <b>Report</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="left">
+                <div class="sidebar">
+                    <div class="group">
+                        <a href="#" class="menu-item active"><span><i class="fa-solid fa-house"></i></span></a>
+                        <br>
+                        <a href="#" class="menu-item"><span><i class="fa-solid fa-magnifying-glass"></i></span></a>
+                        <br>
+                        <a href="#" class="menu-item"><span><i class="fa-solid fa-plus"></i></span></a>
+                        <br>
+                        <a href="#" class="menu-item" id="notification"><span><i class="fa-regular fa-heart"><small class="notification-count">10</small></i></span></a>
+                        <br>
+                        <a href="#" class="menu-item"><span><i class="fa-regular fa-user"></i></span></a>
+                        <br>
+                    </div>
+                    <!--popup-->
+                    <div class="menu-item" id="sidebar-function">
+                        <span><i class="fa-solid fa-grip-lines"></i></span>
+                        <div class="functionPopup" id="sidebar-functionPopup">
+                            <div>
+                                <div class="popupBody">
+                                    <b>Theme</b>
+                                </div>
+                                <div class="popupBody">
+                                    <b>Theme</b>
+                                </div>
+                                <div class="popupBody">
+                                    <b>Report</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <div class="middle">
+                <div class="grid-container">
+                    <div class="username">
+                            <h1>Username</h1>
+                        <p>_username</p>
+                        <br><br>
+                        <p style="color:gray">0 followers</p>
+                    </div>
+
+                    <div class="icon">
+                        <i class="material-icons" style="font-size:78px;color:gray">person</i>
+                        <i class="material-icons" style="font-size:38px;color:gray">person</i>
+                        <i class="material-icons" style="font-size:38px;color:gray">person</i>
+                    </div>
+
+                    <div class="button">
+                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block"
+                         style="font-weight:bold">Edit profile</button>
+                    </div>
+                </div>
+
+                <div class="grid-container-button">
+                    <div class="threads-button">
+                        <button type="button" class="btn btn-outline-secondary btn-lg">Threads</button>
+                    </div>
+                    <div class="replies-button">
+                        <button type="button" class="btn btn-outline-secondary btn-lg">Replies</button>
+                    </div>
+                    <div class="reposts-button">
+                        <button type="button" class="btn btn-outline-secondary btn-lg">Reposts</button>
+                    </div>
+                </div>
+
+                <div class="post-container">
+                    <button class="avatar-button"></button>
+                    <button class="post-text-button">What's new?</button>
+                    <button class="post-button">Post</button>
+                </div>
+                
+                
+
+                <div class="profile-setup-container">
+                    <button class="arrow-button left-arrow" onclick="scrollLeft()">&#9664;</button> <!-- Mũi tên trái -->
+                    
+                    <div class="profile-items">
+                        <div class="profile-item">
+                            <div class="icon"><i class="material-icons">photo_camera</i></div>
+                            <h3>Add profile photo</h3>
+                            <p>Make it easier for people to recognize you.</p>
+                            <button class="action-button">Add</button>
+                        </div>
+                        <div class="profile-item">
+                            <div class="icon"><i class="material-icons">edit</i></div>
+                            <h3>Create thread</h3>
+                            <p>Say what’s on your mind or share a recent highlight.</p>
+                            <button class="action-button">Create</button>
+                        </div>
+                        <div class="profile-item">
+                            <div class="icon"><i class="material-icons">group_add</i></div>
+                            <h3>Follow 5 profiles</h3>
+                            <p>Fill your feed with threads that interest you.</p>
+                            <button class="action-button">See profiles</button>
+                        </div>
+                        <div class="profile-item">
+                            <div class="icon"><i class="material-icons">edit_note</i></div>
+                            <h3>Add bio</h3>
+                            <p>Introduce yourself and tell people what you're into.</p>
+                            <button class="action-button">Add</button>
+                        </div>
+                    </div>
+                
+                    <button class="arrow-button right-arrow" onclick="scrollRight()">&#9654;</button> <!-- Mũi tên phải -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="./index.js"></script>
+    <script>
+    function scrollLeft() 
+    {
+        const container = document.querySelector('.profile-items');
+        container.scrollBy({
+            left: -200, // Cuộn sang trái 200px
+            behavior: 'smooth'
+        });
+    }
+
+    function scrollRight() 
+    {
+        const container = document.querySelector('.profile-items');
+        container.scrollBy({
+            left: 200, // Cuộn sang phải 200px
+            behavior: 'smooth'
+        });
+    }
+
+    </script>
+</body>
+</html>
