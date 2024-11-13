@@ -101,61 +101,81 @@
 
                     <div class="button">
                         <button type="button" class="btn btn-outline-secondary btn-lg btn-block"
-                         style="font-weight:bold">Edit profile</button>
+                          style="font-weight:bold" onclick="toggleModal()">Edit profile</button>
                     </div>
+                    
+                    
+                    
                 </div>
 
                 <div class="grid-container-button">
                     <div class="threads-button">
-                        <button type="button" class="btn btn-outline-secondary btn-lg">Threads</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg" onclick="showContent('threads')">Threads</button>
                     </div>
                     <div class="replies-button">
-                        <button type="button" class="btn btn-outline-secondary btn-lg">Replies</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg" onclick="showContent('replies')">Replies</button>
                     </div>
                     <div class="reposts-button">
-                        <button type="button" class="btn btn-outline-secondary btn-lg">Reposts</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg" onclick="showContent('reposts')">Reposts</button>
                     </div>
                 </div>
 
-                <div class="post-container">
-                    <button class="avatar-button"></button>
-                    <button class="post-text-button">What's new?</button>
-                    <button class="post-button">Post</button>
-                </div>
-                
-                
-
-                <div class="profile-setup-container">
-                    <button class="arrow-button left-arrow" onclick="scrollLeft()">&#9664;</button> <!-- Mũi tên trái -->
+                <div id="threads-content" class="content" style="display: none;">
+                    <div class="post-container">
+                        <button class="avatar-button"></button>
+                        <button class="post-text-button">What's new?</button>
+                        <button class="post-button">Post</button>
+                    </div>
                     
-                    <div class="profile-items">
-                        <div class="profile-item">
-                            <div class="icon"><i class="material-icons">photo_camera</i></div>
-                            <h3>Add profile photo</h3>
-                            <p>Make it easier for people to recognize you.</p>
-                            <button class="action-button">Add</button>
+                    <div class="grid-container-2">
+                        <div class="finish">
+                            <h4>Finish your profile</h4>
                         </div>
-                        <div class="profile-item">
-                            <div class="icon"><i class="material-icons">edit</i></div>
-                            <h3>Create thread</h3>
-                            <p>Say what’s on your mind or share a recent highlight.</p>
-                            <button class="action-button">Create</button>
-                        </div>
-                        <div class="profile-item">
-                            <div class="icon"><i class="material-icons">group_add</i></div>
-                            <h3>Follow 5 profiles</h3>
-                            <p>Fill your feed with threads that interest you.</p>
-                            <button class="action-button">See profiles</button>
-                        </div>
-                        <div class="profile-item">
-                            <div class="icon"><i class="material-icons">edit_note</i></div>
-                            <h3>Add bio</h3>
-                            <p>Introduce yourself and tell people what you're into.</p>
-                            <button class="action-button">Add</button>
+                        <div class="left">
+                            <span>4 left</span>
                         </div>
                     </div>
+                    
+                    <div class="profile-setup-container">
+                        <button class="arrow-button left-arrow" onclick="scrollLeft()">&#9664;</button> <!-- Mũi tên trái -->
+                        
+                        <div class="profile-items">
+                            <div class="profile-item">
+                                <div class="icon"><i class="material-icons">photo_camera</i></div>
+                                <h3>Add profile photo</h3>
+                                <p>Make it easier for people to recognize you.</p>
+                                <button class="action-button">Add</button>
+                            </div>
+                            <div class="profile-item">
+                                <div class="icon"><i class="material-icons">edit</i></div>
+                                <h3>Create thread</h3>
+                                <p>Say what’s on your mind or share a recent highlight.</p>
+                                <button class="action-button">Create</button>
+                            </div>
+                            <div class="profile-item">
+                                <div class="icon"><i class="material-icons">group_add</i></div>
+                                <h3>Follow 5 profiles</h3>
+                                <p>Fill your feed with threads that interest you.</p>
+                                <button class="action-button">See profiles</button>
+                            </div>
+                            <div class="profile-item">
+                                <div class="icon"><i class="material-icons">edit_note</i></div>
+                                <h3>Add bio</h3>
+                                <p>Introduce yourself and tell people what you're into.</p>
+                                <button class="action-button">Add</button>
+                            </div>
+                        </div>
+                    
+                        <button class="arrow-button right-arrow" onclick="scrollRight()">&#9654;</button> <!-- Mũi tên phải -->
+                    </div>
+                </div>
+
+                <div id="replies-content" class="content" style="display: none;">
+                    <p style="padding:30px;text-align: center;color:gray">No replies yet.</p>
+                </div>
                 
-                    <button class="arrow-button right-arrow" onclick="scrollRight()">&#9654;</button> <!-- Mũi tên phải -->
+                <div id="reposts-content" class="content" style="display: none;">
+                    <p style="padding:30px;text-align: center;color:gray">No reposts yet.</p>
                 </div>
             </div>
 
@@ -180,6 +200,17 @@
             left: 200, // Cuộn sang phải 200px
             behavior: 'smooth'
         });
+    }
+
+    function showContent(contentId) 
+    {
+        // Ẩn tất cả các nội dung trước khi hiển thị nội dung được chọn
+        document.getElementById("threads-content").style.display = "none";
+        document.getElementById("replies-content").style.display = "none";
+        document.getElementById("reposts-content").style.display = "none";
+
+        // Hiển thị nội dung tương ứng
+        document.getElementById(contentId + "-content").style.display = "block";
     }
 
     </script>

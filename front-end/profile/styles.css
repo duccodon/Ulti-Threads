@@ -506,14 +506,13 @@ main .left .sidebar i {
 }
 
 .profile-items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Hiển thị 3 mục cùng lúc */
-    gap: 20px;
-    overflow: hidden; /* Ẩn phần nội dung bị cuộn */
+    display: flex;
+    overflow-x: auto; /* Cho phép cuộn ngang */
     scroll-snap-type: x mandatory;
-    width: 80%; /* Chiều rộng của vùng hiển thị */
+    gap: 20px;
     padding: 20px;
 }
+
 
 .profile-item {
     background-color: #f5f5f5;
@@ -548,7 +547,7 @@ main .left .sidebar i {
     right: 10px;
 }
 
-.icon {
+.profile-setup-container .icon {
     background-color: white;
     border-radius: 50%;
     width: 50px;
@@ -559,12 +558,12 @@ main .left .sidebar i {
     margin: 0 auto 10px;
 }
 
-.icon i {
+.profile-setup-container .icon i {
     font-size: 24px;
     color: #333;
 }
 
-.action-button {
+.profile-setup-container .action-button {
     background-color: black;
     color: white;
     padding: 8px 20px;
@@ -576,11 +575,33 @@ main .left .sidebar i {
     margin: 0 auto;
 }
 
-.action-button:hover {
+.profile-setup-container .action-button:hover {
     background-color: #333;
 }
 
+.middle .grid-container-2
+{
+    display: grid;
+    grid-template-areas:
+        'first second';
+    grid-gap: 10px;
+    padding: 3%;
+    padding-bottom: 0%;
+}
 
+.grid-container-2 .finish
+{
+    grid-area: first;
+    justify-self: start;
+}
+
+.grid-container-2 .left
+{
+    grid-area: second;
+    justify-self: end;
+}
+  
+  
 
 /*=======================responsive=======================*/
 @media screen and (max-width: 768px) {
