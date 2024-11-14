@@ -513,6 +513,9 @@ main .left .sidebar i {
     padding: 20px;
 }
 
+/* .profile-items::-webkit-scrollbar {
+    display: none;
+} */
 
 .profile-item {
     background-color: #f5f5f5;
