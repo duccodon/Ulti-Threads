@@ -266,10 +266,10 @@ main .left .sidebar i {
     display: block;
     border-top: 1px solid #ccc;
     padding: 0 var(--inner-padding);
+    padding-top: 1rem;
 }
 
 .middle .feed .main-content {
-    margin: 1rem 0;
     display: flex;
     justify-content: space-between;
     gap: 1rem;

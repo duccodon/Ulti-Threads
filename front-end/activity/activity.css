@@ -284,10 +284,15 @@ input[type="search"]::placeholder {
 .middle .feeds .feed {
     display: block;
     padding: 0 var(--inner-padding);
-    padding-top: 1rem;
+    padding-top: 1rem; /*change*/
+}
+
+.middle .unread {
+    background-color: var(--theme-color);
 }
 
 .middle .feed .main-content {
+    /* margin: 0rem 0; delete*/
     display: flex;
     justify-content: space-between;
     gap: 1rem;

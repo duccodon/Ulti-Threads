@@ -10,7 +10,7 @@
     <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <link rel="stylesheet" href="./search.css">
+    <link rel="stylesheet" href="./activity.css">
 </head>
 
 <body>
@@ -53,11 +53,11 @@
                     <div class="group">
                         <a href="../index.html" class="menu-item"><span><i class="fa-solid fa-house"></i></span></a>
                         <br>
-                        <a href="./search.html" class="menu-item active"><span><i class="fa-solid fa-magnifying-glass"></i></span></a>
+                        <a href="../search/search.html" class="menu-item"><span><i class="fa-solid fa-magnifying-glass"></i></span></a>
                         <br>
                         <a href="#" class="menu-item"><span><i class="fa-solid fa-plus"></i></span></a>
                         <br>
-                        <a href="../activity/activity.html" class="menu-item" id="notification"><span><i class="fa-regular fa-heart"><small class="notification-count">10</small></i></span></a>
+                        <a href="./activity.html" class="menu-item active" id="notification"><span><i class="fa-regular fa-heart"><small class="notification-count" id="num-of-noti">10</small></i></span></a>
                         <br>
                         <a href="../profile/profile.html" class="menu-item"><span><i class="fa-regular fa-user"></i></span></a>
                         <br>
@@ -92,11 +92,7 @@
                 </div>
 
                 <div class="feeds">
-                    <div style="padding: .5rem 1.2rem;">
-                        Recommendation
-                    </div>
-
-                    <div class="feed">
+                    <div class="feed unread" >
                         <a href="#">
                             <div class="main-content">
                                 <img src="../../public/Image/1.jpg" class="profile-photo">
@@ -104,15 +100,31 @@
                                     <div class="body-content">
                                         <div class="ingo">
                                             <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
-                                            <div class="content">
-                                                100k followers 
-                                            </div>
+                                            <h3 style="color: #ccc;">Follow you</h3>
                                         </div>
                                     </div>
 
                                     <div class="log-in">
                                         <label class="btn btn-post" for="log-in">Follow</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="feed unread">
+                        <a href="#">
+                            <div class="main-content">
+                                <img src="../../public/Image/1.jpg" class="profile-photo">
+                                <div class="user">
+                                    <div class="body-content">
+                                        <div class="ingo">
+                                            <h3>Username</h3>
+                                            <h3 style="color: #ccc;">Like your post</h3>
+                                            <div class="content">
+                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, officiis! Illum officia nihil perferendis eum possimus libero ipsam itaque. Delectus unde est eaque nam ratione corrupti, molestias similique animi nihil. 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -127,15 +139,69 @@
                                     <div class="body-content">
                                         <div class="ingo">
                                             <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
+                                            <h3 style="color: #ccc;">Repost your post</h3>
                                             <div class="content">
-                                                100k followers 
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique possimus distinctio a sunt incidunt officia neque tempore modi veniam eum veritatis saepe expedita quidem doloribus nesciunt labore ex, alias obcaecati. 
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="feed unread">
+                        <a href="#">
+                            <div class="main-content">
+                                <img src="../../public/Image/1.jpg" class="profile-photo">
+                                <div class="user">
+                                    <div class="body-content">
+                                        <div class="ingo">
+                                            <h3>Username</h3>
+                                            <h3 style="color: #ccc;">Recommend</h3>
+                                            <div class="content">
+                                                Post Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt quis voluptates ducimus, reiciendis exercitationem error itaque voluptatum eligendi magni blanditiis et soluta cum maiores laudantium nam illum sapiente eum assumenda?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="feed unread" >
+                        <a href="#">
+                            <div class="main-content">
+                                <img src="../../public/Image/1.jpg" class="profile-photo">
+                                <div class="user">
+                                    <div class="body-content">
+                                        <div class="ingo">
+                                            <h3>Username</h3>
+                                            <h3 style="color: #ccc;">Follow you</h3>
                                         </div>
                                     </div>
 
                                     <div class="log-in">
                                         <label class="btn btn-post" for="log-in">Follow</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="feed unread">
+                        <a href="#">
+                            <div class="main-content">
+                                <img src="../../public/Image/1.jpg" class="profile-photo">
+                                <div class="user">
+                                    <div class="body-content">
+                                        <div class="ingo">
+                                            <h3>Username</h3>
+                                            <h3 style="color: #ccc;">Like your post</h3>
+                                            <div class="content">
+                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, officiis! Illum officia nihil perferendis eum possimus libero ipsam itaque. Delectus unde est eaque nam ratione corrupti, molestias similique animi nihil. 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -150,21 +216,18 @@
                                     <div class="body-content">
                                         <div class="ingo">
                                             <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
+                                            <h3 style="color: #ccc;">Repost your post</h3>
                                             <div class="content">
-                                                100k followers 
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique possimus distinctio a sunt incidunt officia neque tempore modi veniam eum veritatis saepe expedita quidem doloribus nesciunt labore ex, alias obcaecati. 
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="log-in">
-                                        <label class="btn btn-post" for="log-in">Follow</label>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="feed">
+                    
+                    <div class="feed unread">
                         <a href="#">
                             <div class="main-content">
                                 <img src="../../public/Image/1.jpg" class="profile-photo">
@@ -172,106 +235,11 @@
                                     <div class="body-content">
                                         <div class="ingo">
                                             <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
+                                            <h3 style="color: #ccc;">Recommend</h3>
                                             <div class="content">
-                                                100k followers 
+                                                Post Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt quis voluptates ducimus, reiciendis exercitationem error itaque voluptatum eligendi magni blanditiis et soluta cum maiores laudantium nam illum sapiente eum assumenda?
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="log-in">
-                                        <label class="btn btn-post" for="log-in">Follow</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="feed">
-                        <a href="#">
-                            <div class="main-content">
-                                <img src="../../public/Image/1.jpg" class="profile-photo">
-                                <div class="user">
-                                    <div class="body-content">
-                                        <div class="ingo">
-                                            <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
-                                            <div class="content">
-                                                100k followers 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="log-in">
-                                        <label class="btn btn-post" for="log-in">Follow</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="feed">
-                        <a href="#">
-                            <div class="main-content">
-                                <img src="../../public/Image/1.jpg" class="profile-photo">
-                                <div class="user">
-                                    <div class="body-content">
-                                        <div class="ingo">
-                                            <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
-                                            <div class="content">
-                                                100k followers 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="log-in">
-                                        <label class="btn btn-post" for="log-in">Follow</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="feed">
-                        <a href="#">
-                            <div class="main-content">
-                                <img src="../../public/Image/1.jpg" class="profile-photo">
-                                <div class="user">
-                                    <div class="body-content">
-                                        <div class="ingo">
-                                            <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
-                                            <div class="content">
-                                                100k followers 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="log-in">
-                                        <label class="btn btn-post" for="log-in">Follow</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="feed">
-                        <a href="#">
-                            <div class="main-content">
-                                <img src="../../public/Image/1.jpg" class="profile-photo">
-                                <div class="user">
-                                    <div class="body-content">
-                                        <div class="ingo">
-                                            <h3>Username</h3>
-                                            <h3 style="color: #ccc;">Anh Da Den</h3>
-                                            <div class="content">
-                                                100k followers 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="log-in">
-                                        <label class="btn btn-post" for="log-in">Follow</label>
                                     </div>
                                 </div>
                             </div>
@@ -284,5 +252,31 @@
     </main>
 
     <script src="../index.js"></script>
+    <script>
+        const unreadMessage = document.querySelectorAll('.unread');
+        const unreadMessageCount = document.getElementById('num-of-noti');
+        const notificationElement = document.querySelector('#notification');
+
+        unreadMessageCount.innerText = unreadMessage.length;
+
+        function updateNotificationDisplay() {
+            const newUnreadMessage = document.querySelectorAll('.unread').length;
+            unreadMessageCount.innerText = newUnreadMessage;
+
+            // If no unread messages, hide the <small> element
+            if (newUnreadMessage === 0) {
+                notificationElement.querySelector('.notification-count').style.display = 'none';
+            } else {
+                notificationElement.querySelector('.notification-count').style.display = 'inline';
+            }
+        }
+
+        unreadMessage.forEach((message) => {
+            message.addEventListener('click', () => {
+                message.classList.remove('unread');
+                updateNotificationDisplay(); 
+            });
+        });
+    </script>
 </body>
 </html>
