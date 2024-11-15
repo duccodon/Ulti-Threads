@@ -4,7 +4,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
   }
 
   /* Background Overlay */
@@ -127,7 +126,8 @@
 
   .comment-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
+    gap: 5px;
     font-size: 14px;
     color: #555;
   }
@@ -141,23 +141,24 @@
   /* Comment Input Box */
   .comment-input {
     display: flex;
-    padding: 10px;
-    border-top: 2px solid #ddd;
+    padding: 5px;
+    border: 2px solid #ddd;
     background-color: #fff;
+    max-height : 50px;
   }
 
   .comment-input textarea {
     flex-grow: 1;
     border: none;
     border-radius: 5px;
-    padding: 8px;
     resize: none;
     outline: none;
     font-size: 15px;
+
   }
 
   .comment-input button {
-    background-color: #1d9bf0;
+    background-color: black;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -165,7 +166,6 @@
     margin-left: 10px;
     cursor: pointer;
   }
-
 /* General button styles */
  .engagement-buttons span {
     display: inline-flex;
