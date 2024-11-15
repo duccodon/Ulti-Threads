@@ -39,24 +39,59 @@ document.addEventListener('click', (e) => {
 
 
 
-// function loadOverlay() {
-//   fetch('./comment_overlay/comment.html')  // Correct relative path to comment-overlay.html
-//       .then(response => response.text())   // Convert the response to text
-//       .then(data => {
-//           // Inject the overlay content into the container
-//           document.getElementById('comment-overlay-container').innerHTML = data;
+function loadOverlay() {
+  fetch('./comment_overlay/comment.html')  // Correct relative path to comment-overlay.html
+    .then(response => response.text())    // Convert the response to text
+    .then(data => {
 
-//           // Show the overlay
-//           document.getElementById('comment-overlay').style.display = 'flex';
+        document.getElementById('comment-overlay-container').innerHTML = data;
+        const middle = document.querySelector('.middle'); // Select the middle element
 
-//           // Handle close event for overlay
-//           const closeOverlay = document.getElementById('close-overlay');
-//           closeOverlay.addEventListener('click', () => {
-//               document.getElementById('comment-overlay').style.display = 'none';
-//           });
-//       })
-//       .catch(error => console.error('Error loading overlay:', error));
-// }
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './comment_overlay/comment.css';  
+        document.head.appendChild(link); 
 
-// // Load overlay on page load
-// window.onload = loadOverlay;
+        const script = document.createElement('script');
+        script.src = './comment_overlay/comment.js';  
+        document.body.appendChild(script); 
+        middle.style.overflowY = 'hidden';  // Hide the scroll on .middle
+
+        script.onload = function() {
+          addBackButtonListener(script);
+          middle.style.overflowY = 'auto'
+        };
+
+    })
+    
+    .catch(error => console.error('Error loading overlay:', error));
+}
+
+function addBackButtonListener(script) {
+  const backButton = document.querySelector('.back-button'); // Select the back button
+  const overlayContainer = document.getElementById('comment-overlay-container'); // Select the overlay container
+
+  if (backButton && overlayContainer) {
+    backButton.addEventListener('click', () => {
+      // Remove the overlay container from the DOM
+      overlayContainer.innerHTML = '';
+      // Remove the script tag to disable the functionality
+      if (script && script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    });
+  } else {
+    console.error('Back button or overlay container not found.');
+  }
+}
+
+
+function enableCommentOverlay() {
+    // This simulates the window.onload action and loads the overlay when the comment button is clicked
+    window.onload = loadOverlay;
+    window.onload();  // Call the function to load the overlay content
+}
+
+// Get the comment button and add a click event listener
+const commentButton = document.querySelector('.comment-button');
+commentButton.addEventListener('click', enableCommentOverlay);

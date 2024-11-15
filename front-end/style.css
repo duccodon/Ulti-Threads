@@ -25,6 +25,7 @@
 body {
     background-color: var(--theme-color);
     overflow-x: hidden;
+
 }
 
 .btn {
@@ -113,6 +114,7 @@ main .container {
     display: grid;
     grid-template-columns: 6rem auto 6rem;
     column-gap: 2rem;
+    
 }
 
 /*=======================left=======================*/

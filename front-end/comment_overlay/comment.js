@@ -11,3 +11,18 @@ likeButtons.forEach(likeButton => {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const backButton = document.querySelector('.back-button'); // Select the back button
+    const overlay = document.getElementById('comment-overlay'); // Select the overlay
+
+    // Check if the back button and overlay exist in the document
+    if (backButton && overlay) {
+        backButton.addEventListener('click', () => {
+            overlay.style.display = 'none';
+        });
+    } else {
+        console.error('Back button or overlay element not found.');
+    }
+});
