@@ -36,3 +36,27 @@ document.addEventListener('click', (e) => {
     }
 });
 
+
+
+
+// function loadOverlay() {
+//   fetch('./comment_overlay/comment.html')  // Correct relative path to comment-overlay.html
+//       .then(response => response.text())   // Convert the response to text
+//       .then(data => {
+//           // Inject the overlay content into the container
+//           document.getElementById('comment-overlay-container').innerHTML = data;
+
+//           // Show the overlay
+//           document.getElementById('comment-overlay').style.display = 'flex';
+
+//           // Handle close event for overlay
+//           const closeOverlay = document.getElementById('close-overlay');
+//           closeOverlay.addEventListener('click', () => {
+//               document.getElementById('comment-overlay').style.display = 'none';
+//           });
+//       })
+//       .catch(error => console.error('Error loading overlay:', error));
+// }
+
+// // Load overlay on page load
+// window.onload = loadOverlay;

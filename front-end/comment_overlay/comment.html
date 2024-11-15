@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post with Comments Popup</title>
+
+<link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+<link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css" >
+<link rel= "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel= "stylesheet" href= "comment.css">
+</head>
+<body>
+
+<!-- Overlay Background -->
+<div id="comment-overlay"  class="overlay">
+  <!-- Popup Container -->
+  <div class="popup-container">
+
+    <!-- Header Section -->
+    <div class="popup-header">
+      <span class="back-button">&#8592;</span>
+      <h3>Comments</h3>
+    </div>
+
+    <!-- Main Post Section -->
+    <div class="post-section">
+      <div class="user-info">
+        <img src="/public/Image/sir.jpg" alt="User Profile Picture">
+        <div>
+          <strong>Username</strong> @userhandle
+        </div>
+      </div>
+      <div class="post-content">
+        Here’s the content of the post. This can include text, images, or videos.
+      </div>
+      <!--button-->
+      <div class="engagement-buttons">
+        <span class="like-button"><i class="fa-regular fa-heart"></i></span>
+        <span class="retweet-button"><i class="las la-retweet"></i></span>
+        <span class="share-button"><i class="fa-solid fa-share"></i></span>
+      </div>      
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <div class="comment">
+        <img src="/public/Image/sir.jpg" alt="Comment User 1">
+        <div class = "comment-container">
+            <div class="comment-content">
+                <div class="comment-header">
+                    <span><strong>CommentUser1</strong> @commentuser1</span>
+                    <span>5m ago</span>
+                </div>
+                <div class="comment-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eaque in, consequuntur ad officia adipisci, officiis inventore dolore molestias rerum voluptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
+                </div>
+                </div>
+                <div class="comment-buttons">
+                    <span class="like-button"><i class="fa-regular fa-heart"></i></span>
+                    <span class="comment-button"><i class="fa-regular fa-comment"></i></span>
+                    <span class="share-button"><i class="fa-solid fa-share"></i></span>
+                </div>   
+        </div>
+      </div>
+      <div class="comment">
+        <img src="/public/Image/sir.jpg" alt="Comment User 1">
+        <div class = "comment-container">
+            <div class="comment-content">
+                <div class="comment-header">
+                    <span><strong>CommentUser1</strong> @commentuser1</span>
+                    <span>5m ago</span>
+                </div>
+                <div class="comment-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eaque in, consequuntur ad officia adipisci, officiis inventore dolore molestias rerum voluptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
+                </div>
+                </div>
+                <div class="comment-buttons">
+                    <span class="like-button"><i class="fa-regular fa-heart"></i></span>
+                    <span class="comment-button"><i class="fa-regular fa-comment"></i></span>
+                    <span class="share-button"><i class="fa-solid fa-share"></i></span>
+                </div>   
+        </div>
+      </div>
+      <div class="comment">
+        <img src="/public/Image/sir.jpg" alt="Comment User 1">
+        <div class = "comment-container">
+            <div class="comment-content">
+                <div class="comment-header">
+                    <span><strong>CommentUser1</strong> @commentuser1</span>
+                    <span>5m ago</span>
+                </div>
+                <div class="comment-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eaque in, consequuntur ad officia adipisci, officiis inventore dolore molestias rerum voluptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
+                </div>
+                </div>
+                <div class="comment-buttons">
+                    <span class="like-button"><i class="fa-regular fa-heart"></i></span>
+                    <span class="comment-button"><i class="fa-regular fa-comment"></i></span>
+                    <span class="share-button"><i class="fa-solid fa-share"></i></span>
+                </div>   
+        </div>
+      </div>
+      
+    </div>
+
+
+    <!-- Comment Input Section -->
+    <div class="comment-input">
+      <textarea placeholder="Write a comment..."></textarea>
+      <button>Post</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+    <script src="./comment.js"></script>
+</html>
