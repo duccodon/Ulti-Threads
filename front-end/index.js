@@ -37,6 +37,19 @@ document.addEventListener('click', (e) => {
 });
 
 
+const likeButtons = document.querySelectorAll('.like-button');
+likeButtons.forEach(likeButton => {
+    const heartIcon = likeButton.querySelector('i');
+    likeButton.addEventListener('click', () => {
+        if (heartIcon.classList.contains('fa-regular')) {
+            heartIcon.classList.remove('fa-regular');
+            heartIcon.classList.add('fa-solid');
+        } else {
+            heartIcon.classList.remove('fa-solid');
+            heartIcon.classList.add('fa-regular');
+        }
+    });
+});
 
 
 function loadOverlay() {
@@ -59,9 +72,8 @@ function loadOverlay() {
 
         script.onload = function() {
           addBackButtonListener(script);
-          middle.style.overflowY = 'auto'
-        };
 
+        };
     })
     
     .catch(error => console.error('Error loading overlay:', error));
@@ -73,25 +85,24 @@ function addBackButtonListener(script) {
 
   if (backButton && overlayContainer) {
     backButton.addEventListener('click', () => {
-      // Remove the overlay container from the DOM
-      overlayContainer.innerHTML = '';
-      // Remove the script tag to disable the functionality
-      if (script && script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
+      overlayContainer.innerHTML = ''; // Clear the overlay container
+      const middle = document.querySelector('.middle'); 
+      middle.style.overflowY = 'auto'
     });
   } else {
     console.error('Back button or overlay container not found.');
   }
+
 }
 
 
 function enableCommentOverlay() {
-    // This simulates the window.onload action and loads the overlay when the comment button is clicked
+
     window.onload = loadOverlay;
-    window.onload();  // Call the function to load the overlay content
+    window.onload();  
 }
 
-// Get the comment button and add a click event listener
-const commentButton = document.querySelector('.comment-button');
-commentButton.addEventListener('click', enableCommentOverlay);
+const commentButtons = document.querySelectorAll('.comment-button');
+commentButtons.forEach(button => {
+    button.addEventListener('click', enableCommentOverlay);
+});
