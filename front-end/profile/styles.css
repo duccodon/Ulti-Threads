@@ -391,6 +391,489 @@ main .left .sidebar i {
     background-color: white;
 }
 
+/* Ẩn modal mặc định */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+}
+
+/* Nội dung của modal */
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%; /* Điều chỉnh kích thước modal */
+    position: relative;
+}
+
+/* Nút đóng (x) */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Style cho các input và button trong modal */
+.modal-body label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.modal-body input, .modal-body textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-body button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.grid-container-name
+{
+    display: grid;
+    grid-template-areas:
+        'username icon';
+    grid-gap: 5px;
+}
+
+.grid-container-name .username
+{
+    grid-area: username;
+    border-bottom: 1px solid #ccc;
+    padding: 3% 0% 0% 0%;
+}
+
+/* Style for the transparent button */
+.grid-container-name .username .btn-transparent {
+    background-color: white; /* White background */
+    color: #333; /* Text color (you can change this as needed) */
+    border: none; /* No border */
+    padding: 10px; /* Padding around the text */
+    font-size: 15px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border-radius: 5px; /* Optional: rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+
+.grid-container-name .icon
+{
+    grid-area: icon;
+    justify-self: end;
+    padding: 0% 0% 0% 0%;
+}
+
+/* Style for the button with icon */
+.grid-container-name .btn-avatar {
+    background-color: #f5f5f5;
+    color: black;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%; /* Makes the button circular */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+  }
+  
+  /* Hover effect for the avatar button */
+.grid-container-name .btn-avatar:hover {
+    background-color: #e2e2e2;
+  }
+  
+  /* Style for the dropdown container */
+  
+.grid-container-name .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Style for the dropdown content (hidden by default) */
+.grid-container-name .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+  }
+  
+  /* Style for each item in the dropdown list */
+.grid-container-name .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Hover effect for dropdown items */
+.grid-container-name .dropdown-content a:hover {
+    background-color: #ddd;
+}
+  
+  /* Show the dropdown when the button is clicked */
+.grid-container-name .dropdown.show .dropdown-content {
+    display: block;
+}
+  
+  /* Icon styling (add icon to button) */
+.grid-container-name .icon {
+    font-size: 20px;
+    color: black;
+}
+  
+.grid-container-bio
+{
+    display: grid;
+    grid-template-areas:
+        'bio';
+    grid-gap: 5px;
+}
+
+.grid-container-bio .bio 
+{
+    grid-area: bio;
+    border-bottom: 1px solid #ccc;
+}
+
+.grid-container-bio .bio .btn-transparent {
+    background-color: white; /* White background */
+    color: #333; /* Text color (you can change this as needed) */
+    border: none; /* No border */
+    padding: 10px; /* Padding around the text */
+    font-size: 15px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border-radius: 5px; /* Optional: rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+    color: gray;
+  }
+
+.grid-container-link
+  {
+      display: grid;
+      grid-template-areas:
+          'link';
+      grid-gap: 5px;
+  }
+  
+.grid-container-link .link 
+  {
+      grid-area: link;
+      border-bottom: 1px solid #ccc;
+  }
+  
+.grid-container-link .link .btn-transparent {
+      background-color: white; /* White background */
+      color: #333; /* Text color (you can change this as needed) */
+      border: none; /* No border */
+      padding: 10px; /* Padding around the text */
+      font-size: 15px; /* Font size */
+      cursor: pointer; /* Change cursor to pointer on hover */
+      border-radius: 5px; /* Optional: rounded corners */
+      transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+      color: gray;
+    }
+  
+.grid-container-instagram-profile
+{
+    display: grid;
+    grid-template-areas: 'badge slide';
+    grid-gap: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.grid-container-instagram-profile .badge
+{
+    grid-area: badge;
+}
+
+.grid-container-instagram-profile .slide
+{
+    grid-area: slide;
+    padding: 0% 0% 30% 0%;
+}
+
+/* Style for the container of the switch */
+.grid-container-instagram-profile .switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 44px;
+  }
+  
+  /* Hide the default checkbox */
+.grid-container-instagram-profile .toggle-switch {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* Style for the slider (switch) */
+.grid-container-instagram-profile .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 50px;
+  }
+  
+  /* Style for the circle inside the slider */
+.grid-container-instagram-profile .slider:before {
+    content: "";
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+  }
+  
+  /* When the checkbox is checked, change the background and move the circle */
+.grid-container-instagram-profile .toggle-switch:checked + .slider {
+    background-color: black;
+  }
+  
+.grid-container-instagram-profile .toggle-switch:checked + .slider:before {
+    transform: translateX(20px); /* Move the circle to the right */
+  }
+  
+/* Style for the full-width button */
+.modal-body .btn-full-width {
+    display: block; /* Make the button behave like a block element */
+    width: 100%; /* Make the button span the full width of its container */
+    background-color: #000; /* Black background */
+    color: white; /* White text */
+    font-size: 16px; /* Text size */
+    padding: 15px; /* Padding inside the button */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center the text */
+    cursor: pointer; /* Make the cursor a pointer when hovering */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+
+/* Modal background */
+#editBioModal .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+  }
+  
+  /* Modal content box */
+#editBioModal .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    position: relative;
+  }
+  
+  /* Modal header (contains Cancel, Edit Bio, Done buttons) */
+#editBioModal  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+#editBioModal  .modal-body {
+    margin-top: 20px;
+  }
+  
+#editBioModal  .modal-body textarea {
+    width: 100%;
+    padding: 10px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Button styles */
+#editBioModal  .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+#editBioModal  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+#editBioModal  .btn-link {
+    background: none;
+    color: #007bff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Close button style */
+#editBioModal  .close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  /* Ensure the text areas are responsive */
+#editBioModal textarea:focus, input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+.grid-container-editBio
+{
+    display: grid;
+    grid-template-areas: 'cancel header done';
+    grid-gap: 5px;
+}
+
+.grid-container-editBio .cancel
+{
+    grid-area: cancel;
+}
+
+.grid-container-editBio .header 
+{
+    grid-area: header;
+}
+
+.grid-container-editBio .done 
+{
+    grid-area: done;
+}
+
+/* Modal styles */
+#editLinkModal .model_bio {
+    /* Full screen overlay */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    display: none; /* Initially hidden */
+}
+
+#editLinkModal .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    position: relative;
+}
+
+/* Modal Header */
+#editLinkModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Input field for link */
+#editLinkModal .modal-body input {
+    width: 100%;
+    padding: 10px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+/* Button styling */
+#editLinkModal .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#editLinkModal .btn:hover {
+    background-color: #0056b3;
+}
+
+#editLinkModal .btn-link {
+    background: none;
+    color: #007bff;
+    border: none;
+    cursor: pointer;
+}
+
+/* Close button */
+#editLinkModal .close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+.grid-container-editBo
+{
+    display: grid;
+    grid-template-areas: 'cancel header done';
+    grid-gap: 5px;
+}
+
+.grid-container-editBo .cancel
+{
+    grid-area: cancel;
+    justify-items: start;
+}
+
+.grid-container-editBo .header 
+{
+    grid-area: header;
+}
+
+.grid-container-editBo .done 
+{
+    grid-area: done;
+}
+
 .grid-container-button
 {
     margin-top: 0%;
@@ -499,6 +982,217 @@ main .left .sidebar i {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Modal Background */
+#threads-content .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+}
+
+/* Modal Content */
+#threads-content .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    position: relative;
+}
+
+/* Modal Header */
+#threads-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Close button */
+#threads-content .close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* User info */
+#threads-content .user-info {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#threads-content .user-name {
+    font-weight: bold;
+}
+
+/* Textarea for thread content */
+#threads-content textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+/* Add to thread button */
+#threads-content .add-to-thread button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#threads-content .add-to-thread button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer section */
+#threads-content .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Post button */
+#threads-content .post-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#threads-content .post-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Background */
+#newPostModal .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+}
+
+/* Modal Content */
+#newPostModal .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    position: relative;
+}
+
+/* Modal Header */
+#newPostModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Close button */
+#newPostModal .close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* User info */
+#newPostModal .user-info {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#newPostModal .user-name {
+    font-weight: bold;
+}
+
+/* Textarea for thread content */
+#newPostModal textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+/* Add to thread button */
+#newPostModal .add-to-thread button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#newPostModal .add-to-thread button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer section */
+#newPostModal .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Post button */
+#newPostModal .post-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#newPostModal .post-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.middle .grid-container-2
+{
+    display: grid;
+    grid-template-areas:
+        'first second';
+    grid-gap: 10px;
+    padding: 3%;
+    padding-bottom: 0%;
+}
+
+.grid-container-2 .finish
+{
+    grid-area: first;
+    justify-self: start;
+}
+
+.grid-container-2 .left
+{
+    grid-area: second;
+    justify-self: end;
+}
+
 .profile-setup-container {
     display: flex;
     align-items: center;
@@ -513,10 +1207,35 @@ main .left .sidebar i {
     padding: 20px;
 }
 
-/* .profile-items::-webkit-scrollbar {
-    display: none;
-} */
 
+/* Cấu hình cho container chính */
+.profile-setup-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 20px; /* Thêm padding nếu cần */
+}
+
+/* Cấu hình cho vùng chứa các profile items */
+.profile-items {
+    display: flex;
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    scroll-snap-type: x mandatory; /* Cuộn mượt mà và cố định các phần tử */
+    gap: 20px; /* Khoảng cách giữa các mục */
+    padding: 0 40px; /* Thêm padding bên trái và phải để tránh mũi tên bị che khuất */
+    scroll-behavior: smooth; /* Cuộn mượt mà */
+    -webkit-overflow-scrolling: touch;
+}
+
+.profile-items::-webkit-scrollbar {
+    display: none; /* Ẩn thanh cuộn */
+}
+
+.profile-items {
+    scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+}
+
+/* Cấu hình cho từng profile item */
 .profile-item {
     background-color: #f5f5f5;
     padding: 20px;
@@ -582,27 +1301,8 @@ main .left .sidebar i {
     background-color: #333;
 }
 
-.middle .grid-container-2
-{
-    display: grid;
-    grid-template-areas:
-        'first second';
-    grid-gap: 10px;
-    padding: 3%;
-    padding-bottom: 0%;
-}
 
-.grid-container-2 .finish
-{
-    grid-area: first;
-    justify-self: start;
-}
 
-.grid-container-2 .left
-{
-    grid-area: second;
-    justify-self: end;
-}
   
   
 
