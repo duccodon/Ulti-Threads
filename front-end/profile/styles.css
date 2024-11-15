@@ -354,15 +354,15 @@ main .left .sidebar i {
 
 .icon i:nth-child(2) {
     font-size: 8px;
-    color: gray;
+    color: black;
     grid-row: 2;
     grid-column: 1; /* Icon nhỏ thứ nhất ở cột đầu tiên của hàng thứ hai */
-    justify-items: end;
+    justify-items: start;
 }
 
 .icon i:nth-child(3) {
     font-size: 8px;
-    color: gray;
+    color: black;
     grid-row: 2;
     grid-column: 2; /* Icon nhỏ thứ hai ở cột thứ hai của hàng thứ hai */
     justify-items: end;
@@ -390,6 +390,73 @@ main .left .sidebar i {
     border-color: rgba(gray, gray, gray, transparent);
     background-color: white;
 }
+
+.grid-container .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+.grid-container  .dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  /* Dropdown content */
+.grid-container  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  
+  /* Individual items in the dropdown */
+.grid-container .dropdown-content a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .grid-container .dropdown-content a:nth-child(even)
+  {
+    border-bottom: 1px solid #ddd;
+  }
+  
+.grid-container .dropdown-content a:last-child {
+    border-bottom: none;
+  }
+  
+.grid-container .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    
+  }
+  
+  /* Icon styling */
+.grid-container .dropdown-content a i {
+    margin-right: 10px;
+    font-size: 100%;
+  }
+  
+  /* Special styling for actions */
+.grid-container .dropdown-content a.block, .dropdown-content a.report {
+    color: red;
+  }
+  
+  /* Show dropdown when clicked */
+.grid-container .dropdown.show .dropdown-content {
+    display: block;
+  }
 
 /* Ẩn modal mặc định */
 .modal {
@@ -1245,6 +1312,14 @@ main .left .sidebar i {
     min-width: 200px; /* Đảm bảo chiều rộng tối thiểu để tạo hiệu ứng cuộn */
 }
 
+.profile-item p
+{
+    color:gray;
+    font-size: 14px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
 .arrow-button {
     background: none;
     border: none;
@@ -1293,7 +1368,7 @@ main .left .sidebar i {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
-    width: 100px;
+    width: 100%;
     margin: 0 auto;
 }
 

@@ -87,7 +87,7 @@
             <div class="middle">
                 <div class="grid-container">
                     <div class="username">
-                            <h1>Username</h1>
+                        <h1>Username</h1>
                         <p>_username</p>
                         <br><br>
                         <p style="color:gray">0 followers</p>
@@ -95,8 +95,22 @@
 
                     <div class="icon">
                         <i class="material-icons" style="font-size:78px;color:gray">person</i>
-                        <i class="material-icons" style="font-size:38px;color:gray">person</i>
-                        <i class="material-icons" style="font-size:38px;color:gray">person</i>
+                        <a href="#">
+                            <i class="fab fa-instagram" style="font-size:150%;color: black; margin: 40% 10%;"></i>
+                        </a>
+                        <div class="dropdown">
+                            <button class="dropdown-btn" onclick="toggleDropdown()">
+                              <i class="fas fa-ellipsis-h" style="font-size: 100%;color: black;"></i>
+                            </button>
+                            <div class="dropdown-content">
+                              <a href="#"><i class="fas fa-link"></i> Copy link</a>
+                              <a href="#"><i class="fas fa-info-circle"></i> About this profile</a>
+                              <a href="#"><i class="fas fa-volume-mute"></i> Mute</a>
+                              <a href="#"><i class="fas fa-user-lock"></i> Restrict</a>
+                              <a href="#" class="block"><i class="fas fa-ban"></i> Block</a>
+                              <a href="#" class="report"><i class="fas fa-exclamation-circle"></i> Report</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="button">
@@ -114,7 +128,7 @@
                                     </div>
                                     <div class="icon">
                                         <!-- Button with icon -->
-                                        <button class="btn-avatar" onclick="toggleDropdown()">
+                                        <button class="btn-avatar" onclick="toggleDropdownName()">
                                             <span class="icon">&#43;</span> <!-- Add icon (e.g., plus sign) -->
                                         </button>
 
@@ -145,7 +159,8 @@
                                                         <h2>Edit bio</h2>
                                                     </div>
                                                     <div class="done">
-                                                        <button type="button" class="btn btn-primary" onclick="closeModal(event, 'editBioModal')">Done</button>
+                                                        <button type="button" class="btn btn-primary" 
+                                                        style="font-size: 18px;background-color: white;color: black;font-weight: bold;" onclick="closeModal(event, 'editBioModal')">Done</button>
                                                     </div>
                                                 </div>
                                                 <div class="modal-body">
@@ -173,7 +188,8 @@
                                         <div class="modal-header">
                                             <button type="button" class="close-btn" onclick="closeModal(event, 'editLinkModal')">Cancel</button>
                                             <h2>Edit link</h2>
-                                            <button type="button" class="btn btn-primary" onclick="closeModal(event, 'editBioModal')" style="margin:0% 40%;">Done</button>
+                                            <button type="button" class="btn btn-primary" onclick="closeModal(event, 'editBioModal')" 
+                                            style="font-size: 18px;background-color: white;color: black;font-weight: bold;margin:0% 40%;">Done</button>
                                         </div>
                                         <div class="modal-body">
                                             <input type="url" id="linkTextarea" placeholder="Enter your link" value="https://www.example.com/">
@@ -214,10 +230,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
+                                      
                 </div>
 
                 <div class="grid-container-button">
@@ -300,27 +313,27 @@
                         <div class="profile-items">
                             <div class="profile-item">
                                 <div class="icon"><i class="material-icons">photo_camera</i></div>
-                                <h3>Add profile photo</h3>
+                                <h4>Add profile photo</h4>
                                 <p>Make it easier for people to recognize you.</p>
-                                <button class="action-button">Add</button>
+                                <button class="action-button" onclick="toggleModal('editProfileModal')">Add</button>
                             </div>
                             <div class="profile-item">
                                 <div class="icon"><i class="material-icons">edit</i></div>
-                                <h3>Create thread</h3>
+                                <h4>Create thread</h4>
                                 <p>Say what’s on your mind or share a recent highlight.</p>
-                                <button class="action-button">Create</button>
+                                <button class="action-button" onclick="toggleModalPost()">Create</button>
                             </div>
                             <div class="profile-item">
                                 <div class="icon"><i class="material-icons">group_add</i></div>
-                                <h3>Follow 5 profiles</h3>
+                                <h4>Follow 5 profiles</h4>
                                 <p>Fill your feed with threads that interest you.</p>
                                 <button class="action-button">See profiles</button>
                             </div>
                             <div class="profile-item">
                                 <div class="icon"><i class="material-icons">edit_note</i></div>
-                                <h3>Add bio</h3>
+                                <h4>Add bio</h4>
                                 <p>Introduce yourself and tell people what you're into.</p>
-                                <button class="action-button">Add</button>
+                                <button class="action-button" onclick="toggleModal('editProfileModal')">Add</button>
                             </div>
                         </div>
                     
@@ -403,11 +416,21 @@
         }
     }
 
-    // Function to toggle the visibility of the dropdown content
+    // Toggle dropdown visibility
     function toggleDropdown() {
-        const dropdown = document.querySelector('.dropdown');
-        dropdown.classList.toggle('show');
+    document.querySelector(".dropdown").classList.toggle("show");
     }
+
+    function toggleDropdownName() {
+    document.querySelector(".dropdown-content").classList.toggle("show");
+    }
+
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+    if (!event.target.closest('.dropdown-btn') && !event.target.closest('.dropdown-content')) {
+        document.querySelector(".dropdown").classList.remove("show");
+    }
+    };
 
     // Function to open the modal when the button is clicked
     function toggleModalWN() {
