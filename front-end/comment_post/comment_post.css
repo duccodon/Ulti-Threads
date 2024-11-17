@@ -377,11 +377,6 @@ main .left .sidebar i {
   margin-right: 10px;
 }
 
-.comment-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .comment-content {
   background: var(--inner-color);
   padding: 10px;
