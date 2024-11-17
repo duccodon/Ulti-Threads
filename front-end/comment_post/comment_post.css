@@ -210,6 +210,32 @@ main .left .sidebar i {
 
 /*=======================middle=======================*/
 
+.popup-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f8f8f8;
+}
+
+.back-button {
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 180px;
+}
+.back-button {
+  font-size: 24px;  /* Adjust size if needed */
+  cursor: pointer;
+  color: #333;  /* Default color */
+  transition: color 0.3s, transform 0.3s; 
+  user-select: none;
+}
+
+.back-button:hover {
+  color: #555;  
+  transform: scale(1.1);  
+}
+
 .profile-photo {
   min-width: 2.5rem;
   max-width: 2.5rem;
@@ -291,7 +317,7 @@ main .left .sidebar i {
   align-items: center;
 }
 
-.middle .feed .action-button span {
+.middle .feed{
   position: relative; /* Necessary for the pseudo-element */
 }
 
@@ -309,6 +335,27 @@ main .left .sidebar i {
   transition: all 500ms ease;
 }
 
+.engagement-buttons {
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+  color: #888;
+}
+
+.engagement-buttons span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+/* Hover effect: darker background */
+.engagement-buttons span:hover {
+  background-color: rgba(0, 0, 0, 0.1); 
+}
 /* Comments Section */
 .comments-section {
   flex-grow: 1;
@@ -385,32 +432,6 @@ main .left .sidebar i {
   margin-left: 10px;
   cursor: pointer;
 }
-
-
-/* General button styles */
-.engagement-buttons {
-  display: flex;
-  justify-content: space-around;
-  font-size: 16px;
-  color: #888;
-  margin-top: 10px;
-}
-
-.engagement-buttons span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  border-radius: 50%;
-  transition: background-color 0.3s ease;
-  user-select: none;
-}
-
-/* Hover effect: darker background */
-.engagement-buttons span:hover {
-  background-color: rgba(0, 0, 0, 0.1); 
-}
-
 
 .comment-buttons span {
   display: inline-flex;

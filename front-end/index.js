@@ -53,7 +53,7 @@ likeButtons.forEach(likeButton => {
 
 
 function loadOverlay() {
-  fetch('./comment_overlay/comment.html')  // Correct relative path to comment-overlay.html
+  fetch('./comment_overlay/comment_overlay.html')  // Correct relative path to comment-overlay.html
     .then(response => response.text())    // Convert the response to text
     .then(data => {
 
@@ -62,24 +62,17 @@ function loadOverlay() {
 
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = './comment_overlay/comment.css';  
+        link.href = './comment_overlay/comment_overlay.css';  
         document.head.appendChild(link); 
-
-        const script = document.createElement('script');
-        script.src = './comment_overlay/comment.js';  
-        document.body.appendChild(script); 
         middle.style.overflowY = 'hidden';  // Hide the scroll on .middle
 
-        script.onload = function() {
-          addBackButtonListener(script);
-
-        };
+        addBackButtonListener();
     })
     
     .catch(error => console.error('Error loading overlay:', error));
 }
 
-function addBackButtonListener(script) {
+function addBackButtonListener() {
   const backButton = document.querySelector('.back-button'); // Select the back button
   const overlayContainer = document.getElementById('comment-overlay-container'); // Select the overlay container
 
@@ -92,12 +85,9 @@ function addBackButtonListener(script) {
   } else {
     console.error('Back button or overlay container not found.');
   }
-
 }
 
-
 function enableCommentOverlay() {
-
     window.onload = loadOverlay;
     window.onload();  
 }
