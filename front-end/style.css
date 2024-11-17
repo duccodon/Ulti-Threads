@@ -315,7 +315,6 @@ main .left .sidebar i {
     position: relative; /* Necessary for the pseudo-element */
 }
 
-
 .middle .feed .action-button span:hover::before {
     content: ""; /* Necessary for the pseudo-element */
     position: absolute;

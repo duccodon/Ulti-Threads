@@ -377,11 +377,6 @@ main .left .sidebar i {
   margin-right: 10px;
 }
 
-.comment-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .comment-content {
   background: var(--inner-color);
   padding: 10px;
@@ -437,7 +432,8 @@ main .left .sidebar i {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 8px;
+  margin: 2px;
   border-radius: 50%;
   transition: background-color 0.3s ease;
   user-select: none;
