@@ -20,11 +20,11 @@ const Sidebar = () => {
   return (
     <>
       {/* left */}
-      <div className="ml-[0.5rem] h-full z-10" onClick={closeNavigation}>
+      <div className="ml-[0.5rem] h-full z-10 order-1" onClick={closeNavigation}>
         {/* sidebar */}
-        <div className="flex flex-col items-center justify-between h-[calc(100vh-5*1vh-(100vh/5))] bottom-[1vh] cursor-pointer transition-all duration-300 ease-in-out fixed">
+        <div className="flex flex-row md:flex-col items-center justify-between bottom-0 w-full md:w-auto md:h-[calc(100vh-5*1vh-(100vh/5))] md:bottom-[1vh] cursor-pointer transition-all duration-300 ease-in-out fixed">
           {/* group */}
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-row md:flex-col items-center justify-center w-full md:gap-3 gap-[calc((100vw-5%*2-17rem)/5)]">
             <a
               href="#"
               className="relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out"
@@ -75,7 +75,7 @@ const Sidebar = () => {
           {/* popup */}
           <div
             onClick={toggleNavigation}
-            class="relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out"
+            class="md:block hidden relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out"
           >
             <span>
               <i class="fa-solid fa-grip-lines text-lg"></i>
