@@ -3,7 +3,7 @@ import Contents from "../components/contents";
 const Home = () => {
     return (
       <>
-        <Contents/>
+        create post, in progress
       </>
     );
   };

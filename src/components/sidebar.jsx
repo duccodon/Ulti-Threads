@@ -37,9 +37,9 @@ const Sidebar = () => {
           {/* group */}
           <div className="flex flex-row md:flex-col items-center justify-center w-full md:gap-3 gap-[calc((100vw-5%*2-17rem)/5)]">
             <Link
-              to="/home"
+              to="/"
               className={`relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out ${getLinkClass(
-                "/home"
+                "/"
               )}`}
             >
               <span className="text-[1.3rem]">

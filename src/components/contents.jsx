@@ -3,7 +3,7 @@ import Button from "./button";
 const Contents = () => {
   return (
     <>
-      <div className="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
+      <div className="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
         <form
           action="/"
           className="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden"
@@ -87,6 +87,7 @@ const Contents = () => {
               </span>
             </div>
           </div>
+
 
           <div className="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
             <a href="/front-end/comment_post/comment_post.html">

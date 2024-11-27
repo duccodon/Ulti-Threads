@@ -1,7 +1,7 @@
 import Button from "./button";
 import { useState } from "react";
 
-const Header = () => {
+const Header = ({headerName}) => {
   const [openNavigation, setopenNavigation] = useState(false);
 
   const toggleNavigation = () => {
@@ -27,7 +27,7 @@ const Header = () => {
         <div class="w-[95%] mx-auto flex justify-between items-center">
           <h2 class="text-xl font-bold mx-auto md:mx-0">Ulti Threads</h2>
           <div class="hidden md:block">
-            <h2 class="text-xl font-bold">Home</h2>
+            <h2 class="text-xl font-bold">{headerName}</h2>
           </div>
           <div class="hidden md:block">
             <Button href="#" className="bg-black text-white">
