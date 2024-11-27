@@ -31,7 +31,7 @@ const Header = () => {
           </div>
           <div class="hidden md:block">
             <Button href="#" className="bg-black text-white">
-              Log out
+              Log out     
             </Button>
           </div>
           <div class="text-black block py-[.7rem] md:hidden">

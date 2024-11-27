@@ -3,10 +3,10 @@ import Button from "./button";
 const Contents = () => {
   return (
     <>
-      <div className="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh)] w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
+      <div className="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
         <form
           action="/"
-          className="mx-4 my-auto flex items-center justify-between py-[1rem]"
+          className="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden"
         >
           <img
             src="/public/1.jpg"
