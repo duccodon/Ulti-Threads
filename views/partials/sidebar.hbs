@@ -1,0 +1,78 @@
+{{!-- left --}}
+<div class="ml-[0.5rem] h-full z-10 order-1">
+  {{!-- sidebar --}}
+  <div
+    class="bg-[#FAFAFA] flex flex-row md:flex-col items-center justify-between bottom-0 w-full md:w-auto md:h-[calc(100vh-10*1vh-(100vh/5))] md:bottom-[1vh] cursor-pointer transition-all duration-300 ease-in-out fixed">
+    {{!-- group --}}
+    <div class="flex flex-row md:flex-col items-center justify-center w-full md:gap-3 gap-[calc((100vw-5%*2-17rem)/5)]">
+      <a href="/Homepage"
+        class="menu-item relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out {{#if (eq page 1)}}bg-gray-200 rounded-[1rem]{{/if}}">
+        <span class="text-[1.3rem]">
+          <i class="fa-solid fa-house"></i>
+        </span>
+      </a>
+      <a href="/Search"
+        class="menu-item relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out {{#if (eq page 2)}}bg-gray-200 rounded-[1rem]{{/if}}">
+        <span class="text-[1.3rem]">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+      </a>
+
+      <a href="#"
+        class="menu-item relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out">
+        <span class="text-[1.3rem]">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      </a>
+
+      <a href="/Activity"
+        class="menu-item relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out {{#if (eq page 3)}}bg-gray-200 rounded-[1rem]{{/if}}"
+        id="notification">
+        <span class="text-[1.3rem]">
+          <i class="fa-regular fa-heart">
+            <small
+              class="bg-red-500 text-white text-[0.7rem] w-fit rounded-[0.8rem] p-[0.1rem_0.4rem] absolute left-[2rem]">
+              10
+            </small>
+          </i>
+        </span>
+      </a>
+
+      <a href="/Profile"
+        class="menu-item relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out {{#if (eq page 4)}}bg-gray-200 rounded-[1rem]{{/if}}">
+        <span class="text-[1.3rem]">
+          <i class="fa-regular fa-user"></i>
+        </span>
+      </a>
+    </div>
+    {{!-- popup --}}
+    <div
+      class="menu-item md:block hidden relative p-[1.2rem] text-black hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out"
+      id="sidebar-function">
+      <span>
+        <i class="fa-solid fa-grip-lines text-lg"></i>
+      </span>
+      <div id="sidebar-functionPopup"
+        class="absolute hidden left-[120%] bottom-[40%] w-[15rem] bg-white rounded-lg p-2">
+        <div
+          class="hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out p-[1rem] m-[.3rem] rounded-[.5rem] cursor-pointer bg-zinc-100">
+          Theme
+        </div>
+        <div
+          class="hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out p-[1rem] m-[.3rem] rounded-[.5rem] cursor-pointer bg-zinc-100">
+          Detail Information
+        </div>
+        <div
+          class="hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out p-[1rem] m-[.3rem] rounded-[.5rem] cursor-pointer bg-zinc-100">
+          Settings
+        </div>
+        <div
+          class="hover:bg-gray-200 hover:rounded-[1rem] transition-all duration-300 ease-in-out p-[1rem] m-[.3rem] rounded-[.5rem] cursor-pointer bg-zinc-100">
+          <a href="/Login">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/home.js"></script>
