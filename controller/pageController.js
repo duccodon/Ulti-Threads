@@ -76,15 +76,23 @@ controller.showHomepage = (req, res) => {
 }
 
 controller.showSearch = (req, res) => {
-    res.render("homepage", {headerName: "Search", page: 2});
+    res.render("search", {headerName: "Search", page: 2});
 }
 
 controller.showActivity = (req, res) => {
-    res.render("homepage", {headerName: "Activity", page: 3});
+    res.render("activity", {headerName: "Activity", page: 3});
 }
 
 controller.showProfile = (req, res) => {
     res.render("homepage", {headerName: "Profile", page: 4});
+}
+
+controller.showLogin = (req, res) => {
+    res.render("login", {layout: 'account', title: 'Login'});
+}
+
+controller.showCreate = (req, res) => {
+    res.render("create", {layout: "account", title: 'Sign Up'});
 }
 
 module.exports = controller;

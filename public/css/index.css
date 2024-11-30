@@ -1,0 +1,43 @@
+.scrollbar::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 5rem;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 10px;
+}
+
+.actionbutton:hover::before {
+    content: ""; /* Necessary for the pseudo-element */
+    position: absolute;
+    top: -10px; 
+    left: -10px; 
+    right: -10px; 
+    bottom: -10px; 
+    background-color: rgb(225, 225, 225); 
+    border-radius: 1rem; 
+    z-index: -1; 
+    transition: all 500ms ease;
+}
+
+/*==================create==================*/
+.line-with-word::before,
+.line-with-word::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20%;
+    height: 1px;
+    background-color: #ccc;;
+}
+
+.line-with-word::before {
+    left: 0;
+    margin-left: 10px; /* left space */
+}
+
+.line-with-word::after {
+    right: 0;
+    margin-right: 10px; /* right space */
+}

@@ -1,0 +1,21 @@
+<div class="login-container mx-auto mt-[-100px] bg-white p-[20px] rounded-[8px] w-[400px] flex justify-center flex-col">
+    <h2 class="text-center pb-4 text-xl font-semibold">Create a new account</h2>
+    <form action="" method="POST" onsubmit="window.location.href='/Login'; return false;">
+        <input type="email" id="email" name="email" placeholder="Email"
+            class="w-full p-5 mb-5 rounded-xl border border-gray-300 bg-[#FAFAFA] box-border" required>
+        <input type="number" id="phonenumber" name="phonenumber" placeholder="Phone number"
+            class="w-full p-5 mb-5 rounded-xl border border-gray-300 bg-[#FAFAFA] box-border" required>
+        <input type="text" id="username" name="username" placeholder="Username"
+            class="w-full p-5 mb-5 rounded-xl border border-gray-300 bg-[#FAFAFA] box-border" required>
+        <input type="password" id="password" name="password" placeholder="Password"
+            class="w-full p-5 mb-5 rounded-xl border border-gray-300 bg-[#FAFAFA] box-border" required>
+        <div class="flex justify-center">
+            <input type="submit" value="Submit"
+                class="mt-4 flex justify-center px-8 py-2 font-medium rounded-xl cursor-pointer transition-all ease-in-out duration-300 text-sm bg-black text-white hover:opacity-80">
+        </div>
+    </form>
+
+    <div class="line-with-word relative text-center text-sm text-gray-400 my-4">Already have an account?</div>
+    {{> button link="./Login" styling="flex justify-center bg-white text-black border border-gray-300 py-2 px-8 rounded-xl font-medium
+    text-sm hover:opacity-80" text="Login"}}
+</div>

@@ -9,12 +9,14 @@ menuItems.forEach((item) => {
     if (item.id != "sidebar-function") {
       if (item.id == "top-function") {
         if (topFunctionPopup.classList.contains("block")) {
-          topFunctionPopup.classList.remove("block"); // Hide the popup
+          topFunctionPopup.classList.remove("block"); 
+          topFunctionPopup.classList.add("hidden");
         } else {
-          topFunctionPopup.classList.add("block"); // Show the popup
+          topFunctionPopup.classList.remove("hidden");
+          topFunctionPopup.classList.add("block"); 
         }
       } else {
-        functionPopup.classList.remove("block"); // Hide the popup
+        functionPopup.classList.remove("block"); 
         functionPopup.classList.add("hidden");
         menuItems.forEach((i) =>
           i.classList.remove("bg-gray-200", "rounded-[1rem]")
@@ -31,4 +33,19 @@ menuItems.forEach((item) => {
       }
     }
   });
+});
+
+
+document.addEventListener('click', (e) => {
+  // Check if the click is outside of the sidebar function popup
+  if (!functionPopup.contains(e.target) && !sidebarFunctionButton.contains(e.target)) {
+    functionPopup.classList.remove("block");
+    functionPopup.classList.add("hidden");
+  }
+
+  // Check if the click is outside of the top function popup
+  if (!topFunctionPopup.contains(e.target) && !document.getElementById('top-function').contains(e.target)) {
+    topFunctionPopup.classList.remove("block");
+    topFunctionPopup.classList.add("hidden");
+  }
 });
