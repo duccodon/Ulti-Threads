@@ -18,12 +18,113 @@
 
 <body class="bg-[#FAFAFA]">
     {{> header }}
+
+    <div id="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
+    <!-- Popup for the plus button -->
+    <div id="plus-popup"
+        class="fixed hidden ml-[calc(50vw)] md:mt-[50vh] w-full h-full md:h-auto md:w-[36rem] transform translate-x-[-50%] md:translate-y-[-50%] bg-white md:rounded-[.8rem] p-2 z-20">
+        <div class="flex justify-between p-[.5rem] border-b border-[#ccc]">
+            <div id="close-create" class="px-[2rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:opacity-80 bg-white text-black py-[1.2rem] flex justify-center items-center h-[2rem] border
+                            border-black border-solid w-[5rem]">Cancel</div>
+            <div>New thread</div>
+            <div class="w-[5rem]"></div>
+        </div>
+        <div class="p-[.5rem] h-full md:h-auto md:w-auto w-full flex gap-[1rem] text-black overflow-y-auto">
+            <img src="/1.jpg"
+                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+            <div class="flex justify-between md:min-w-[30rem] w-[90%] pb-[1rem]">
+                <div class="flex flex-row gap-[.5rem] w-full">
+                    <div class="info flex flex-col w-full gap-[5px] text-[.8rem]">
+                        <h3>Username</h3>
+                        <form method="POST" class="overflow-y-auto w-full h-[90%] md:h-[30rem] flex flex-col">
+                            <textarea id="post-content"
+                                class="min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
+                                placeholder="What's on your mind?"
+                                oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"
+                                required></textarea>
+    
+                            <!-- Image Preview -->
+                            <div id="image-preview" class="mt-[.5rem] w-16 h-16 overflow-hidden rounded-lg hidden relative">
+                                <img id="preview-img" src="" alt="Image Preview"
+                                    class="object-cover w-full h-full min-h-[2rem] min-w-[2rem]">
+                                <!-- Remove (X) button -->
+                                <button type="button" id="remove-image"
+                                    class="absolute top-0 right-0 bg-gray-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                                    onclick="removeImage()">X</button>
+                            </div>
+    
+                            <div class="flex gap-[1rem] items-center mt-4">
+                                <label for="image-upload" class="text-sm text-gray-500 cursor-pointer">
+                                    <i class="fa-regular fa-image text-xl"></i>
+                                </label>
+                                <input type="file" id="image-upload" class="hidden" accept="image/*"
+                                    onchange="previewImage(event)">
+    
+                                <!-- Hashtag -->
+                                <label for="tags" class="text-sm text-gray-500">
+                                    <i class="fa-solid fa-hashtag text-xl" onclick="insertHashtag()"></i>
+                                </label>
+                                <input type="text" id="tags" class="hidden">
+                            </div>
+    
+                            <button type="submit"
+                                class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
+                                Post
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <main class="fixed top-[5.4rem]">
         <div class="md:grid md:grid-cols-[6rem_auto_6rem] md:gap-x-[2rem] flex flex-col items-center">
             {{> sidebar }}
             {{{ body }}}
         </div>
     </main>
+
+    <script>
+        function insertHashtag() {
+            const textarea = document.getElementById('post-content');
+            const cursorPos = textarea.selectionStart; // Get current cursor position
+            const currentText = textarea.value;
+
+            textarea.value = currentText.slice(0, cursorPos) + '#' + currentText.slice(cursorPos);
+            textarea.selectionStart = textarea.selectionEnd = cursorPos + 1;
+            textarea.focus();
+        }
+
+        // Function to show image preview after selection
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const previewImg = document.getElementById('preview-img');
+            const imagePreview = document.getElementById('image-preview');
+
+            if (file) {
+                // Create a URL for the selected image and set it as the source
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    imagePreview.classList.remove('hidden');  // Show the image preview
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.classList.add('hidden');  // Hide the preview if no image is selected
+            }
+        }
+
+        // Function to remove the image preview
+        function removeImage() {
+            const imagePreview = document.getElementById('image-preview');
+            const imageUploadInput = document.getElementById('image-upload');
+
+            // Hide the image preview and reset the file input
+            imagePreview.classList.add('hidden');
+            imageUploadInput.value = '';  // Clear the selected file
+        }
+    </script>
 </body>
 
 </html>

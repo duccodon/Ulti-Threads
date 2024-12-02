@@ -84,7 +84,7 @@ controller.showActivity = (req, res) => {
 }
 
 controller.showProfile = (req, res) => {
-    res.render("homepage", {headerName: "Profile", page: 4});
+    res.render("profile", {headerName: "Profile", page: 4});
 }
 
 controller.showLogin = (req, res) => {
