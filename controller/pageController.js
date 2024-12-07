@@ -79,7 +79,6 @@ controller.showHomepage = async (req, res) => {
             {model: models.Media},
         ],
       });
-    console.log(res.locals.threads);
     res.render("homepage", {headerName: "Home", page: 1});
 };
 

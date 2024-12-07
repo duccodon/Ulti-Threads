@@ -5,20 +5,20 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const items = [
       {
-        mediaUrl: "/public/img/post/champion.jpg",
+        mediaUrl: "/img/post/champion.jpg",
         thread_id: 1,
 
       },
       {
-        mediaUrl: "/public/img/post/champion.jpg",
+        mediaUrl: "/img/post/champion.jpg",
         thread_id: 2,
       },
       {
-        mediaUrl: "/public/img/post/champion.jpg",
+        mediaUrl: "/img/post/champion.jpg",
         thread_id: 3,
       },
       {
-        mediaUrl: "/public/img/post/champion.jpg",
+        mediaUrl: "/img/post/champion.jpg",
         thread_id: 4,
       },
     ];
