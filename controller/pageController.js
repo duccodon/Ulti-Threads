@@ -87,6 +87,10 @@ controller.showProfile = (req, res) => {
     res.render("profile", {headerName: "Profile", page: 4});
 }
 
+controller.showPostDetails = (req, res) => {
+    res.render("post_details", {headerName: "Post", page: 5});
+}
+
 controller.showLogin = (req, res) => {
     res.render("login", {layout: 'account', title: 'Login'});
 }
