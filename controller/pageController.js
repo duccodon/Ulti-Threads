@@ -1,4 +1,5 @@
 const controller = {};
+const models = require("../models");
 //const models = require('../models');
 //const { Op } = require('sequelize')
 
@@ -71,9 +72,16 @@ const controller = {};
 //     res.render("details");
 // }
 
-controller.showHomepage = (req, res) => {
+controller.showHomepage = async (req, res) => {
+    res.locals.threads = await models.Thread.findAll({
+        include: [
+            {model: models.User},
+            {model: models.Media},
+        ],
+      });
+    console.log(res.locals.threads);
     res.render("homepage", {headerName: "Home", page: 1});
-}
+};
 
 controller.showSearch = (req, res) => {
     res.render("search", {headerName: "Search", page: 2});

@@ -12,11 +12,21 @@ app.engine(
         partialsDir: __dirname + "/views/partials",
         extname: "hbs",
         defaultLayout: "layout",
+        runtimeOptions: {
+          allowProtoPropertiesByDefault: true,
+      },
         helpers: {
             eq: function (a, b) {
               return a === b; // Return true if a and b are strictly equal
             },
-          }
+            formatDate: (date) => {
+              return new Date(date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+              });
+          },
+        },
     })
 );
 app.set("view engine", "hbs");
