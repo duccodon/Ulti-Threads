@@ -15,7 +15,7 @@ app.engine(
         helpers: {
             eq: function (a, b) {
               return a === b; // Return true if a and b are strictly equal
-            }
+            },
           }
     })
 );
@@ -28,5 +28,7 @@ app.use("/Activity", require("./routes/activityRouter"));
 app.use("/Profile", require("./routes/profileRouter"));
 app.use("/Login", require("./routes/loginRouter"));
 app.use("/CreateAccount", require("./routes/createRouter"));
+
+
 
 app.listen(port, () => console.log(`listening on port ${port}`));

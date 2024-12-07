@@ -18,7 +18,6 @@
 
 <body class="bg-[#FAFAFA]">
     {{> header }}
-
     <div id="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
     <!-- Popup for the plus button -->
     <div id="plus-popup"
@@ -77,14 +76,21 @@
             </div>
         </div>
     </div>
-    
     <main class="fixed top-[5.4rem]">
         <div class="md:grid md:grid-cols-[6rem_auto_6rem] md:gap-x-[2rem] flex flex-col items-center">
-            {{> sidebar }}
             {{{ body }}}
+            {{> sidebar }}
         </div>
     </main>
-
+        {{#if (eq page 1)}}
+            {{> comment}}
+        {{/if}}
+        {{#if (eq page 5)}}
+            {{> comment}}
+        {{/if}}
+        {{#if (eq page 4)}}
+            {{> follower}}
+        {{/if}}
     <script>
         function insertHashtag() {
             const textarea = document.getElementById('post-content');
