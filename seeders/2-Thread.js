@@ -5,24 +5,24 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const items = [
       {
-        content: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
-        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.</p>`,
+        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
+        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.`,
         user_id: 1,
 
       },
       {
-        content: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
-        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.</p>`,
+        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
+        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.`,
         user_id: 2,
       },
       {
-        content: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
-        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.</p>`,
+        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
+        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.`,
         user_id: 3,
       },
       {
-        content: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
-        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.</p>`,
+        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus et quod inventore 
+        nihil asperiores facere pariatur impedit a magni quam! Quidem distinctio porro error ex adipisci repudiandae recusandae aliquid quos.`,
         user_id: 4,
       },
     ];

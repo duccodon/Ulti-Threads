@@ -1,5 +1,7 @@
 const controller = {};
 const models = require("../models");
+
+const bcrypt = require('bcrypt'); // Ensure password security
 //const models = require('../models');
 //const { Op } = require('sequelize')
 
@@ -105,5 +107,48 @@ controller.showLogin = (req, res) => {
 controller.showCreate = (req, res) => {
     res.render("create", {layout: "account", title: 'Sign Up'});
 }
+
+controller.addUser = async (req, res) => {
+  const { email, phonenumber, username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    await models.User.create({
+      email,
+      phonenumber,
+      username,
+      password: hashedPassword,
+    });
+    res.redirect("/login");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+controller.login = async (req, res) => {
+  const { username, password } = req.body; // Get login credentials from the request body
+
+  try {
+    // Find the user by username or email
+    const user = await models.User.findOne({
+      where: {
+        username: username, // Username is unique
+      },
+    });
+
+    if (user.password !== password) {
+      return res.render("login", {
+        layout: "account",
+        title: "Login",
+        errorMessage: "Invalid username or password.",
+      });
+    }
+
+    // Password is correct, redirect to Homepage
+    return res.redirect("/Homepage");
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 module.exports = controller;
