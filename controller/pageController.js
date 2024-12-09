@@ -125,7 +125,7 @@ controller.addUser = async (req, res) => {
 };
 
 
-controller.login = async (req, res) => {
+/*controller.login = async (req, res) => {
   const { username, password } = req.body; // Get login credentials from the request body
 
   try {
@@ -149,6 +149,51 @@ controller.login = async (req, res) => {
   } catch (error) {
     console.error(error);
   }
+};*/
+
+controller.login = async (req, res) => {
+  const { usernameOrEmail, password } = req.body; // Get login credentials from the request body
+
+  try {
+    // Check if the input is an email or username
+    let user;
+    if (usernameOrEmail.includes('@')) {
+      // If it's an email (contains '@'), search by email
+      user = await models.User.findOne({
+        where: {
+          email: usernameOrEmail,
+        },
+      });
+    } else {
+      // If it's a username, search by username
+      user = await models.User.findOne({
+        where: {
+          username: usernameOrEmail,
+        },
+      });
+    }
+
+    if (!user || user.password !== password) {
+      return res.render("login", {
+        layout: "account",
+        title: "Login",
+        errorMessage: "Invalid username or email or password.",
+      });
+    }
+
+    // Password is correct, redirect to Homepage
+    return res.redirect("/Homepage");
+  } catch (error) {
+    console.error(error);
+    res.status(500).render("login", {
+      layout: "account",
+      title: "Login",
+      errorMessage: "An error occurred. Please try again later."
+    });
+  }
 };
+
+
+
 
 module.exports = controller;
