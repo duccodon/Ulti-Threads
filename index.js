@@ -1,7 +1,17 @@
 const express = require("express");
+const session = require('express-session');
+const flash = require('connect-flash');
 const app = express();
 const port = process.env.PORT || 3000;
 const expressHbs = require("express-handlebars");
+
+// Flash messages setup
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(flash());
 
 app.use(express.static(__dirname + "/public"));
 

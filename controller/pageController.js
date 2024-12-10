@@ -2,6 +2,10 @@ const controller = {};
 const models = require("../models");
 
 const bcrypt = require('bcrypt'); // Ensure password security
+const { Op } = require('sequelize');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+
 //const models = require('../models');
 //const { Op } = require('sequelize')
 
@@ -101,24 +105,96 @@ controller.showPostDetails = (req, res) => {
 }
 
 controller.showLogin = (req, res) => {
-    res.render("login", {layout: 'account', title: 'Login'});
+  const errorMessage = req.flash('errorMessage'); 
+
+  return res.render('login', {
+    layout: 'account',
+    title: 'Login',
+    errorMessage,   
+  });
 }
 
 controller.showCreate = (req, res) => {
     res.render("create", {layout: "account", title: 'Sign Up'});
 }
 
+
+
+
+
+
+
+
+const sendVerificationEmail = async (email, verificationToken) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', // or any email service
+    auth: {
+      user: 'ducnguyentemp@gmail.com', // replace with your email
+      pass: 'kcvs jqcq gfxr kjon',   // replace with your email password
+    },
+  });
+
+  const verificationLink = `localhost:3000/CreateAccount/VerifyEmail?token=${verificationToken}`;
+
+  const mailOptions = {
+    from: 'ducnguyentemp@gmail.com',
+    to: email,
+    subject: 'Email Verification Link',
+    html: `<p>Please click the link below to verify your email:</p><p><a href="localhost:3000/CreateAccount/VerifyEmail?token=${verificationToken}">Click here to verify your email</a></p><p>The verification link is: localhost:3000/CreateAccount/VerifyEmail?token=${verificationToken}</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+
 controller.addUser = async (req, res) => {
   const { email, phonenumber, username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
+
   try {
-    await models.User.create({
+    const existingEmail = await models.User.findOne({ where: { email } });
+    if (existingEmail) {
+      return res.render("create", {
+        layout: "account",
+        title: "Sign Up",
+        errorMessage: `An account with this email: ${email} is already exists.`,
+      });
+    }
+
+    const existingPhone = await models.User.findOne({ where: { phonenumber } });
+    if (existingPhone) {
+      return res.render("create", {
+        layout: "account",
+        title: "Sign Up",
+        errorMessage: `An account with this phone number: ${phonenumber} is already exists.`,
+      });
+    }
+
+    const existingUsername = await models.User.findOne({ where: { username } });
+    if (existingUsername) {
+      return res.render("create", {
+        layout: "account",
+        title: "Sign Up",
+        errorMessage: `An account with this username: ${username} is already exists.`,
+      });
+    }
+
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await models.User.create({
       email,
       phonenumber,
       username,
       password: hashedPassword,
+      verificationToken,
+      isVerified: false, 
     });
-    res.redirect("/login");
+
+    await sendVerificationEmail(email, verificationToken);
+    return res.render("create", {
+      layout: "account",
+      title: "Sign Up",
+      errorMessage: "Account created successfully. Please check your email to verify your account.",
+    });
   } catch (error) {
     console.error(error);
   }
@@ -173,11 +249,19 @@ controller.login = async (req, res) => {
       });
     }
 
-    if (!user || user.password !== password) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.render("login", {
         layout: "account",
         title: "Login",
-        errorMessage: "Invalid username or email or password.",
+        errorMessage: "Invalid username, email or password.",
+      });
+    }
+
+    if (!user.isVerified) {
+      return res.render("login", {
+        layout: "account",
+        title: "Login",
+        errorMessage: "This account has not been verified. Please check your email.",
       });
     }
 

@@ -32,6 +32,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       bio: DataTypes.TEXT,
       profile_picture: DataTypes.STRING,
+      verificationToken: {   
+        type: DataTypes.STRING,
+        allowNull: true,      
+      },
+      isVerified: {           
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,  
+      }
     },
     {
       sequelize,
