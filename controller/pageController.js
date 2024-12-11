@@ -190,6 +190,8 @@ controller.addUser = async (req, res) => {
       phonenumber,
       username,
       password: hashedPassword,
+      bio: "Not added yet",
+      profile_picture: "/img/profile/defaultAvatar.png",
       verificationToken,
       isVerified: false, 
     });
