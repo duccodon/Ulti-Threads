@@ -13,6 +13,21 @@ app.use(session({
 }));
 app.use(flash());
 
+// Check authentication
+function ensureAuthenticated(req, res, next) {
+  if (req.session && req.session.userId) {
+    console.log("Checking authentication success:", req.session);
+    next();
+  } else {
+    console.log("Checking authentication failed:", req.session);
+    res.redirect("/Login"); // Redirect to login if not authenticated
+  }
+}
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
+
 app.use(express.static(__dirname + "/public"));
 
 app.engine(
@@ -46,11 +61,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.get("/", (req,res) => res.redirect("/login"));
-app.use("/Homepage", require("./routes/pageRouter"));
-app.use("/Search", require("./routes/searchRouter"));
-app.use("/Activity", require("./routes/activityRouter"));
-app.use("/Profile", require("./routes/profileRouter"));
+app.get("/", (req,res) => res.redirect("/Login"));
+app.use("/Homepage", ensureAuthenticated, require("./routes/pageRouter"));
+app.use("/Search", ensureAuthenticated, require("./routes/searchRouter"));
+app.use("/Activity", ensureAuthenticated, require("./routes/activityRouter"));
+app.use("/Profile", ensureAuthenticated, require("./routes/profileRouter"));
 app.use("/Login", require("./routes/loginRouter"));
 app.use("/CreateAccount", require("./routes/createRouter"));
 

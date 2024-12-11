@@ -105,7 +105,12 @@ controller.showPostDetails = (req, res) => {
 }
 
 controller.showLogin = (req, res) => {
-  const errorMessage = req.flash('errorMessage'); 
+  const errorMessage = req.flash('errorMessage');
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Failed to destroy session:', err);
+    }
+  });
 
   return res.render('login', {
     layout: 'account',
@@ -266,6 +271,7 @@ controller.login = async (req, res) => {
     }
 
     // Password is correct, redirect to Homepage
+    req.session.userId = user.id;
     return res.redirect("/Homepage");
   } catch (error) {
     console.error(error);
