@@ -90,15 +90,30 @@ controller.showHomepage = async (req, res) => {
 
 controller.showSearch = async (req, res) => {
   res.locals.users = await models.User.findAll();
-    res.render("search", {headerName: "Search", page: 2});
+  res.render("search", {headerName: "Search", page: 2});
 }
 
 controller.showActivity = (req, res) => {
     res.render("activity", {headerName: "Activity", page: 3});
 }
 
-controller.showProfile = (req, res) => {
-    res.render("profile", {headerName: "Profile", page: 4});
+controller.showProfile = async (req, res) => {
+  const userId = req.session.userId;
+  res.locals.users = await models.User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+  res.locals.threads = await models.Thread.findAll({
+    where: {
+      user_id: userId,
+    },
+    include: [
+      {model: models.Media},
+      {model: models.User},
+    ],
+  });
+  res.render("profile", {headerName: "Profile", page: 4});
 }
 
 controller.showPostDetails = (req, res) => {
@@ -243,12 +258,13 @@ controller.login = async (req, res) => {
     let user;
     if (usernameOrEmail.includes('@')) {
       // If it's an email (contains '@'), search by email
-      user = await models.User.findOne({
+    user = await models.User.findOne({
         where: {
           email: usernameOrEmail,
         },
       });
-    } else {
+    } 
+    else {
       // If it's a username, search by username
       user = await models.User.findOne({
         where: {

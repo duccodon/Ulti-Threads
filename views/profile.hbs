@@ -2,13 +2,13 @@
 md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
   <div class="info flex justify-between">
     <div class="username p-5">
-      <h1 class="text-2xl font-bold">Username</h1>
-      <p class="text-sm text-gray-500">_userid</p>
-      <p class="my-6 text-sm text-gray-500">vi tinh tu mang ten j97</p>
+      <h1 class="text-2xl font-bold">{{users.username}}</h1>
+      <p class="text-sm text-gray-500">_{{users.username}}</p>
+      <p class="my-6 text-sm text-gray-500">{{users.bio}}</p>
       <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id = "follower-button">1000 followers</p>
     </div>
     <div class="avatar p-5">
-      <img src="1.jpg" alt="Avatar" class="w-24 h-24 rounded-full object-cover border border-gray-300">
+      <img src="{{users.profile_picture}}" alt="Avatar" class="w-24 h-24 rounded-full object-cover border border-gray-300">
     </div>
   </div>
 
@@ -21,30 +21,27 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     <p class="px-6 pb-3 flex justify-center items-center border-b border-black text-black hover:border-black hover:text-black">My posts</p>
     {{!-- <p class="px-6 py-3 flex justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">Repost</p> --}}
   </div>
+  {{#each threads}}
   <div class="post">
     <div class="block border-b border-[#ccc] pt-[1rem] px-[1rem]">
       <div class="flex justify-between gap-[1rem] text-black">
-        <img src="/1.jpg"
+        <img src="{{User.profile_picture}}"
           class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
         <div class="flex gap-[1rem]">
           <div class="flex flex-col gap-[.5rem]">
             <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-              <h3>Username</h3>
-              <h3 class="text-[#ccc]">1 Hour</h3>
+              <h3>{{User.username}}</h3>
+              <h3 class="text-[#ccc]">{{formatDate createdAt}}</h3>
             </div>
 
             <div class="content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Necessitatibus dignissimos ipsam vero fuga cum autem
-              quibusdam nihil repellat, quis, iure sequi voluptates.
-              Eligendi tenetur placeat ducimus incidunt quidem velit
-              ratione aliquid minima voluptatum, dolores nihil
-              blanditiis omnis debitis ipsa libero? Enim eius ex, ullam
-              illo consequuntur laudantium quas assumenda, unde eaque
-              deserunt asperiores tempore, tenetur eum odit odio. Ex
-              praesentium aliquam assumenda architecto repellendus magni
-              cum, quia ratione fugiat porro quis eos maxime quo
+              {{content}}
             </div>
+            {{#each Media}}
+              <div class="photo">
+                <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+              </div>
+            {{/each}}
           </div>
         </div>
         <span class="edit cursor-pointer">
@@ -69,101 +66,6 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
 
     </div>
   </div>
-  <div class="post">
-    <div class="block border-b border-[#ccc] pt-[1rem] px-[1rem]">
-      <div class="flex justify-between gap-[1rem] text-black">
-        <img src="/1.jpg"
-          class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-        <div class="flex gap-[1rem]">
-          <div class="flex flex-col gap-[.5rem]">
-            <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-              <h3>Username</h3>
-              <h3 class="text-[#ccc]">1 Hour</h3>
-            </div>
-
-            <div class="content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Necessitatibus dignissimos ipsam vero fuga cum autem
-              quibusdam nihil repellat, quis, iure sequi voluptates.
-              Eligendi tenetur placeat ducimus incidunt quidem velit
-              ratione aliquid minima voluptatum, dolores nihil
-              blanditiis omnis debitis ipsa libero? Enim eius ex, ullam
-              illo consequuntur laudantium quas assumenda, unde eaque
-              deserunt asperiores tempore, tenetur eum odit odio. Ex
-              praesentium aliquam assumenda architecto repellendus magni
-              cum, quia ratione fugiat porro quis eos maxime quo
-            </div>
-          </div>
-        </div>
-        <span class="edit cursor-pointer">
-          <i class="fa-solid fa-ellipsis"></i>
-        </span>
-      </div>
-
-      <div class="mb-[1rem] pt-[1rem] px-[3.7rem] flex gap-[1.5rem] items-center">
-        <span class="actionbutton like-button relative">
-          <i class="fa-regular fa-heart"></i>
-        </span>
-        <span class="actionbutton comment-button relative">
-          <i class="fa-regular fa-comment"></i>
-        </span>
-        <span class="actionbutton retweet-button relative">
-          <i class="las la-retweet"></i>
-        </span>
-        <span class="actionbutton share-button relative">
-          <i class="fa-solid fa-share"></i>
-        </span>
-      </div>
-
-    </div>
-  </div>
-  <div class="post">
-    <div class="block border-b border-[#ccc] pt-[1rem] px-[1rem]">
-      <div class="flex justify-between gap-[1rem] text-black">
-        <img src="/1.jpg"
-          class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-        <div class="flex gap-[1rem]">
-          <div class="flex flex-col gap-[.5rem]">
-            <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-              <h3>Username</h3>
-              <h3 class="text-[#ccc]">1 Hour</h3>
-            </div>
-
-            <div class="content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Necessitatibus dignissimos ipsam vero fuga cum autem
-              quibusdam nihil repellat, quis, iure sequi voluptates.
-              Eligendi tenetur placeat ducimus incidunt quidem velit
-              ratione aliquid minima voluptatum, dolores nihil
-              blanditiis omnis debitis ipsa libero? Enim eius ex, ullam
-              illo consequuntur laudantium quas assumenda, unde eaque
-              deserunt asperiores tempore, tenetur eum odit odio. Ex
-              praesentium aliquam assumenda architecto repellendus magni
-              cum, quia ratione fugiat porro quis eos maxime quo
-            </div>
-          </div>
-        </div>
-        <span class="edit cursor-pointer">
-          <i class="fa-solid fa-ellipsis"></i>
-        </span>
-      </div>
-
-      <div class="mb-[1rem] pt-[1rem] px-[3.7rem] flex gap-[1.5rem] items-center">
-        <span class="actionbutton like-button relative">
-          <i class="fa-regular fa-heart"></i>
-        </span>
-        <span class="actionbutton comment-button relative">
-          <i class="fa-regular fa-comment"></i>
-        </span>
-        <span class="actionbutton retweet-button relative">
-          <i class="las la-retweet"></i>
-        </span>
-        <span class="actionbutton share-button relative">
-          <i class="fa-solid fa-share"></i>
-        </span>
-      </div>
-
-    </div>
-  </div>
+  {{/each}}
 </div>
 
