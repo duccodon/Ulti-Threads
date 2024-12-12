@@ -13,16 +13,17 @@
             Recommendation
         </div>
 
+        {{#each users}}
         <div class="block pt-[1rem] px-[1rem]">
             <a href="/front-end/comment_post/comment_post.html">
                 <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
+                    <img src="{{profile_picture}}"
                         class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
                     <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
                         <div class="flex flex-col gap-[.5rem]">
                             <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
+                                <h3>{{username}}</h3>
+                                <h3 class="text-[#ccc]">{{bio}}</h3>
                                 <div>100k followers</div>
                             </div>
                         </div>
@@ -32,152 +33,6 @@
                 </div>
             </a>
         </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="/img/profile/1.jpg"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                        <div class="flex flex-col gap-[.5rem]">
-                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>Username</h3>
-                                <h3 class="text-[#ccc]">Anh Da Den</h3>
-                                <div>100k followers</div>
-                            </div>
-                        </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
-                    </div>
-                </div>
-            </a>
-        </div>
+        {{/each}}
     </div>
 </div>

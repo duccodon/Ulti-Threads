@@ -88,7 +88,8 @@ controller.showHomepage = async (req, res) => {
     res.render("homepage", {headerName: "Home", page: 1});
 };
 
-controller.showSearch = (req, res) => {
+controller.showSearch = async (req, res) => {
+  res.locals.users = await models.User.findAll();
     res.render("search", {headerName: "Search", page: 2});
 }
 
