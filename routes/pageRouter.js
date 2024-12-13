@@ -5,6 +5,6 @@ const { showPostDetails } = require('../controller/pageController');
 // router.get('/', showList);
 // router.get('/:id', showDetails);
 router.get('/', showHomepage);
-router.get('/Post', showPostDetails);
+router.get('/:postid', showPostDetails);
 
 module.exports = router;

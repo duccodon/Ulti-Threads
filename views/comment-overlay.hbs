@@ -1,0 +1,47 @@
+        <div class="post details block py-[1rem] px-[1rem] border-y border-[#ccc]">
+            <div class="flex justify-between gap-[1rem] text-black">
+            <img src="{{thread.User.profile_picture}}"
+                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+            <div class="flex gap-[1rem]">
+                <div class="flex flex-col gap-[.5rem]">
+                    <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                        <h3>{{thread.User.username}}</h3>
+                        <h3 class="text-[#ccc]">1 Hour</h3>
+                    </div>
+
+                    <div class="content">
+                        {{thread.content}}
+                    </div>
+                    {{#each thread.Media}}
+                    <div class="photo">
+                        <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                    </div>
+                    {{/each}}
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="p-[.5rem] h-full w-full md:h-auto md:w-auto flex gap-[1rem] text-black">
+            <img src="{{currentUser.profile_picture}}"
+                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+            <div class="flex justify-between md:min-w-[30rem] w-[90%] pb-[1rem]">
+                <div class="flex flex-row gap-[.5rem] w-full">
+                    <div class="info flex flex-col w-full gap-[5px] text-[.8rem]">
+                        <h3>{{currentUser.username}}</h3>
+                        <form method="POST" class="w-full max-h-[80%] flex flex-col">
+                            <textarea id="post-content"
+                                class="min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
+                                placeholder="Reply to {{thread.User.username}}"
+                                oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"
+                                required></textarea>
+    
+
+                            <button type="submit"
+                                class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
+                                Post
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>

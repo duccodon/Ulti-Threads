@@ -5,35 +5,24 @@
                   </div>
                 <div class="post details block border-y border-[#ccc] pt-[1rem] px-[1rem]">
                         <div class="flex justify-between gap-[1rem] text-black">
-                        <img src="/img/profile/1.jpg"
+                        <img src="{{thread.User.profile_picture}}"
                             class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
                         <div class="flex gap-[1rem]">
                             <div class="flex flex-col gap-[.5rem]">
                                 <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">1 Hour</h3>
+                                    <h3>{{thread.User.username}}</h3>
+                                    <h3 class="text-[#ccc]">{{timeAgo thread.createdAt}}</h3>
                                 </div>
 
                                 <div class="content">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                    Necessitatibus dignissimos ipsam vero fuga cum autem
-                                    quibusdam nihil repellat, quis, iure sequi voluptates.
-                                    Eligendi tenetur placeat ducimus incidunt quidem velit
-                                    ratione aliquid minima voluptatum, dolores nihil
-                                    blanditiis omnis debitis ipsa libero? Enim eius ex, ullam
-                                    illo consequuntur laudantium quas assumenda, unde eaque
-                                    deserunt asperiores tempore, tenetur eum odit odio. Ex
-                                    praesentium aliquam assumenda architecto repellendus magni
-                                    cum, quia ratione fugiat porro quis eos maxime quo
-                                    accusantium doloribus labore quos itaque, ad vitae at
-                                    molestias minima? Non, sit velit eos delectus blanditiis
-                                    odio nulla tempore incidunt perferendis voluptatibus ab
-                                    praesentium quia veniam?
+                                    {{thread.content}}
                                 </div>
 
+                                {{#each thread.Media}}
                                 <div class="photo">
-                                    <img src="/img/post/oldtrafford_top.jpg" class="w-full max-w-[100%] h-auto object-cover" />
+                                    <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
                                 </div>
+                                {{/each}}
                             </div>
                         </div>
                             <span class="edit">
@@ -45,7 +34,7 @@
                             <span class="actionbutton like-button relative">
                             <i class="fa-regular fa-heart"></i>
                             </span>
-                            <span class="actionbutton comment-button relative">
+                            <span class="actionbutton comment-button relative" data-post-id ="{{thread.id}}">
                             <i class="fa-regular fa-comment"></i>
                             </span>
                             <span class="actionbutton share-button relative">
@@ -55,129 +44,28 @@
                 </div>
                 <div class="comments-section pb-[1rem] px-[2rem]">
                     <!-- Comment Input Section -->
-                   <div class="comment pt-[1rem] flex justify-between gap-[1rem] text-black  border-b border-[#ccc]">
-                       <img src="/img/profile/1.jpg"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                      <div class = "comment-container">
-                          <div class="comment-content">
-                                <div class="comment header inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">5 min ago</h3>
+                    {{#each thread.Comments}}
+                    <div class="comment pt-4 flex justify-between gap-4 text-black border-b border-gray-300">
+                        <img src="{{this.User.profile_picture}}"
+                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full overflow-hidden" />
+                        <div class="comment-container flex-grow">
+                            <div class="comment-content">
+                                <div class="comment-header inline-flex gap-2 text-sm">
+                                    <h3>{{this.User.username}}</h3>
+                                    <h3 class="text-gray-400">{{timeAgo this.createdAt}}</h3>
                                 </div>
-                              <div class="comment-text">
-                                  Lorem iuntur ad officia adipisci, officiis iuptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
-                              </div>
-                              </div>
-                              <div class="comment-buttons m-[.5rem] p-[0.1rem] ">
-                                    <span class="actionbutton like-button relative">
-                                    <i class="fa-regular fa-heart"></i>
-                                    </span>
-                              </div>   
-                      </div>
-                    </div> 
-                    {{!-- <hr class="border-gray-300 w-200" > --}}
-                   <div class="comment pt-[1rem] flex justify-between gap-[1rem] text-black  border-b border-[#ccc]">
-                       <img src="/img/profile/1.jpg"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                      <div class = "comment-container">
-                          <div class="comment-content">
-                                <div class="comment header inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">1m ago</h3>
+                                <div class="comment-text">
+                                    {{this.content}}
                                 </div>
-                              <div class="comment-text">
-                                  Lorem iuntur ad officia adipisci, officiis iuptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
-                              </div>
-                              </div>
-                              <div class="comment-buttons m-[.5rem] py-[0.1rem] ">
-                                    <span class="actionbutton like-button relative">
-                                    <i class="fa-regular fa-heart"></i>
-                                    </span>
-                              </div>   
-                      </div>
-                    </div> 
-                   <div class="comment pt-[1rem] flex justify-between gap-[1rem] text-black  border-b border-[#ccc]">
-                       <img src="/img/profile/1.jpg"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                      <div class = "comment-container">
-                          <div class="comment-content">
-                                <div class="comment header inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">5 min ago</h3>
-                                </div>
-                              <div class="comment-text">
-                                  Lorem iuntur ad officia adipisci, officiis iuptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
-                              </div>
-                              </div>
-                              <div class="comment-buttons m-[.5rem] p-[0.1rem] ">
-                                    <span class="actionbutton like-button relative">
-                                    <i class="fa-regular fa-heart"></i>
-                                    </span>
-                              </div>   
-                      </div>
-                    </div> 
-                    {{!-- <hr class="border-gray-300 w-200" > --}}
-                   <div class="comment pt-[1rem] flex justify-between gap-[1rem] text-black  border-b border-[#ccc]">
-                       <img src="/img/profile/1.jpg"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                      <div class = "comment-container">
-                          <div class="comment-content">
-                                <div class="comment header inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">1m ago</h3>
-                                </div>
-                              <div class="comment-text">
-                                  Lorem iuntur ad officia adipisci, officiis iuptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
-                              </div>
-                              </div>
-                              <div class="comment-buttons m-[.5rem] py-[0.1rem] ">
-                                    <span class="actionbutton like-button relative">
-                                    <i class="fa-regular fa-heart"></i>
-                                    </span>
-                              </div>   
-                      </div>
-                    </div> 
-                   <div class="comment pt-[1rem] flex justify-between gap-[1rem] text-black  border-b border-[#ccc]">
-                       <img src="/img/profile/1.jpg"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                      <div class = "comment-container">
-                          <div class="comment-content">
-                                <div class="comment header inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">5 min ago</h3>
-                                </div>
-                              <div class="comment-text">
-                                  Lorem iuntur ad officia adipisci, officiis iuptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
-                              </div>
-                              </div>
-                              <div class="comment-buttons m-[.5rem] p-[0.1rem] ">
-                                    <span class="actionbutton like-button relative">
-                                    <i class="fa-regular fa-heart"></i>
-                                    </span>
-                              </div>   
-                      </div>
-                    </div> 
-                    {{!-- <hr class="border-gray-300 w-200" > --}}
-                   <div class="comment pt-[1rem] flex justify-between gap-[1rem] text-black  border-b border-[#ccc]">
-                       <img src="/img/profile/1.jpg"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                      <div class = "comment-container">
-                          <div class="comment-content">
-                                <div class="comment header inline-flex gap-[10px] text-[.8rem]">
-                                    <h3>Username</h3>
-                                    <h3 class="text-[#ccc]">1m ago</h3>
-                                </div>
-                              <div class="comment-text">
-                                  Lorem iuntur ad officia adipisci, officiis iuptates! Consectetur accusantium error unde expedita ipsum vero quisquam asperiores?
-                              </div>
-                              </div>
-                              <div class="comment-buttons m-[.5rem] py-[0.1rem] ">
-                                    <span class="actionbutton like-button relative">
-                                    <i class="fa-regular fa-heart"></i>
-                                    </span>
-                              </div>   
-                      </div>
-                    </div> 
+                            </div>
+                            <div class="comment-buttons m-[.5rem] py-[0.1rem] ">
+                                <span class="actionbutton like-button relative">
+                                <i class="fa-regular fa-heart"></i>
+                                </span>
+                            </div>  
+                        </div>
+                    </div>
+                    {{/each}}
                 </div>
         </div>
  

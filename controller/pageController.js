@@ -79,6 +79,14 @@ const crypto = require('crypto');
 // }
 
 controller.showHomepage = async (req, res) => {
+    const userId = req.session.userId;
+    console.log("User ID:", userId);
+
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
     res.locals.threads = await models.Thread.findAll({
         include: [
             {model: models.User},
@@ -96,12 +104,115 @@ controller.showActivity = (req, res) => {
     res.render("activity", {headerName: "Activity", page: 3});
 }
 
-controller.showProfile = (req, res) => {
+controller.showProfile = async (req, res) => {
+
+    const userId = req.session.userId;
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
+    res.locals.threads = await models.Thread.findAll({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      where: {
+        user_id: userId
+      },
+      include: [
+        {
+          model: models.User,
+          required: false, // This performs an LEFT JOIN
+        },
+        {model: models.Media},
+      ]
+    });
+    const isCurrentUser = true;
+    res.locals.isCurrentUser = isCurrentUser;
     res.render("profile", {headerName: "Profile", page: 4});
 }
 
-controller.showPostDetails = (req, res) => {
+controller.showIDProfile = async (req, res) => {
+
+  const userId = req.params.id;
+
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+  res.locals.threads = await models.Thread.findAll({
+    attributes: ['id', 'user_id', 'content', 'createdAt'],
+    where: {
+      user_id: userId
+    },
+    include: [
+      {
+        model: models.User,
+        required: false, // This performs an LEFT JOIN
+      },
+      {model: models.Media},
+    ]
+  });
+
+  const isCurrentUser = false;
+  res.locals.isCurrentUser = isCurrentUser;
+
+  res.render("profile", {headerName: "Profile", page: 4});
+}
+
+controller.showPostDetails = async (req, res) => {
+    const postid = req.params.postid;
+
+    const thread = await models.Thread.findOne({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      include: [
+        {model: models.User},
+        {model: models.Media},
+        {model: models.Comment,
+          include: [{model: models.User,
+            attributes: ['username', 'profile_picture']
+          }]
+        },
+      ],
+      where: {
+        id: postid
+      }
+    });
+
+    console.log(thread);
+    res.locals.thread = thread;
     res.render("post_details", {headerName: "Post", page: 5});
+}
+
+controller.showCommentOverlay = async (req, res) => {
+  const postid = req.params.postid;
+  const userId = req.session.userId;
+
+  console.log("User ID:", userId);
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+
+  const thread = await models.Thread.findOne({
+    attributes: ['id', 'user_id', 'content', 'createdAt'],
+    include: [
+      {model: models.User},
+      {model: models.Comment,
+        include: [{model: models.User,
+          attributes: ['username', 'profile_picture']
+        }]
+      },
+      {model: models.Media},
+    ],
+    where: {
+      id: postid
+    }
+  });
+
+  console.log(thread);
+  res.locals.thread = thread;
+  res.render("comment-overlay", {layout:false});
 }
 
 controller.showLogin = (req, res) => {
@@ -119,15 +230,10 @@ controller.showLogin = (req, res) => {
   });
 }
 
+
 controller.showCreate = (req, res) => {
     res.render("create", {layout: "account", title: 'Sign Up'});
 }
-
-
-
-
-
-
 
 
 const sendVerificationEmail = async (email, verificationToken) => {
@@ -150,7 +256,6 @@ const sendVerificationEmail = async (email, verificationToken) => {
 
   await transporter.sendMail(mailOptions);
 };
-
 
 controller.addUser = async (req, res) => {
   const { email, phonenumber, username, password } = req.body;
@@ -191,7 +296,7 @@ controller.addUser = async (req, res) => {
       username,
       password: hashedPassword,
       bio: "Not added yet",
-      profile_picture: "/img/profile/defaultAvatar.png",
+      profile_picture: "/img/profile/default_avatar.jpeg",
       verificationToken,
       isVerified: false, 
     });
@@ -236,7 +341,6 @@ controller.addUser = async (req, res) => {
 
 controller.login = async (req, res) => {
   const { usernameOrEmail, password } = req.body; // Get login credentials from the request body
-
   try {
     // Check if the input is an email or username
     let user;

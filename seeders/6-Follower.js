@@ -25,10 +25,10 @@ module.exports = {
       item.createdAt = Sequelize.literal("NOW()");
       item.updatedAt = Sequelize.literal("NOW()");
     });
-    await queryInterface.bulkInsert("Media", items, {});
+    await queryInterface.bulkInsert("Follower", items, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Media", null, {});
+    await queryInterface.bulkDelete("Follower", null, {});
   },
 };
