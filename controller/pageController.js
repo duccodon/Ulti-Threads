@@ -296,7 +296,7 @@ controller.addUser = async (req, res) => {
       username,
       password: hashedPassword,
       bio: "Not added yet",
-      profile_picture: "/img/profile/default_avatar.jpeg",
+      profile_picture: "/img/profile/defaultAvatar.jpeg",
       verificationToken,
       isVerified: false, 
     });

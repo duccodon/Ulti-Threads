@@ -34,8 +34,9 @@
                 <div class="flex flex-row gap-[.5rem] w-full">
                     <div class="info flex flex-col w-full gap-[5px] text-[.8rem]">
                         <h3>{{currentUser.username}}</h3>
-                        <form method="POST" class="overflow-y-auto w-full h-[90%] md:h-[30rem] flex flex-col">
-                            <textarea id="post-content"
+                        <form method="POST" enctype="multipart/form-data" class="overflow-y-auto w-full h-[90%] md:h-[30rem] flex flex-col">
+                            <input type="text" name="userId" class="hidden" value="{{currentUser.id}}">
+                            <textarea id="post-content" name="content"
                                 class="min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
                                 placeholder="What's on your mind?"
                                 oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"
@@ -55,14 +56,14 @@
                                 <label for="image-upload" class="text-sm text-gray-500 cursor-pointer">
                                     <i class="fa-regular fa-image text-xl"></i>
                                 </label>
-                                <input type="file" id="image-upload" class="hidden" accept="image/*"
+                                <input type="file" id="image-upload" name="image" class="hidden" accept="image/*"
                                     onchange="previewImage(event)">
     
                                 <!-- Hashtag -->
                                 <label for="tags" class="text-sm text-gray-500">
                                     <i class="fa-solid fa-hashtag text-xl" onclick="insertHashtag()"></i>
                                 </label>
-                                <input type="text" id="tags" class="hidden">
+                                <input type="text" id="tags" name="tag" class="hidden">
                             </div>
     
                             <button type="submit"

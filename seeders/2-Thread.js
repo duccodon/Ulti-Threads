@@ -128,26 +128,6 @@ module.exports = {
         content: `Ipsa ullam fugiat, maiores iure cum eveniet voluptates? Nesciunt, necessitatibus laborum.`,
         user_id: 6,
       },
-      {
-        content: `Velit voluptas suscipit voluptatibus natus eveniet, culpa eos quibusdam architecto quos.`,
-        user_id: 8,
-      },
-      {
-        content: `Qui voluptatem pariatur autem. Aspernatur harum earum, vitae ducimus necessitatibus nihil.`,
-        user_id: 8,
-      },
-      {
-        content: `Aliquid doloribus quasi voluptas perspiciatis, obcaecati incidunt maiores assumenda dolores sit.`,
-        user_id: 8,
-      },
-      {
-        content: `Eaque nobis mollitia voluptatem similique, sint perferendis esse! Expedita, aspernatur dignissimos.`,
-        user_id: 8,
-      },
-      {
-        content: `Autem dolore perspiciatis magnam voluptatibus ducimus laborum provident soluta fuga totam.`,
-        user_id: 8,
-      }
     ];    
     items.forEach((item) => {
       item.createdAt = Sequelize.literal("NOW()");
