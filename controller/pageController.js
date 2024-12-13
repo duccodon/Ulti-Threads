@@ -104,17 +104,28 @@ controller.showProfile = async (req, res) => {
       id: userId,
     },
   });
+
+  res.locals.followers = await models.Follower.findAll({
+    where: { following_id: userId },
+    attributes: ['follower_id'],
+  });
+
+  res.locals.follwers_user = await models.User.findAll({
+    where: { id: follwers},
+  })
   res.locals.threads = await models.Thread.findAll({
     where: {
       user_id: userId,
     },
     include: [
-      {model: models.Media},
-      {model: models.User},
+      { model: models.Media },
+      { model: models.User },
     ],
   });
-  res.render("profile", {headerName: "Profile", page: 4});
+
+  res.render("profile", { headerName: "Profile", page: 4 });
 }
+
 
 controller.showPostDetails = (req, res) => {
     res.render("post_details", {headerName: "Post", page: 5});

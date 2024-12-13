@@ -7,132 +7,17 @@
             <div class="w-[5rem]"></div>
         </div>
         <div class="follower list overflow-y-auto max-h-[calc(80vh-4rem)] block px-[1rem] my-0">
+        {{#each followers}}
             <div class="follower flex items-center gap-[1rem] text-black">
                 <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
                 <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
+                    <h3 class="text-center text-sm font-medium">{{User.username}}</h3> <!-- Corrected -->
                     <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
                         Following
                     </button>
                 </div>
             </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div class="follower flex items-center gap-[1rem] text-black">
-                <img src="/1.jpg" class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full object-cover" />
-                <div class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
-                    <h3 class="text-center text-sm font-medium">Username</h3>
-                    <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
-                        Following
-                    </button>
-                </div>
-            </div>
+        {{/each}}
         </div>
     </div>
 
