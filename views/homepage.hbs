@@ -1,7 +1,6 @@
-<div
-  class="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden z-3">
+<div class="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden z-3">
   <form action="/" class="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden">
-    <img src="/img/profile/1.jpg"
+    <img src="{{currentUser.profile_picture}}"
       class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
     <input type="text" placeholder="What's new" id="plus-button-post"
       class="justify-self-start w-full pl-4 mr-4 text-[13px] !outline-none" />
@@ -12,39 +11,43 @@
   <div class="feeds">
     {{#each threads}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
-      <a href="/Homepage/Post">
-        <div class="flex justify-between gap-[1rem] text-black">
+        <div class="flex gap-[1rem] text-black">
+          <a href="/Profile/{{User.id}}" class = "m-0 p-0" >
           <img src="{{User.profile_picture}}"
-            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-          <div class="flex gap-[1rem]">
-            <div class="flex flex-col gap-[.5rem]">
-              <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-                <h3>{{User.username}}</h3>
-                <h3 class="text-[#ccc]">{{formatDate updatedAt}}</h3>
+              class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden">
+          </a>
+          
+          <div class="flex justify-between min-w-[85%]">
+            <div class="flex gap-[1rem]">
+              <div class="flex flex-col gap-[.5rem]">
+                <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                  <h3>{{User.username}}</h3>
+                  <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
+                </div>
+                <a href="/Homepage/{{id}}">
+                  <div class="content pb-1">
+                    {{{content}}}
+                  </div>
+                
+                  {{#each Media}}
+                  <div class="photo">
+                    <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                  </div>
+                  {{/each}}
+                </a>
               </div>
-
-              <div class="content">
-                {{{content}}}
-              </div>
-
-              {{#each Media}}
-              <div class="photo">
-                <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
-              </div>
-              {{/each}}
             </div>
           </div>
           <span class="edit">
             <i class="fa-solid fa-ellipsis"></i>
           </span>
         </div>
-      </a>
 
-      <div class="mb-[1rem] pt-[1rem] px-[3.7rem] flex gap-[1.5rem] items-center">
+      <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
         <span class="actionbutton like-button relative">
           <i class="fa-regular fa-heart"></i>
         </span>
-        <span class="actionbutton comment-button relative">
+        <span class="actionbutton comment-button relative" data-post-id ="{{this.id}}">
           <i class="fa-regular fa-comment"></i>
         </span>
         <span class="actionbutton retweet-button relative">
@@ -58,3 +61,4 @@
     {{/each}}
   </div>
 </div>
+

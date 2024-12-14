@@ -2,58 +2,78 @@
 md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
   <div class="info flex justify-between">
     <div class="username p-5">
-      <h1 class="text-2xl font-bold">{{users.username}}</h1>
-      <p class="text-sm text-gray-500">_{{users.username}}</p>
-      <p class="my-6 text-sm text-gray-500">{{users.bio}}</p>
-      <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id = "follower-button">{{followers.length}} followers</p>
+      <h1 class="text-2xl font-bold">{{currentUser.username}}</h1>
+      <p class="text-sm text-gray-500">{{currentUser.id}}</p>
+      <p class="my-6 text-sm text-gray-500">{{currentUser.bio}}</p>
+      <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id = "follower-button">1000 followers</p>
     </div>
     <div class="avatar p-5">
-      <img src="{{users.profile_picture}}" alt="Avatar" class="w-24 h-24 rounded-full object-cover border border-gray-300">
+      <img src="{{currentUser.profile_picture}}" alt="Avatar" class="w-24 h-24 rounded-full object-cover border border-gray-300">
     </div>
   </div>
 
   <div class="px-4 grid grid-cols-2 gap-4">
-    <button class="px-10 py-2 text-black bg-white border border-black rounded-xl hover:bg-black lg:hover:text-white">Follow</button>
-    <button class="px-10 py-2 text-black bg-white border border-black rounded-xl hover:bg-black lg:hover:text-white" >About</button>
+    {{#if isCurrentUser}}
+      <!-- If it's the current user, show the Edit button -->
+      <button class="about-button col-span-2 px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      user-id = "{{currentUser.id}}">
+        Edit
+      </button>
+    {{else}}
+      <!-- If not the current user, show Follow and About buttons -->
+      <button class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white">Follow</button>
+      <button class="about-button px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      user-id = "{{currentUser.id}}">
+      About
+      </button>
+    {{/if}}
   </div>
 
   <div class="pt-5">
-    <p class="px-6 pb-3 flex justify-center items-center border-b border-black text-black hover:border-black hover:text-black">My posts</p>
+    <p class="px-6 pb-3 flex justify-center items-center border-b border-black text-black hover:border-black hover:text-black">Posts</p>
     {{!-- <p class="px-6 py-3 flex justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">Repost</p> --}}
   </div>
   {{#each threads}}
   <div class="post">
-    <div class="block border-b border-[#ccc] pt-[1rem] px-[1rem]">
-      <div class="flex justify-between gap-[1rem] text-black">
-        <img src="{{User.profile_picture}}"
-          class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-        <div class="flex gap-[1rem]">
-          <div class="flex flex-col gap-[.5rem]">
-            <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-              <h3>{{User.username}}</h3>
-              <h3 class="text-[#ccc]">{{formatDate createdAt}}</h3>
-            </div>
-
-            <div class="content">
-              {{content}}
-            </div>
-            {{#each Media}}
-              <div class="photo">
-                <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+    {{#each threads}}
+    <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
+        <div class="flex gap-[1rem] text-black">
+          <a href="/Profile/{{User.id}}" class = "m-0 p-0" >
+            <img src="{{User.profile_picture}}"
+              class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+          </a>
+          
+          <div class="flex justify-between min-w-[85%]">
+            <div class="flex gap-[1rem]">
+              <div class="flex flex-col gap-[.5rem]">
+                <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                  <h3>{{User.username}}</h3>
+                  <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
+                </div>
+                <a href="/Homepage/{{id}}">
+                  <div class="content pb-1">
+                    {{{content}}}
+                  </div>
+                
+                  {{#each Media}}
+                  <div class="photo">
+                    <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                  </div>
+                  {{/each}}
+                </a>
               </div>
-            {{/each}}
+            </div>
           </div>
+          <span class="edit">
+            <i class="fa-solid fa-ellipsis"></i>
+          </span>
         </div>
-        <span class="edit cursor-pointer">
-          <i class="fa-solid fa-ellipsis"></i>
-        </span>
-      </div>
 
-      <div class="mb-[1rem] pt-[1rem] px-[3.7rem] flex gap-[1.5rem] items-center">
+      <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
         <span class="actionbutton like-button relative">
           <i class="fa-regular fa-heart"></i>
         </span>
-        <span class="actionbutton comment-button relative">
+        <span class="actionbutton comment-button relative" data-post-id ="{{this.id}}">
           <i class="fa-regular fa-comment"></i>
         </span>
         <span class="actionbutton retweet-button relative">
@@ -63,9 +83,8 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
           <i class="fa-solid fa-share"></i>
         </span>
       </div>
-
     </div>
+    {{/each}}
   </div>
-  {{/each}}
 </div>
 

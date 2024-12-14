@@ -4,7 +4,7 @@ const flash = require('connect-flash');
 const app = express();
 const port = process.env.PORT || 3000;
 const expressHbs = require("express-handlebars");
-
+const moment = require('moment'); 
 // Flash messages setup
 app.use(session({
   secret: 'your-secret-key',
@@ -23,6 +23,7 @@ function ensureAuthenticated(req, res, next) {
     res.redirect("/Login"); // Redirect to login if not authenticated
   }
 }
+
 app.use((req, res, next) => {
   res.set('Cache-Control', 'no-store');
   next();
@@ -51,6 +52,21 @@ app.engine(
                   day: "numeric",
               });
           },
+            timeAgo: (createdAt) => {
+              const now = moment();
+              const then = moment(createdAt);
+              const duration = moment.duration(now.diff(then));
+              
+              if (duration.asSeconds() < 60) {
+                return 'Just now';
+              } else if (duration.asMinutes() < 60) {
+                return `${Math.floor(duration.asMinutes())}m`;
+              } else if (duration.asHours() < 24) {
+                return `${Math.floor(duration.asHours())}h`;
+              } else {
+                return then.fromNow(); 
+              }
+            },
         },
     })
 );
@@ -58,14 +74,17 @@ app.set("view engine", "hbs");
 
 // Middleware to parse JSON
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express .urlencoded({ extended: false }));
 
 
 app.get("/", (req,res) => res.redirect("/Login"));
+
 app.use("/Homepage", ensureAuthenticated, require("./routes/pageRouter"));
 app.use("/Search", ensureAuthenticated, require("./routes/searchRouter"));
 app.use("/Activity", ensureAuthenticated, require("./routes/activityRouter"));
 app.use("/Profile", ensureAuthenticated, require("./routes/profileRouter"));
+app.use("/Comment", ensureAuthenticated, require("./routes/commentRouter"));
+
 app.use("/Login", require("./routes/loginRouter"));
 app.use("/CreateAccount", require("./routes/createRouter"));
 

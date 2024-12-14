@@ -10,7 +10,7 @@ module.exports = {
         phonenumber: "0909123456",
         password: "AXI3CxWdu",
         bio: "Administrator of the platform",
-        profile_picture: "/img/profile/1.jpg",
+        profile_picture: "/img/profile/default_avatar.jpeg",
       },
       {
         username: "lisleC",
@@ -18,7 +18,7 @@ module.exports = {
         phonenumber: "0288000132",
         password: "kUzhyPDAB",
         bio: "Enthusiastic contributor and blog writer",
-        profile_picture: "/img/profile/1.jpg",
+        profile_picture: "/img/profile/default_avatar.jpeg",
       },
       {
         username: "frederichO",
@@ -26,7 +26,7 @@ module.exports = {
         phonenumber: "0909123456",
         password: "x1Q3NnKVg5oB",
         bio: "Tech enthusiast and avid reader",
-        profile_picture: "/img/profile/1.jpg",
+        profile_picture: "/img/profile/default_avatar.jpeg",
       },
       {
         username: "dorolisaB",
@@ -34,7 +34,7 @@ module.exports = {
         phonenumber: "0123123123",
         password: "vY3dpY",
         bio: "Lifelong learner and educator",
-        profile_picture: "/img/profile/1.jpg",
+        profile_picture: "/img/profile/default_avatar.jpeg",
       },
       {
         username: "rosaleenY",
@@ -42,7 +42,23 @@ module.exports = {
         phonenumber: "0403789532",
         password: "RNqceiBJWMjI",
         bio: "Creative thinker and community organizer",
-        profile_picture: "/img/profile/1.jpg",
+        profile_picture: "/img/profile/default_avatar.jpeg",
+      },
+      {
+        username: "rosdsagda",
+        email: "rydsds4@de.vu",
+        phonenumber: "0403789532",
+        password: "RNqceiBJWMjI",
+        bio: "Creative thinker and community organizer",
+        profile_picture: "/img/profile/default_avatar.jpeg",
+      },
+      {
+        username: "dunghq2405",
+        email: "dunghq2405@gmail.com",
+        phonenumber: "0703425719",
+        password: "Dung123456@",
+        bio: "Hi there! I'm Dung. I'm a software engineer and a lifelong learner.",
+        profile_picture: "/img/profile/default_avatar.jpeg",
       },
     ];
     items.forEach((item) => {

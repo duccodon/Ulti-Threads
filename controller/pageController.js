@@ -79,6 +79,14 @@ const crypto = require('crypto');
 // }
 
 controller.showHomepage = async (req, res) => {
+    const userId = req.session.userId;
+    console.log("User ID:", userId);
+
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
     res.locals.threads = await models.Thread.findAll({
         include: [
             {model: models.User},
@@ -98,37 +106,129 @@ controller.showActivity = (req, res) => {
 }
 
 controller.showProfile = async (req, res) => {
-  const userId = req.session.userId;
-  res.locals.users = await models.User.findOne({
-    where: {
-      id: userId,
-    },
-  });
 
-  res.locals.followers = await models.Follower.findAll({
-    where: { following_id: userId },
-    attributes: ['follower_id'],
-  });
-
-  res.locals.follwers_user = await models.User.findAll({
-    where: { id: follwers},
-  })
-  res.locals.threads = await models.Thread.findAll({
-    where: {
-      user_id: userId,
-    },
-    include: [
-      { model: models.Media },
-      { model: models.User },
-    ],
-  });
-
-  res.render("profile", { headerName: "Profile", page: 4 });
+    const userId = req.session.userId;
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
+    res.locals.threads = await models.Thread.findAll({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      where: {
+        user_id: userId
+      },
+      include: [
+        {
+          model: models.User,
+          required: false, // This performs an LEFT JOIN
+        },
+        {model: models.Media},
+      ]
+    });
+    const isCurrentUser = true;
+    res.locals.isCurrentUser = isCurrentUser;
+    res.render("profile", {headerName: "Profile", page: 4});
 }
 
+controller.showIDProfile = async (req, res) => {
 
-controller.showPostDetails = (req, res) => {
+  const userId = req.params.id;
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+  res.locals.threads = await models.Thread.findAll({
+    attributes: ['id', 'user_id', 'content', 'createdAt'],
+    where: {
+      user_id: userId
+    },
+    include: [
+      {
+        model: models.User,
+        required: false, // This performs an LEFT JOIN
+      },
+      {model: models.Media},
+    ]
+  });
+
+  const isCurrentUser = false;
+  res.locals.isCurrentUser = isCurrentUser;
+
+  res.render("profile", {headerName: "Profile", page: 4});
+}
+
+controller.showAbout = async (req, res) => {
+
+  const currentUserId = parseInt(req.session.userId);
+  const userId = parseInt(req.params.id);
+  const isCurrentUser = currentUserId === userId;
+
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+  
+  res.locals.isCurrentUser = isCurrentUser;
+  res.render("about-overlay", {layout:false});
+}
+
+controller.showPostDetails = async (req, res) => {
+    const postid = req.params.postid;
+
+    const thread = await models.Thread.findOne({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      include: [
+        {model: models.User},
+        {model: models.Media},
+        {model: models.Comment,
+          include: [{model: models.User,
+            attributes: ['username', 'profile_picture']
+          }]
+        },
+      ],
+      where: {
+        id: postid
+      }
+    });
+
+    console.log(thread);
+    res.locals.thread = thread;
     res.render("post_details", {headerName: "Post", page: 5});
+}
+
+controller.showCommentOverlay = async (req, res) => {
+  const postid = req.params.postid;
+  const userId = req.session.userId;
+
+  console.log("User ID:", userId);
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+
+  const thread = await models.Thread.findOne({
+    attributes: ['id', 'user_id', 'content', 'createdAt'],
+    include: [
+      {model: models.User},
+      {model: models.Comment,
+        include: [{model: models.User,
+          attributes: ['username', 'profile_picture']
+        }]
+      },
+      {model: models.Media},
+    ],
+    where: {
+      id: postid
+    }
+  });
+
+  console.log(thread);
+  res.locals.thread = thread;
+  res.render("comment-overlay", {layout:false});
 }
 
 controller.showLogin = (req, res) => {
@@ -146,15 +246,10 @@ controller.showLogin = (req, res) => {
   });
 }
 
+
 controller.showCreate = (req, res) => {
     res.render("create", {layout: "account", title: 'Sign Up'});
 }
-
-
-
-
-
-
 
 
 const sendVerificationEmail = async (email, verificationToken) => {
@@ -177,7 +272,6 @@ const sendVerificationEmail = async (email, verificationToken) => {
 
   await transporter.sendMail(mailOptions);
 };
-
 
 controller.addUser = async (req, res) => {
   const { email, phonenumber, username, password } = req.body;
@@ -218,7 +312,7 @@ controller.addUser = async (req, res) => {
       username,
       password: hashedPassword,
       bio: "Not added yet",
-      profile_picture: "/img/profile/defaultAvatar.png",
+      profile_picture: "/img/profile/defaultAvatar.jpeg",
       verificationToken,
       isVerified: false, 
     });
@@ -263,7 +357,6 @@ controller.addUser = async (req, res) => {
 
 controller.login = async (req, res) => {
   const { usernameOrEmail, password } = req.body; // Get login credentials from the request body
-
   try {
     // Check if the input is an email or username
     let user;

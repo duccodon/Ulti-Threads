@@ -6,83 +6,40 @@
             <div class = "pt-[0.35rem]">Reply</div>
             <div class="w-[5rem]"></div>
         </div>
-
-        <div class="post details block py-[1rem] px-[1rem] border-y border-[#ccc]">
-            <div class="flex justify-between gap-[1rem] text-black">
-            <img src="/img/profile/1.jpg"
-                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-            <div class="flex gap-[1rem]">
-                <div class="flex flex-col gap-[.5rem]">
-                    <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-                        <h3>Username</h3>
-                        <h3 class="text-[#ccc]">1 Hour</h3>
-                    </div>
-
-                    <div class="content">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Necessitatibus dignissimos ipsam vero fuga cum autem
-                        quibusdam nihil repellat, quis, iure sequi voluptates.
-                        Eligendi tenetur placeat ducimus incidunt quidem velit
-                        ratione aliquid minima voluptatum, dolores nihil
-                        blanditiis omnis debitis ipsa libero? Enim eius ex, ullam
-                        illo consequuntur laudantium quas assumenda, unde eaque
-                        deserunt asperiores tempore, tenetur eum odit odio. Ex
-                        praesentium aliquam assumenda architecto repellendus magni
-                        cum, quia ratione fugiat porro quis eos maxime quo
-                        accusantium doloribus labore quos itaque, ad vitae at
-                        molestias minima? Non, sit velit eos delectus blanditiis
-                        odio nulla tempore incidunt perferendis voluptatibus ab
-                        praesentium quia veniam?
-                    </div>
-
-                    <div class="photo">
-                        <img src="/img/post/oldtrafford_top.jpg" class="w-full max-w-[100%] h-auto object-cover" />
-                    </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="p-[.5rem] h-full w-full md:h-auto md:w-auto flex gap-[1rem] text-black">
-            <img src="/img/profile/1.jpg"
-                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-            <div class="flex justify-between md:min-w-[30rem] w-[90%] pb-[1rem]">
-                <div class="flex flex-row gap-[.5rem] w-full">
-                    <div class="info flex flex-col w-full gap-[5px] text-[.8rem]">
-                        <h3>Username</h3>
-                        <form method="POST" class="w-full max-h-[80%] flex flex-col">
-                            <textarea id="post-content"
-                                class="min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
-                                placeholder="Reply to USERNAME"
-                                oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"
-                                required></textarea>
-    
-
-                            <button type="submit"
-                                class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
-                                Post
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="comment-content">
+        <!-- Post data will be injected here -->
+        </div>  
+    {{!-- this will fetch the content of /post/:id --}}
     </div>
     
 <script>
     let commentButtons = document.querySelectorAll('.comment-button');
-    console.log(commentButtons);
-// Add an event listener to each comment button
-commentButtons.forEach(button => {
-  button.addEventListener('click', function(event) {
+
+    commentButtons.forEach(button => {
+    button.addEventListener('click', async function(event) {
+
+    const postId = button.getAttribute("data-post-id");
     event.preventDefault(); // Prevent the default link behavior
-    console.log('Comment button clicked!', event);
     var popup = document.getElementById('comment-popup');
     var overlay = document.getElementById('overlay');
+    const commentContent = document.getElementById("comment-content");
     popup.classList.toggle('hidden');
     overlay.classList.toggle('hidden');
 
+    try {
+        const response = await fetch(`/Comment/${postId}`);
+        if (response.ok) {
+          const html = await response.text(); // Get HTML as a string
+          // Populate the popup with the rendered HTML
+          commentContent.innerHTML = html;
+        } else {
+          console.error("Failed to fetch post data");
+        }
+      } catch (err) {
+        console.error("Error fetching post:", err);
+      }
+    });
   });
-});
   document.getElementById('overlay').addEventListener('click', function() {
     var popup = document.getElementById('comment-popup');
     var overlay = document.getElementById('overlay');
