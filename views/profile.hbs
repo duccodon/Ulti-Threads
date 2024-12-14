@@ -15,13 +15,17 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
   <div class="px-4 grid grid-cols-2 gap-4">
     {{#if isCurrentUser}}
       <!-- If it's the current user, show the Edit button -->
-      <button class="col-span-2 px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black lg:hover:text-white">
+      <button class="about-button col-span-2 px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      user-id = "{{currentUser.id}}">
         Edit
       </button>
     {{else}}
       <!-- If not the current user, show Follow and About buttons -->
-      <button class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black lg:hover:text-white">Follow</button>
-      <button class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black lg:hover:text-white">About</button>
+      <button class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white">Follow</button>
+      <button class="about-button px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      user-id = "{{currentUser.id}}">
+      About
+      </button>
     {{/if}}
   </div>
 

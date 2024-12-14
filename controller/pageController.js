@@ -133,7 +133,6 @@ controller.showProfile = async (req, res) => {
 controller.showIDProfile = async (req, res) => {
 
   const userId = req.params.id;
-
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
     if (err) {
       return res.status(500).send('Error retrieving user information');
@@ -157,6 +156,22 @@ controller.showIDProfile = async (req, res) => {
   res.locals.isCurrentUser = isCurrentUser;
 
   res.render("profile", {headerName: "Profile", page: 4});
+}
+
+controller.showAbout = async (req, res) => {
+
+  const currentUserId = parseInt(req.session.userId);
+  const userId = parseInt(req.params.id);
+  const isCurrentUser = currentUserId === userId;
+
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+  
+  res.locals.isCurrentUser = isCurrentUser;
+  res.render("about-overlay", {layout:false});
 }
 
 controller.showPostDetails = async (req, res) => {

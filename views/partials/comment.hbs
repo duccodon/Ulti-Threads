@@ -14,17 +14,12 @@
     
 <script>
     let commentButtons = document.querySelectorAll('.comment-button');
-    console.log(commentButtons);
-// Add an event listener to each comment button
-commentButtons.forEach(button => {
-  button.addEventListener('click', async function(event) {
+
+    commentButtons.forEach(button => {
+    button.addEventListener('click', async function(event) {
 
     const postId = button.getAttribute("data-post-id");
-
-
     event.preventDefault(); // Prevent the default link behavior
-
-
     var popup = document.getElementById('comment-popup');
     var overlay = document.getElementById('overlay');
     const commentContent = document.getElementById("comment-content");
@@ -35,7 +30,6 @@ commentButtons.forEach(button => {
         const response = await fetch(`/Comment/${postId}`);
         if (response.ok) {
           const html = await response.text(); // Get HTML as a string
-            console.log(html);
           // Populate the popup with the rendered HTML
           commentContent.innerHTML = html;
         } else {
@@ -44,8 +38,8 @@ commentButtons.forEach(button => {
       } catch (err) {
         console.error("Error fetching post:", err);
       }
+    });
   });
-});
   document.getElementById('overlay').addEventListener('click', function() {
     var popup = document.getElementById('comment-popup');
     var overlay = document.getElementById('overlay');

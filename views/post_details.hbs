@@ -1,13 +1,15 @@
             <div class="post container scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden z-3">
                 <div class="popup-header p-[1rem] ">
-                    <a href="/Homepage">
-                        <span class="back-button">&#8592;</span> </a>
+                    
+                    <a href="javascript:window.history.back();">
+                        <span class="back-button">&#8592;</span> 
+                    </a>
                   </div>
                 <div class="post details block border-y border-[#ccc] pt-[1rem] px-[1rem]">
                         <div class="flex justify-between gap-[1rem] text-black">
                         <img src="{{thread.User.profile_picture}}"
                             class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                        <div class="flex gap-[1rem]">
+                        <div class="flex flex-1 gap-[1rem]">
                             <div class="flex flex-col gap-[.5rem]">
                                 <div class="ingo inline-flex gap-[10px] text-[.8rem]">
                                     <h3>{{thread.User.username}}</h3>
@@ -48,7 +50,7 @@
                     <div class="comment pt-4 flex justify-between gap-4 text-black border-b border-gray-300">
                         <img src="{{this.User.profile_picture}}"
                             class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full overflow-hidden" />
-                        <div class="comment-container flex-grow">
+                        <div class="comment-container flex-1">
                             <div class="comment-content">
                                 <div class="comment-header inline-flex gap-2 text-sm">
                                     <h3>{{this.User.username}}</h3>

@@ -2,13 +2,12 @@
             <div class="flex justify-between gap-[1rem] text-black">
             <img src="{{thread.User.profile_picture}}"
                 class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-            <div class="flex gap-[1rem]">
+            <div class="flex flex-1 gap-[1rem]">
                 <div class="flex flex-col gap-[.5rem]">
                     <div class="ingo inline-flex gap-[10px] text-[.8rem]">
                         <h3>{{thread.User.username}}</h3>
                         <h3 class="text-[#ccc]">1 Hour</h3>
                     </div>
-
                     <div class="content">
                         {{thread.content}}
                     </div>
