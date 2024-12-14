@@ -31,33 +31,40 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
   </div>
   <div class="post">
     {{#each threads}}
-    <div class="block border-b border-[#ccc] pt-[1rem] px-[1rem]">
-      <div class="flex justify-between gap-[1rem] text-black">
-        <img src="{{User.profile_picture}}"
-          class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-        <div class="flex gap-[1rem]">
-          <div class="flex flex-col gap-[.5rem]">
-            <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-              <h3>{{User.username}}</h3>
-              <h3 class="text-[#ccc]">{{timeAgo this.createdAt}}</h3>
+    <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
+        <div class="flex gap-[1rem] text-black">
+          <a href="/Profile/{{User.id}}" class = "m-0 p-0" >
+            <img src="{{User.profile_picture}}"
+              class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+          </a>
+          
+          <div class="flex justify-between min-w-[85%]">
+            <div class="flex gap-[1rem]">
+              <div class="flex flex-col gap-[.5rem]">
+                <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                  <h3>{{User.username}}</h3>
+                  <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
+                </div>
+                <a href="/Homepage/{{id}}">
+                  <div class="content pb-1">
+                    {{{content}}}
+                  </div>
+                
+                  {{#each Media}}
+                  <div class="photo">
+                    <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                  </div>
+                  {{/each}}
+                </a>
+              </div>
             </div>
-
-            <div class="content">
-              {{content}}
-            </div>
-            {{#each Media}}
-            <div class="photo">
-              <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
-            </div>
-            {{/each}}
           </div>
+          <span class="edit">
+            <i class="fa-solid fa-ellipsis"></i>
+          </span>
         </div>
-        <span class="edit cursor-pointer">
-          <i class="fa-solid fa-ellipsis"></i>
-        </span>
-      </div>
 
-      <div class="mb-[1rem] pt-[1rem] px-[3.7rem] flex gap-[1.5rem] items-center">
+      <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
         <span class="actionbutton like-button relative">
           <i class="fa-regular fa-heart"></i>
         </span>
@@ -71,7 +78,6 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
           <i class="fa-solid fa-share"></i>
         </span>
       </div>
-
     </div>
     {{/each}}
   </div>
