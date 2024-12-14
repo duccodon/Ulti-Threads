@@ -132,7 +132,8 @@ controller.showProfile = async (req, res) => {
 }
 
 controller.showIDProfile = async (req, res) => {
-
+  //console.log("Start!");
+  const loginId = req.session.userId;
   const userId = req.params.id;
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
     if (err) {
@@ -153,11 +154,65 @@ controller.showIDProfile = async (req, res) => {
     ]
   });
 
+  // Check if the logged-in user is following the current user
+  const isFollowed = await models.Follower.findOne({
+      where: {
+          follower_id: loginId,
+          following_id: userId,
+      }
+  });
+  res.locals.isFollowed = isFollowed ? true : false;  // If a follow record exists, mark as followed
+  console.log(isFollowed);
+
   const isCurrentUser = false;
   res.locals.isCurrentUser = isCurrentUser;
 
   res.render("profile", {headerName: "Profile", page: 4});
 }
+
+// Function to follow a user (POST)
+controller.addFollower = async (req, res) => {
+  const currentUserId = parseInt(req.session.userId);
+  const targetUserId = parseInt(req.params.id);
+  console.log("current:", currentUserId);
+  console.log("target:", targetUserId);
+
+  try {
+    await models.Follower.create({
+      follower_id: currentUserId,
+      following_id: targetUserId,
+    });
+    res.status(200).send('Followed successfully');
+  } catch (err) {
+    res.status(500).send('Error following the user');
+  }
+};
+
+// Function to unfollow a user (DELETE)
+controller.deleteFollower = async (req, res) => {
+  const currentUserId = parseInt(req.session.userId);
+  const targetUserId = parseInt(req.params.id);
+
+  try {
+    const existingFollow = await models.Follower.findOne({
+      where: {
+        follower_id: currentUserId,
+        following_id: targetUserId,
+      },
+    });
+
+    if (!existingFollow) {
+      return res.status(400).send('You are not following the user');
+    }
+
+    await existingFollow.destroy(); // Unfollow the user
+
+    res.status(200).send('Unfollowed successfully');
+  } catch (err) {
+    res.status(500).send('Error unfollowing the user');
+  }
+};
+
 
 controller.showAbout = async (req, res) => {
 
@@ -246,11 +301,9 @@ controller.showLogin = (req, res) => {
   });
 }
 
-
 controller.showCreate = (req, res) => {
     res.render("create", {layout: "account", title: 'Sign Up'});
 }
-
 
 const sendVerificationEmail = async (email, verificationToken) => {
   const transporter = nodemailer.createTransport({

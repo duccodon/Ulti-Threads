@@ -5,75 +5,93 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
       <h1 class="text-2xl font-bold">{{currentUser.username}}</h1>
       <p class="text-sm text-gray-500">{{currentUser.id}}</p>
       <p class="my-6 text-sm text-gray-500">{{currentUser.bio}}</p>
-      <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id = "follower-button">1000 followers</p>
+      <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id="follower-button">1000 followers</p>
     </div>
     <div class="avatar p-5">
-      <img src="{{currentUser.profile_picture}}" alt="Avatar" class="w-24 h-24 rounded-full object-cover border border-gray-300">
+      <img src="{{currentUser.profile_picture}}" alt="Avatar"
+        class="w-24 h-24 rounded-full object-cover border border-gray-300">
     </div>
   </div>
 
   <div class="px-4 grid grid-cols-2 gap-4">
     {{#if isCurrentUser}}
-      <!-- If it's the current user, show the Edit button -->
-      <button class="about-button col-span-2 px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
-      user-id = "{{currentUser.id}}">
-        Edit
-      </button>
+    <!-- If it's the current user, show the Edit button -->
+    <button
+      class="about-button col-span-2 px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      user-id="{{currentUser.id}}">
+      Edit
+    </button>
     {{else}}
-      <!-- If not the current user, show Follow and About buttons -->
-      <button class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white">Follow</button>
-      <button class="about-button px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
-      user-id = "{{currentUser.id}}">
+    <!-- If not the current user, show Follow and About buttons -->
+      {{#if isFollowed}}
+        <button
+          class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white follow-button"
+          data-user-id="{{currentUser.id}}">
+          Unfollow
+        </button>
+      {{else}}
+        <button
+          class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white follow-button"
+          data-user-id="{{currentUser.id}}">
+          Follow
+        </button>
+      {{/if}}
+    <button
+      class="about-button px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      user-id="{{currentUser.id}}">
       About
-      </button>
+    </button>
     {{/if}}
   </div>
 
   <div class="pt-5">
-    <p class="px-6 pb-3 flex justify-center items-center border-b border-black text-black hover:border-black hover:text-black">Posts</p>
-    {{!-- <p class="px-6 py-3 flex justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">Repost</p> --}}
+    <p
+      class="px-6 pb-3 flex justify-center items-center border-b border-black text-black hover:border-black hover:text-black">
+      Posts</p>
+    {{!-- <p
+      class="px-6 py-3 flex justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">
+      Repost</p> --}}
   </div>
-  {{#each threads}}
   <div class="post">
     {{#each threads}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
-        <div class="flex gap-[1rem] text-black">
-          <a href="/Profile/{{User.id}}" class = "m-0 p-0" >
-            <img src="{{User.profile_picture}}"
-              class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-          </a>
-          
-          <div class="flex justify-between min-w-[85%]">
-            <div class="flex gap-[1rem]">
-              <div class="flex flex-col gap-[.5rem]">
-                <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-                  <h3>{{User.username}}</h3>
-                  <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
-                </div>
-                <a href="/Homepage/{{id}}">
-                  <div class="content pb-1">
-                    {{{content}}}
-                  </div>
-                
-                  {{#each Media}}
-                  <div class="photo">
-                    <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
-                  </div>
-                  {{/each}}
-                </a>
+      <div class="flex gap-[1rem] text-black">
+        <a href="/Profile/{{User.id}}" class="m-0 p-0">
+          <img src="{{User.profile_picture}}"
+            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+        </a>
+
+        <div class="flex justify-between min-w-[85%]">
+          <div class="flex gap-[1rem]">
+            <div class="flex flex-col gap-[.5rem]">
+              <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                <h3>{{User.username}}</h3>
+                <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
               </div>
+              <a href="/Homepage/{{id}}">
+                <div class="content pb-1">
+                  {{{content}}}
+                </div>
+
+                {{#each Media}}
+                <div class="photo">
+                  <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                </div>
+                {{/each}}
+              </a>
             </div>
           </div>
-          <span class="edit">
-            <i class="fa-solid fa-ellipsis"></i>
-          </span>
         </div>
+        <span class="edit">
+          <i class="fa-solid fa-ellipsis"></i>
+        </span>
+      </div>
 
       <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
         <span class="actionbutton like-button relative">
           <i class="fa-regular fa-heart"></i>
         </span>
-        <span class="actionbutton comment-button relative" data-post-id ="{{this.id}}">
+        <span class="actionbutton comment-button relative" data-post-id="{{this.id}}">
           <i class="fa-regular fa-comment"></i>
         </span>
         <span class="actionbutton retweet-button relative">
@@ -88,3 +106,49 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
   </div>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const followButtons = document.querySelectorAll('.follow-button');
+
+  followButtons.forEach(button => {
+    button.addEventListener('click', async function (event) {
+      event.stopPropagation(); // Prevent event bubbling
+      console.log("Start !!!");
+      const userId = event.target.getAttribute('data-user-id');
+      const buttonText = event.target.textContent.trim();
+      console.log(userId);
+      console.log(buttonText);
+
+      try {
+        event.target.disabled = true; // Disable button while processing
+        event.target.textContent = "Processing..."; // Show loading state
+
+        let response;
+
+        if (buttonText === "Follow") {
+          response = await fetch(`/Profile/${userId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          });
+        } else if (buttonText === "Unfollow") {
+          response = await fetch(`/Profile/${userId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+        console.log(response);
+        if (response.ok) {
+          event.target.textContent = (buttonText === "Follow") ? "Unfollow" : "Follow";
+        } else {
+          alert('Error following/unfollowing user');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('An unexpected error occurred. Please try again.');
+      } finally {
+        event.target.disabled = false; // Re-enable the button after processing
+      }
+    });
+  });
+});
+</script>
