@@ -60,6 +60,14 @@ module.exports = {
         bio: "Hi there! I'm Dung. I'm a software engineer and a lifelong learner.",
         profile_picture: "/img/profile/default_avatar.jpeg",
       },
+      {
+        username: "cafej29028",
+        email: "cafej29028@datingel.com",
+        phonenumber: "0594131315",
+        password: "$2b$10$j/uhP9vDq94WTQyAypE1Ee3Bu9OHsdTGSizz7pFU63PBKEo8OUqEm",
+        bio: "Not added yet.",
+        profile_picture: "/img/profile/defaultAvatar.jpeg",
+      },
     ];
     items.forEach((item) => {
       item.createdAt = Sequelize.literal("NOW()");
