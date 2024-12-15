@@ -44,9 +44,16 @@
         </div>
 
       <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
-        <span class="actionbutton like-button relative">
-          <i class="fa-regular fa-heart"></i>
+        {{#if this.isLiked}}
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
+          <i class="fa-solid fa-heart "></i>
         </span>
+        {{else}}
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
+          <i class="fa-regular fa-heart "></i>
+        </span> 
+        {{/if}}
+
         <span class="actionbutton comment-button relative" data-post-id ="{{this.id}}">
           <i class="fa-regular fa-comment"></i>
         </span>

@@ -2,7 +2,7 @@ const controller = {};
 const models = require("../models");
 
 const bcrypt = require('bcrypt'); // Ensure password security
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
@@ -91,8 +91,15 @@ controller.showHomepage = async (req, res) => {
         include: [
             {model: models.User},
             {model: models.Media},
+            {model: models.Like,
+              required: false,
+              where: { user_id: userId },
+            },
         ],
       });
+    res.locals.threads.forEach(thread => {
+        thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
+    });
     res.render("homepage", {headerName: "Home", page: 1});
 };
 
@@ -143,9 +150,16 @@ controller.showProfile = async (req, res) => {
           required: false, // This performs an LEFT JOIN
         },
         {model: models.Media},
+        {model: models.Like,
+          required: false,
+          where: { user_id: userId },
+        },
       ]
     });
     const isCurrentUser = true;
+    res.locals.threads.forEach(thread => {
+      thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
+    });
     res.locals.isCurrentUser = isCurrentUser;
     res.render("profile", {headerName: "Profile", page: 4});
 }
@@ -178,6 +192,10 @@ controller.showIDProfile = async (req, res) => {
         required: false, // This performs an LEFT JOIN
       },
       {model: models.Media},
+      {model: models.Like,
+        required: false,
+        where: { user_id: loginId },
+      },
     ]
   });
 
@@ -189,7 +207,10 @@ controller.showIDProfile = async (req, res) => {
       }
   });
   res.locals.isFollowed = isFollowed ? true : false;  // If a follow record exists, mark as followed
-  console.log(isFollowed);
+
+  res.locals.threads.forEach(thread => {
+    thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
+  });
 
   const isCurrentUser = false;
   res.locals.isCurrentUser = isCurrentUser;
@@ -253,7 +274,6 @@ controller.deleteFollower = async (req, res) => {
   }
 };
 
-
 controller.showAbout = async (req, res) => {
 
   const currentUserId = parseInt(req.session.userId);
@@ -272,6 +292,7 @@ controller.showAbout = async (req, res) => {
 
 controller.showPostDetails = async (req, res) => {
     const postid = req.params.postid;
+    const currentUserId = req.session.userId;
 
     const thread = await models.Thread.findOne({
       attributes: ['id', 'user_id', 'content', 'createdAt'],
@@ -283,13 +304,19 @@ controller.showPostDetails = async (req, res) => {
             attributes: ['username', 'profile_picture']
           }]
         },
+        {model: models.Like,
+          attributes: ['user_id'],
+        },
       ],
       where: {
         id: postid
       }
     });
 
-    console.log(thread);
+    const isLiked = thread.Likes.some(like => like.user_id === currentUserId);
+    console.log("Is Liked:", isLiked);
+    thread.isLiked = isLiked;
+
     res.locals.thread = thread;
     res.render("post_details", {headerName: "Post", page: 5});
 }
@@ -478,13 +505,13 @@ controller.login = async (req, res) => {
       });
     }
 
-    if (!user.isVerified) {
-      return res.render("login", {
-        layout: "account",
-        title: "Login",
-        errorMessage: "This account has not been verified. Please check your email.",
-      });
-    }
+    // if (!user.isVerified) {
+    //   return res.render("login", {
+    //     layout: "account",
+    //     title: "Login",
+    //     errorMessage: "This account has not been verified. Please check your email.",
+    //   });
+    // }
 
     // Password is correct, redirect to Homepage
     req.session.userId = user.id;
@@ -498,7 +525,6 @@ controller.login = async (req, res) => {
     });
   }
 };
-
 
 
 

@@ -33,15 +33,33 @@
                         </div>
 
                         <div class="mb-[1rem] pt-[1rem] px-[3.7rem] flex gap-[1.5rem] justify-between">
-                            <span class="actionbutton like-button relative">
-                            <i class="fa-regular fa-heart"></i>
-                            </span>
-                            <span class="actionbutton comment-button relative" data-post-id ="{{thread.id}}">
-                            <i class="fa-regular fa-comment"></i>
-                            </span>
-                            <span class="actionbutton share-button relative">
-                            <i class="fa-solid fa-share"></i>
-                            </span>
+                            <div>
+                                {{#if thread.isLiked}}
+                                <span class="actionbutton like-button relative" data-post-id = "{{thread.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
+                                    <i class="fa-solid fa-heart "></i>
+                                    <span class="text-gray-400 like-count">{{ thread.Likes.length }}</span>
+                                </span>
+                                {{else}}
+                                <span class="actionbutton like-button relative" data-post-id = "{{thread.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
+                                    <i class="fa-regular fa-heart "></i>
+                                    <span class="text-gray-400 like-count">{{ thread.Likes.length }}</span>
+                                </span>
+                                {{/if}}
+                            </div>
+                            <div>
+                                <span class="actionbutton comment-button relative" data-post-id="{{ thread.id }}">
+                                    <i class="fa-regular fa-comment"></i>
+                                    <span class="text-gray-400">{{ thread.Comments.length }}</span>
+                                </span>
+ 
+                            </div>
+                            <div>
+                                <span class="actionbutton retweet-button relative">
+                                    <i class="las la-retweet"></i> 
+                                    <span class="text-gray-400">0</span>
+                                </span>
+  
+                            </div>
                         </div>
                 </div>
                 <div class="comments-section pb-[1rem] px-[2rem]">

@@ -88,9 +88,15 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
       </div>
 
       <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
-        <span class="actionbutton like-button relative">
-          <i class="fa-regular fa-heart"></i>
+        {{#if this.isLiked}}
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
+          <i class="fa-solid fa-heart "></i>
         </span>
+        {{else}}
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
+          <i class="fa-regular fa-heart "></i>
+        </span>
+        {{/if}}
         <span class="actionbutton comment-button relative" data-post-id="{{this.id}}">
           <i class="fa-regular fa-comment"></i>
         </span>
@@ -114,8 +120,10 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     button.addEventListener('click', async function (event) {
       event.stopPropagation(); // Prevent event bubbling
       console.log("Start !!!");
+
       const userId = event.target.getAttribute('data-user-id');
       const buttonText = event.target.textContent.trim();
+
       console.log(userId);
       console.log(buttonText);
 
@@ -136,6 +144,7 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
             headers: { 'Content-Type': 'application/json' },
           });
         }
+        
         console.log(response);
         if (response.ok) {
           event.target.textContent = (buttonText === "Follow") ? "Unfollow" : "Follow";

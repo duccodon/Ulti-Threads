@@ -84,6 +84,7 @@ app.use("/Search", ensureAuthenticated, require("./routes/searchRouter"));
 app.use("/Activity", ensureAuthenticated, require("./routes/activityRouter"));
 app.use("/Profile", ensureAuthenticated, require("./routes/profileRouter"));
 app.use("/Comment", ensureAuthenticated, require("./routes/commentRouter"));
+app.use("/Button", ensureAuthenticated, require("./routes/buttonRouter"));
 
 app.use("/Login", require("./routes/loginRouter"));
 app.use("/CreateAccount", require("./routes/createRouter"));
