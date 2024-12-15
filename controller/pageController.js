@@ -101,18 +101,37 @@ controller.showSearch = async (req, res) => {
   res.render("search", {headerName: "Search", page: 2});
 }
 
-controller.showActivity = (req, res) => {
-    res.render("activity", {headerName: "Activity", page: 3});
+controller.showActivity = async(req, res) => {
+  const userId = req.session.userId;
+  res.locals.notifications = await models.Notification.findAll({
+    include: [
+      {
+        model: models.User,
+        as: 'transfererFk', // Specify alias for transferer_id
+      },
+    ],
+    where: { receiver_id: userId },
+  });
+  res.render("activity", {headerName: "Activity", page: 3});
 }
 
 controller.showProfile = async (req, res) => {
 
     const userId = req.session.userId;
+
     res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
       if (err) {
         return res.status(500).send('Error retrieving user information');
       }
     });
+
+    res.locals.follower = await models.Follower.findAll({
+      where: { following_id: userId },
+      include: [
+        {model: models.User, as: 'followerFk'},
+      ]
+    });
+
     res.locals.threads = await models.Thread.findAll({
       attributes: ['id', 'user_id', 'content', 'createdAt'],
       where: {
@@ -132,14 +151,22 @@ controller.showProfile = async (req, res) => {
 }
 
 controller.showIDProfile = async (req, res) => {
-  //console.log("Start!");
   const loginId = req.session.userId;
   const userId = req.params.id;
+
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
     if (err) {
       return res.status(500).send('Error retrieving user information');
     }
   });
+
+  res.locals.follower = await models.Follower.findAll({
+    where: { following_id: userId },
+    include: [
+      {model: models.User, as: 'followerFk'},
+    ]
+  });
+
   res.locals.threads = await models.Thread.findAll({
     attributes: ['id', 'user_id', 'content', 'createdAt'],
     where: {

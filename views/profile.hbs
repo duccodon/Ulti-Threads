@@ -5,7 +5,7 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
       <h1 class="text-2xl font-bold">{{currentUser.username}}</h1>
       <p class="text-sm text-gray-500">{{currentUser.id}}</p>
       <p class="my-6 text-sm text-gray-500">{{currentUser.bio}}</p>
-      <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id="follower-button">1000 followers</p>
+      <p class="text-sm text-gray-400 lg:hover:underline cursor-pointer" id="follower-button">{{follower.length}} followers</p>
     </div>
     <div class="avatar p-5">
       <img src="{{currentUser.profile_picture}}" alt="Avatar"
