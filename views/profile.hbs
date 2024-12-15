@@ -44,15 +44,15 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     {{/if}}
   </div>
 
-  <div class="pt-5">
-    <p
-      class="px-6 pb-3 flex justify-center items-center border-b border-black text-black hover:border-black hover:text-black">
+  
+  <div class="w-full pt-5 flex justify-center">
+    <p id="postTab" class="px-6 pb-3 flex flex-1 justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">
       Posts</p>
-    {{!-- <p
-      class="px-6 py-3 flex justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">
-      Repost</p> --}}
+    <p id="repostTab" class="px-6 py-3 flex flex-1 justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">
+      Repost</p>
   </div>
-  <div class="post">
+
+  <div id="post" class="tab-content hidden">
     {{#each threads}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
       <div class="flex gap-[1rem] text-black">
@@ -110,7 +110,68 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     </div>
     {{/each}}
   </div>
+
+  <div id="repost" class="tab-content hidden">
+    {{#each threads}}
+    <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
+      <div class="flex gap-[1rem] text-black">
+        <a href="/Profile/{{User.id}}" class="m-0 p-0">
+          <img src="{{User.profile_picture}}"
+            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+        </a>
+
+        <div class="flex justify-between min-w-[85%]">
+          <div class="flex gap-[1rem]">
+            <div class="flex flex-col gap-[.5rem]">
+              <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                <h3>USER REPOST</h3>
+                <h3 class="text-[#ccc]">REPOST TIME</h3>
+              </div>
+              <a href="/Homepage/{{id}}">
+                <div class="content pb-1">
+                  REPOST CONTENT
+                </div>
+
+                {{!-- {{#each Media}}
+                <div class="photo">
+                  <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                </div>
+                {{/each}} --}}
+              </a>
+            </div>
+          </div>
+        </div>
+        <span class="edit">
+          <i class="fa-solid fa-ellipsis"></i>
+        </span>
+      </div>
+
+      <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
+        {{#if this.isLiked}}
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
+          <i class="fa-solid fa-heart "></i>
+        </span>
+        {{else}}
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
+          <i class="fa-regular fa-heart "></i>
+        </span>
+        {{/if}}
+        <span class="actionbutton comment-button relative" data-post-id="{{this.id}}">
+          <i class="fa-regular fa-comment"></i>
+        </span>
+        {{!-- <span class="actionbutton retweet-button relative">
+          <i class="las la-retweet"></i>
+        </span>
+        <span class="actionbutton share-button relative">
+          <i class="fa-solid fa-share"></i>
+        </span> --}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
 </div>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -160,4 +221,35 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     });
   });
 });
+  function showTab(tab) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tabContent => {
+          tabContent.classList.add('hidden');
+      });
+      
+      // Show the selected tab content
+      document.getElementById(tab).classList.remove('hidden');
+      
+      // Remove the active class from all tabs
+      document.querySelectorAll('p').forEach(tabItem => {
+          tabItem.classList.remove('border-black', 'text-black');
+          tabItem.classList.add('border-gray-400', 'text-gray-400');
+      });
+      
+      // Add active styles to the clicked tab
+      document.getElementById(tab + 'Tab').classList.remove('border-gray-400', 'text-gray-400');
+      document.getElementById(tab + 'Tab').classList.add('border-black', 'text-black');
+  }
+
+      // Add event listeners for the tabs
+    document.getElementById('postTab').addEventListener('click', function() {
+        showTab('post');
+    });
+
+    document.getElementById('repostTab').addEventListener('click', function() {
+        showTab('repost');
+    });
+
+  // Show the "Post" tab by default
+  showTab('post');
 </script>
