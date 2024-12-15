@@ -209,6 +209,13 @@ controller.addFollower = async (req, res) => {
       follower_id: currentUserId,
       following_id: targetUserId,
     });
+
+    await models.Notification.create({
+      content: "Follow you",
+      transferer_id: currentUserId,
+      receiver_id: targetUserId,
+    });
+
     res.status(200).send('Followed successfully');
   } catch (err) {
     res.status(500).send('Error following the user');
@@ -233,6 +240,12 @@ controller.deleteFollower = async (req, res) => {
     }
 
     await existingFollow.destroy(); // Unfollow the user
+    await models.Notification.destroy({
+      where: {
+        transferer_id: currentUserId,
+        receiver_id: targetUserId,
+      },
+    });
 
     res.status(200).send('Unfollowed successfully');
   } catch (err) {
