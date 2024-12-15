@@ -28,14 +28,14 @@
             <div class="w-[5rem]"></div>
         </div>
         <div class="p-[.5rem] h-full md:h-auto md:w-auto w-full flex gap-[1rem] text-black overflow-y-auto">
-            <img src="{{currentUser.profile_picture}}"
+            <img src="{{loggingInUser.profile_picture}}"
                 class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
             <div class="flex justify-between md:min-w-[30rem] w-[90%] pb-[1rem]">
                 <div class="flex flex-row gap-[.5rem] w-full">
                     <div class="info flex flex-col w-full gap-[5px] text-[.8rem]">
-                        <h3>{{currentUser.username}}</h3>
-                        <form method="POST" enctype="multipart/form-data" class="overflow-y-auto w-full h-[90%] md:h-[30rem] flex flex-col">
-                            <input type="text" name="userId" class="hidden" value="{{currentUser.id}}">
+                        <h3>{{loggingInUser.username}}</h3>
+                        <form action="/Button/Create" method="POST" enctype="multipart/form-data" class="overflow-y-auto w-full h-[90%] md:h-[30rem] flex flex-col">
+                            <input type="text" name="userId" class="hidden" value="{{loggingInUser.id}}">
                             <textarea id="post-content" name="content"
                                 class="min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
                                 placeholder="What's on your mind?"

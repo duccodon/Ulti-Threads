@@ -87,6 +87,7 @@ controller.showHomepage = async (req, res) => {
         return res.status(500).send('Error retrieving user information');
       }
     });
+    res.locals.loggingInUser = res.locals.currentUser;
     res.locals.threads = await models.Thread.findAll({
         include: [
             {model: models.User},
@@ -104,12 +105,24 @@ controller.showHomepage = async (req, res) => {
 };
 
 controller.showSearch = async (req, res) => {
+  const userId = req.session.userId;
+  res.locals.loggingInUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
   res.locals.users = await models.User.findAll();
   res.render("search", {headerName: "Search", page: 2});
 }
 
 controller.showActivity = async(req, res) => {
   const userId = req.session.userId;
+  res.locals.loggingInUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+
   res.locals.notifications = await models.Notification.findAll({
     include: [
       {
@@ -131,6 +144,7 @@ controller.showProfile = async (req, res) => {
         return res.status(500).send('Error retrieving user information');
       }
     });
+    res.locals.loggingInUser = res.locals.currentUser;
 
     res.locals.follower = await models.Follower.findAll({
       where: { following_id: userId },
@@ -169,6 +183,11 @@ controller.showIDProfile = async (req, res) => {
   const userId = req.params.id;
 
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+  res.locals.loggingInUser = await models.User.findByPk(loginId, (err, user) => {
     if (err) {
       return res.status(500).send('Error retrieving user information');
     }
@@ -293,6 +312,11 @@ controller.showAbout = async (req, res) => {
 controller.showPostDetails = async (req, res) => {
     const postid = req.params.postid;
     const currentUserId = req.session.userId;
+    res.locals.loggingInUser = await models.User.findByPk(currentUserId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
 
     const thread = await models.Thread.findOne({
       attributes: ['id', 'user_id', 'content', 'createdAt'],
@@ -505,13 +529,13 @@ controller.login = async (req, res) => {
       });
     }
 
-    // if (!user.isVerified) {
-    //   return res.render("login", {
-    //     layout: "account",
-    //     title: "Login",
-    //     errorMessage: "This account has not been verified. Please check your email.",
-    //   });
-    // }
+    if (!user.isVerified) {
+      return res.render("login", {
+        layout: "account",
+        title: "Login",
+        errorMessage: "This account has not been verified. Please check your email.",
+      });
+    }
 
     // Password is correct, redirect to Homepage
     req.session.userId = user.id;
