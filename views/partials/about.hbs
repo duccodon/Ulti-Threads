@@ -7,7 +7,6 @@
             <div class="w-[5rem]"></div>
         </div>
         <div id="about-content">
-        <!-- Post data will be injected here -->
             <div class="edit about overflow-y-auto max-h-[calc(80vh-4rem)] block px-6 py-4 my-0 border-y border-gray-300 bg-white rounded-lg">
             {{#if isCurrentUser}}
             <form action="/updateProfile" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -37,7 +36,6 @@
             {{/if}}    
             </div>
         </div>  
-    {{!-- this will fetch the content of /post/:id --}}
     </div>
     
 <script>

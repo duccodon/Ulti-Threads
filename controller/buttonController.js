@@ -76,7 +76,6 @@ controller.likePost = async (req, res) => {
     return res.redirect('/Homepage');
 }
 
-
 controller.showCommentOverlay = async (req, res) => {
   const postid = req.params.postid;
   const userId = req.session.userId;
@@ -109,7 +108,6 @@ controller.showCommentOverlay = async (req, res) => {
   res.render("comment-overlay", {layout:false});
 }
 
-
 controller.showRepostOverlay = async (req, res) => {
     const postid = req.params.postid;
     const userId = req.session.userId;
@@ -139,11 +137,30 @@ controller.showRepostOverlay = async (req, res) => {
   
     console.log(thread);
     res.locals.thread = thread;
-    res.render("comment-overlay", {layout:false});
+    res.render("repost-overlay", {layout:false});
   }
 
-
   controller.addComment = async (req, res) => {
+    try {
+      const threadId = req.params.postid; // Get thread ID from URL
+      const { user_id, content, page } = req.body; // Get data from form inputs
+      // Input validation
+      if (!user_id || !threadId || !content) {
+          return res.status(400).send('All fields are required.');
+      }
+      // Save the comment to your database
+        // Save the comment
+        const comment = await models.Comment.create({
+          user_id: user_id,
+          thread_id: threadId,
+          content: content
+      });
+      res.redirect(`/Homepage/${threadId}`);
+  } catch (error) {
+      console.error('Error saving comment:', error);
+      res.status(500).send('An error occurred while saving the comment.');
+  }
+
 
   }
 
@@ -151,4 +168,5 @@ controller.showRepostOverlay = async (req, res) => {
   controller.addRepost = async (req, res) => {
 
   }
+  
   module.exports = controller;

@@ -1,12 +1,12 @@
-    <div id="comment-popup"
+    <div id="button-popup"
         class="scrollbar fixed hidden ml-[calc(50vw)] md:mt-[50vh] w-full max-h-[80%] h-auto overflow-y-auto md:w-[36rem] transform translate-x-[-50%] md:translate-y-[-50%] bg-white md:rounded-[.8rem] p-2 z-20">
         <div class="flex justify-between p-[.5rem] ">
             <div id="close-comment" class="px-[2rem] py-[1.2rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:opacity-80 bg-white text-black flex justify-center items-center h-[2rem] border
                             border-black border-solid w-[5rem]">Cancel</div>
-            <div class = "pt-[0.35rem]">Reply</div>
+            <div id="popup-title" class = "pt-[0.35rem]">Reply</div>
             <div class="w-[5rem]"></div>
         </div>
-        <div id="comment-content">
+        <div id="button-content">
         <!-- Post data will be injected here -->
         </div>  
     {{!-- this will fetch the content of /post/:id --}}
@@ -14,26 +14,27 @@
     
 <script>
     let commentButtons = document.querySelectorAll('.comment-button');
+    let repostButtons = document.querySelectorAll('.retweet-button');
+    const popupTitle = document.getElementById('popup-title');
+    const popup = document.getElementById('button-popup');
+    const overlay = document.getElementById('overlay');
+    const buttonContent = document.getElementById("button-content");
+
 
     commentButtons.forEach(button => {
     button.addEventListener('click', async function(event) {
-
     const postId = button.getAttribute("data-post-id");
-    console.log("Post ID: ", postId);
     event.preventDefault(); // Prevent the default link behavior
-    var popup = document.getElementById('comment-popup');
-    var overlay = document.getElementById('overlay');
-    const commentContent = document.getElementById("comment-content");
+    popupTitle.textContent = 'Reply'
     popup.classList.toggle('hidden');
     overlay.classList.toggle('hidden');
 
     try {
         const response = await fetch(`/Button/Comment/${postId}`);
-        console.log(response);
         if (response.ok) {
           const html = await response.text(); // Get HTML as a string
-          // Populate the popup with the rendered HTML
-          commentContent.innerHTML = html;
+
+          buttonContent.innerHTML = html;
         } else {
           console.error("Failed to fetch post data");
         }
@@ -42,15 +43,39 @@
       }
     });
   });
+
+    repostButtons.forEach(button => {
+    button.addEventListener('click', async function(event) {
+    const postId = button.getAttribute("data-post-id");
+    event.preventDefault(); // Prevent the default link behavior
+    popupTitle.textContent = 'Repost'
+    popup.classList.toggle('hidden');
+    overlay.classList.toggle('hidden');
+
+    try {
+        const response = await fetch(`/Button/Repost/${postId}`);
+        if (response.ok) {
+          const html = await response.text(); // Get HTML as a string
+          
+          buttonContent.innerHTML = html;
+        } else {
+          console.error("Failed to fetch post data");
+        }
+      } catch (err) {
+        console.error("Error fetching post:", err);
+      }
+    });
+  });
+
   document.getElementById('overlay').addEventListener('click', function() {
-    var popup = document.getElementById('comment-popup');
+    var popup = document.getElementById('button-popup');
     var overlay = document.getElementById('overlay');
     popup.classList.add('hidden');
     overlay.classList.add('hidden');
   });
 
   document.getElementById('close-comment').addEventListener('click', function() {
-    var close = document.getElementById('comment-popup');
+    var close = document.getElementById('button-popup');
     close.classList.add('hidden');
     overlay.classList.add('hidden');
   });

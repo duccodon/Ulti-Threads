@@ -83,11 +83,11 @@
         </div>
     </main>
         {{#if (eq page 1)}}
-            {{> overlay }}
+            {{> overlay page = 1}}
         {{/if}}
         {{#if (eq page 4)}} 
             {{> follower}}
-            {{> overlay}}
+            {{> overlay }}
             {{> about}}
         {{/if}}
         {{#if (eq page 5)}}
@@ -103,7 +103,7 @@
             textarea.selectionStart = textarea.selectionEnd = cursorPos + 1;
             textarea.focus();
         }
-
+ƒ
         // Function to show image preview after selection
         function previewImage(event) {
             const file = event.target.files[0];

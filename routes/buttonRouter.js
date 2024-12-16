@@ -25,8 +25,8 @@ router.post('/Like/:id', likePost);
 router.delete('/Like/:id', unlikePost);
 router.post('/Create', upload.single('image'), addPost);
 
-router.post('/Comment/:id', addComment);
-router.post('/Repost/:id', addRepost);
+router.post('/Comment/:postid', addComment);
+router.post('/Repost/:postid', addRepost);
 
 
 module.exports = router;
