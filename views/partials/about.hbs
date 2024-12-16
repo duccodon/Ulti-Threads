@@ -8,6 +8,34 @@
         </div>
         <div id="about-content">
         <!-- Post data will be injected here -->
+            <div class="edit about overflow-y-auto max-h-[calc(80vh-4rem)] block px-6 py-4 my-0 border-y border-gray-300 bg-white rounded-lg">
+            {{#if isCurrentUser}}
+            <form action="/updateProfile" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div class="flex flex-col">
+                <label for="name" class="text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="name" name="name" class="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" value="{{currentUser.username}}" required>
+                </div>
+                <div class="flex flex-col">
+                <label for="bio" class="text-sm font-medium text-gray-700">Bio</label>
+                <textarea id="bio" name="bio" rows="4" class="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" required>{{currentUser.bio}}</textarea>
+                </div>
+                <button type="submit" class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
+                    Confirm
+                </button>
+            </form>
+            {{else}}
+            <div class="space-y-6">
+                <div class="flex flex-col">
+                <label class="text-sm font-medium text-gray-700">Username</label>
+                <p class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-100">{{currentUser.username}}</p>
+                </div>
+                <div class="flex flex-col">
+                <label class="text-sm font-medium text-gray-700">Bio</label>
+                <p class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-100">{{currentUser.bio}}</p>
+                </div>
+            </div>
+            {{/if}}    
+            </div>
         </div>  
     {{!-- this will fetch the content of /post/:id --}}
     </div>
@@ -18,28 +46,12 @@
     aboutButtons.forEach(button => {
         button.addEventListener('click', async function(event) {
         const userId = button.getAttribute("user-id");
-        console.log("clicked");
-        console.log(userId);
-
         event.preventDefault(); // Prevent the default link behavior
         var popup = document.getElementById('about-popup');
         var overlay = document.getElementById('overlay');
         const commentContent = document.getElementById("about-content");
         popup.classList.toggle('hidden');
         overlay.classList.toggle('hidden');
-
-        try {
-            const response = await fetch(`/Profile/About/${userId}`);
-            if (response.ok) {
-            const html = await response.text(); // Get HTML as a string
-            // Populate the popup with the rendered HTML
-            commentContent.innerHTML = html;
-            } else {
-            console.error("Failed to fetch post data");
-            }
-        } catch (err) {
-            console.error("Error fetching post:", err);
-        }
     });
     });
     document.getElementById('overlay').addEventListener('click', function() {

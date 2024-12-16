@@ -293,22 +293,6 @@ controller.deleteFollower = async (req, res) => {
   }
 };
 
-controller.showAbout = async (req, res) => {
-
-  const currentUserId = parseInt(req.session.userId);
-  const userId = parseInt(req.params.id);
-  const isCurrentUser = currentUserId === userId;
-
-  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
-    if (err) {
-      return res.status(500).send('Error retrieving user information');
-    }
-  });
-  
-  res.locals.isCurrentUser = isCurrentUser;
-  res.render("about-overlay", {layout:false});
-}
-
 controller.showPostDetails = async (req, res) => {
     const postid = req.params.postid;
     const currentUserId = req.session.userId;
@@ -343,38 +327,6 @@ controller.showPostDetails = async (req, res) => {
 
     res.locals.thread = thread;
     res.render("post_details", {headerName: "Post", page: 5});
-}
-
-controller.showCommentOverlay = async (req, res) => {
-  const postid = req.params.postid;
-  const userId = req.session.userId;
-
-  console.log("User ID:", userId);
-  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
-    if (err) {
-      return res.status(500).send('Error retrieving user information');
-    }
-  });
-
-  const thread = await models.Thread.findOne({
-    attributes: ['id', 'user_id', 'content', 'createdAt'],
-    include: [
-      {model: models.User},
-      {model: models.Comment,
-        include: [{model: models.User,
-          attributes: ['username', 'profile_picture']
-        }]
-      },
-      {model: models.Media},
-    ],
-    where: {
-      id: postid
-    }
-  });
-
-  console.log(thread);
-  res.locals.thread = thread;
-  res.render("comment-overlay", {layout:false});
 }
 
 controller.showLogin = (req, res) => {
@@ -472,7 +424,6 @@ controller.addUser = async (req, res) => {
   }
 };
 
-
 /*controller.login = async (req, res) => {
   const { username, password } = req.body; // Get login credentials from the request body
 
@@ -549,7 +500,5 @@ controller.login = async (req, res) => {
     });
   }
 };
-
-
 
 module.exports = controller;

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { likePost, unlikePost, addPost } = require('../controller/buttonController');
+const { showCommentOverlay, showRepostOverlay, likePost, unlikePost, addPost, addComment, addRepost } = require('../controller/buttonController');
 const multer = require("multer");
 const path = require("path");
 
@@ -17,9 +17,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
+router.get('/Comment/:postid', showCommentOverlay);
+router.get('/Repost/:postid', showRepostOverlay);
+
 
 router.post('/Like/:id', likePost);
 router.delete('/Like/:id', unlikePost);
 router.post('/Create', upload.single('image'), addPost);
+
+router.post('/Comment/:id', addComment);
+router.post('/Repost/:id', addRepost);
+
 
 module.exports = router;

@@ -76,4 +76,79 @@ controller.likePost = async (req, res) => {
     return res.redirect('/Homepage');
 }
 
-module.exports = controller;
+
+controller.showCommentOverlay = async (req, res) => {
+  const postid = req.params.postid;
+  const userId = req.session.userId;
+
+  console.log("User ID:", userId);
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send('Error retrieving user information');
+    }
+  });
+
+  const thread = await models.Thread.findOne({
+    attributes: ['id', 'user_id', 'content', 'createdAt'],
+    include: [
+      {model: models.User},
+      {model: models.Comment,
+        include: [{model: models.User,
+          attributes: ['username', 'profile_picture']
+        }]
+      },
+      {model: models.Media},
+    ],
+    where: {
+      id: postid
+    }
+  });
+
+  console.log(thread);
+  res.locals.thread = thread;
+  res.render("comment-overlay", {layout:false});
+}
+
+
+controller.showRepostOverlay = async (req, res) => {
+    const postid = req.params.postid;
+    const userId = req.session.userId;
+  
+    console.log("User ID:", userId);
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
+  
+    const thread = await models.Thread.findOne({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      include: [
+        {model: models.User},
+        {model: models.Comment,
+          include: [{model: models.User,
+            attributes: ['username', 'profile_picture']
+          }]
+        },
+        {model: models.Media},
+      ],
+      where: {
+        id: postid
+      }
+    });
+  
+    console.log(thread);
+    res.locals.thread = thread;
+    res.render("comment-overlay", {layout:false});
+  }
+
+
+  controller.addComment = async (req, res) => {
+
+  }
+
+
+  controller.addRepost = async (req, res) => {
+
+  }
+  module.exports = controller;

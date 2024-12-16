@@ -19,6 +19,7 @@
     button.addEventListener('click', async function(event) {
 
     const postId = button.getAttribute("data-post-id");
+    console.log("Post ID: ", postId);
     event.preventDefault(); // Prevent the default link behavior
     var popup = document.getElementById('comment-popup');
     var overlay = document.getElementById('overlay');
@@ -27,7 +28,8 @@
     overlay.classList.toggle('hidden');
 
     try {
-        const response = await fetch(`/Comment/${postId}`);
+        const response = await fetch(`/Button/Comment/${postId}`);
+        console.log(response);
         if (response.ok) {
           const html = await response.text(); // Get HTML as a string
           // Populate the popup with the rendered HTML
@@ -43,7 +45,6 @@
   document.getElementById('overlay').addEventListener('click', function() {
     var popup = document.getElementById('comment-popup');
     var overlay = document.getElementById('overlay');
-    // Hide the popup and overlay
     popup.classList.add('hidden');
     overlay.classList.add('hidden');
   });
@@ -53,6 +54,5 @@
     close.classList.add('hidden');
     overlay.classList.add('hidden');
   });
-
 </script>
 
