@@ -160,13 +160,42 @@ controller.showRepostOverlay = async (req, res) => {
       console.error('Error saving comment:', error);
       res.status(500).send('An error occurred while saving the comment.');
   }
-
-
   }
 
 
   controller.addRepost = async (req, res) => {
-
+      try {
+        const threadId = req.params.postid; // Get thread ID from URL
+        const { user_id, thread_user_id,  page } = req.body; // Get data from form inputs
+        // Input validation
+        if (!user_id || !threadId) {
+            return res.status(400).send('All fields are required.');
+        }
+        const existingRepost = await models.Repost.findOne({
+          where: {
+              user_id: user_id,
+              thread_id: threadId,
+          },
+        });
+        if (existingRepost) {
+          // If repost already exists, send notification
+          //return res.status(400).json({ success: false, message: 'You have already reposted this thread.' });
+          return res.redirect(`/Profile/?tab=repost`);
+        }
+        else if (user_id == thread_user_id) {
+          //return res.status(400).json({ success: false, message: 'You cannot repost your own thread.' });
+          return res.redirect(`/Profile/`);
+        }
+        // Save the repost to your database
+          const repost = await models.Repost.create({
+            user_id: user_id,
+            thread_id: threadId,
+        });
+        res.redirect(`/Profile/?tab=repost`);
+    } catch (error) {
+        console.error('Error saving repost:', error);
+        res.status(500).send('An error occurred while saving the repost.');
+    }
   }
 
 controller.addFollower = async (req, res) => {

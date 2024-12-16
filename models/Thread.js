@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       Thread.hasMany(models.Comment, { foreignKey: "thread_id" });
       Thread.hasMany(models.Like, { foreignKey: "thread_id" });
       Thread.hasMany(models.Media, { foreignKey: "thread_id" });
+      Thread.hasMany(models.Repost, { foreignKey: "thread_id" });
     }
   }
 

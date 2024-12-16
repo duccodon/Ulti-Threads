@@ -46,9 +46,9 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
 
   
   <div class="w-full pt-5 flex justify-center">
-    <p id="postTab" class="px-6 pb-3 flex flex-1 justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">
+    <p id="postTab" class="px-6 pb-3 flex flex-1 justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black cursor-pointer">
       Posts</p>
-    <p id="repostTab" class="px-6 py-3 flex flex-1 justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black">
+    <p id="repostTab" class="px-6 py-3 flex flex-1 justify-center items-center border-b border-gray-400 text-gray-400 hover:border-black hover:text-black cursor-pointer">
       Repost</p>
   </div>
 
@@ -89,18 +89,18 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
 
       <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
         {{#if this.isLiked}}
-        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" button-id = "unlike">
           <i class="fa-solid fa-heart "></i>
         </span>
         {{else}}
-        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
+        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" button-id = "like">
           <i class="fa-regular fa-heart "></i>
         </span>
         {{/if}}
         <span class="actionbutton comment-button relative" data-post-id="{{this.id}}">
           <i class="fa-regular fa-comment"></i>
         </span>
-        <span class="actionbutton retweet-button relative">
+        <span class="actionbutton retweet-button relative" data-post-id="{{this.id}}">
           <i class="las la-retweet"></i>
         </span>
         <span class="actionbutton share-button relative">
@@ -112,11 +112,11 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
   </div>
 
   <div id="repost" class="tab-content hidden">
-    {{#each threads}}
+    {{#each reposts}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
-      <div class="flex gap-[1rem] text-black">
-        <a href="/Profile/{{User.id}}" class="m-0 p-0">
-          <img src="{{User.profile_picture}}"
+      <div class="flex gap-[1rem] text-black pb-[.8rem]">
+        <a href="/Profile/{{Thread.User.id}}" class="m-0 p-0">
+          <img src="{{Thread.User.profile_picture}}"
             class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
         </a>
 
@@ -124,19 +124,19 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
           <div class="flex gap-[1rem]">
             <div class="flex flex-col gap-[.5rem]">
               <div class="ingo inline-flex gap-[10px] text-[.8rem]">
-                <h3>USER REPOST</h3>
-                <h3 class="text-[#ccc]">REPOST TIME</h3>
+                <h3>{{Thread.User.username}}</h3>
+                <h3 class="text-[#ccc]">{{timeAgo Thread.createdAt}}</h3>
               </div>
-              <a href="/Homepage/{{id}}">
+              <a href="/Homepage/{{Thread.id}}">
                 <div class="content pb-1">
-                  REPOST CONTENT
+                  {{Thread.content}}
                 </div>
 
-                {{!-- {{#each Media}}
+                {{#each Thread.Media}}
                 <div class="photo">
                   <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
                 </div>
-                {{/each}} --}}
+                {{/each}}
               </a>
             </div>
           </div>
@@ -144,27 +144,6 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
         <span class="edit">
           <i class="fa-solid fa-ellipsis"></i>
         </span>
-      </div>
-
-      <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
-        {{#if this.isLiked}}
-        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
-          <i class="fa-solid fa-heart "></i>
-        </span>
-        {{else}}
-        <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
-          <i class="fa-regular fa-heart "></i>
-        </span>
-        {{/if}}
-        <span class="actionbutton comment-button relative" data-post-id="{{this.id}}">
-          <i class="fa-regular fa-comment"></i>
-        </span>
-        {{!-- <span class="actionbutton retweet-button relative">
-          <i class="las la-retweet"></i>
-        </span>
-        <span class="actionbutton share-button relative">
-          <i class="fa-solid fa-share"></i>
-        </span> --}}
       </div>
     </div>
     {{/each}}
@@ -205,4 +184,13 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
 
   // Show the "Post" tab by default
   showTab('post');
+  document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeTab = urlParams.get('tab');
+
+    if (activeTab === 'repost') {
+        // Switch to the Repost tab
+        showTab('repost');
+    }
+});
 </script>

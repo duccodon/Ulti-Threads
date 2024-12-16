@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Follower, { foreignKey: "following_id" });
       User.hasMany(models.Notification, {foreignKey: "transferer_id"  });
       User.hasMany(models.Notification, { foreignKey: "receiver_id"  });
+      User.hasMany(models.Repost, { foreignKey: "user_id" });
     }
   }
 

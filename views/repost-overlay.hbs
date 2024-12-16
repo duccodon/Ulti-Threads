@@ -21,7 +21,9 @@
           </div>
         </div>
         <div class="p-[.5rem] h-full w-full md:h-auto md:w-auto flex justify-center gap-[1rem] text-black">
-                <form action = "/Button/Repost/{{thread.id}}" value="{{currentUser.id}}" method="POST" class="md:min-w-[30rem] max-h-[80%] text-[.8rem] pt-[.5rem]">
+                <form action = "/Button/Repost/{{thread.id}}"  method="POST" class="md:min-w-[30rem] max-h-[80%] text-[.8rem] pt-[.5rem]">
+                    <input type="hidden" name="user_id" value="{{currentUser.id}}" />
+                    <input type="hidden" name="thread_user_id" value="{{thread.User.id}}" />
                     <button type="submit"
                         class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
                         Repost

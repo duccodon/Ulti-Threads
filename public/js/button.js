@@ -1,5 +1,3 @@
-
-
 //Like and Unlike Button
 document.addEventListener('DOMContentLoaded', () => {
     const likeButtons = document.querySelectorAll('.like-button');

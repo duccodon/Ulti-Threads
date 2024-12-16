@@ -170,6 +170,21 @@ controller.showProfile = async (req, res) => {
         },
       ]
     });
+
+    res.locals.reposts = await models.Repost.findAll({
+      where: { user_id: userId },
+      include: [
+        {
+          model: models.Thread, // Join with the Thread table
+          attributes: ["id", "content", "createdAt"], // Select specific thread fields
+          include: [ 
+            {model: models.User, attributes: ["id", "username", "profile_picture"]}, 
+            {model: models.Media},
+          ],
+        },
+      ],
+    });
+
     const isCurrentUser = true;
     res.locals.threads.forEach(thread => {
       thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
@@ -218,23 +233,37 @@ controller.showIDProfile = async (req, res) => {
     ]
   });
 
+    res.locals.reposts = await models.Repost.findAll({
+      where: { user_id: userId },
+      include: [
+        {
+          model: models.Thread, // Join with the Thread table
+          attributes: ["id", "content", "createdAt"], // Select specific thread fields
+          include: [ 
+            {model: models.User, attributes: ["id", "username", "profile_picture"]}, 
+            {model: models.Media},      
+          ],
+        },
+      ],
+    });
+
   // Check if the logged-in user is following the current user
-  const isFollowed = await models.Follower.findOne({
-      where: {
-          follower_id: loginId,
-          following_id: userId,
-      }
-  });
-  res.locals.isFollowed = isFollowed ? true : false;  // If a follow record exists, mark as followed
+    const isFollowed = await models.Follower.findOne({
+        where: {
+            follower_id: loginId,
+            following_id: userId,
+        }
+    });
+    
+    res.locals.isFollowed = isFollowed ? true : false;  // If a follow record exists, mark as followed
 
-  res.locals.threads.forEach(thread => {
-    thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
-  });
+    res.locals.threads.forEach(thread => {
+      thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
+    });
+    const isCurrentUser = false;
+    res.locals.isCurrentUser = isCurrentUser;
 
-  const isCurrentUser = false;
-  res.locals.isCurrentUser = isCurrentUser;
-
-  res.render("profile", {headerName: "Profile", page: 4});
+    res.render("profile", {headerName: "Profile", page: 4});
 }
 
 // Function to follow a user (POST)
@@ -315,6 +344,9 @@ controller.showPostDetails = async (req, res) => {
         {model: models.Like,
           attributes: ['user_id'],
         },
+        {model: models.Repost,
+          attributes: ['user_id'],
+        }
       ],
       where: {
         id: postid
