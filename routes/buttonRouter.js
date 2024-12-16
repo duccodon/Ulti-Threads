@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { showCommentOverlay, showRepostOverlay, likePost, unlikePost, addPost, addComment, addRepost } = require('../controller/buttonController');
+const { addFollower, deleteFollower, showCommentOverlay, showRepostOverlay, likePost, unlikePost, addPost, addComment, addRepost } = require('../controller/buttonController');
 const multer = require("multer");
 const path = require("path");
 
@@ -27,6 +27,9 @@ router.post('/Create', upload.single('image'), addPost);
 
 router.post('/Comment/:postid', addComment);
 router.post('/Repost/:postid', addRepost);
+
+router.post('/Follow/:id', addFollower);
+router.delete('/Follow/:id', deleteFollower);
 
 
 module.exports = router;

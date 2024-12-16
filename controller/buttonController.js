@@ -168,5 +168,60 @@ controller.showRepostOverlay = async (req, res) => {
   controller.addRepost = async (req, res) => {
 
   }
+
+controller.addFollower = async (req, res) => {
+  const currentUserId = parseInt(req.session.userId);
+  const targetUserId = parseInt(req.params.id);
+  console.log("current:", currentUserId);
+  console.log("target:", targetUserId);
+
+  try {
+    await models.Follower.create({
+      follower_id: currentUserId,
+      following_id: targetUserId,
+    });
+
+    await models.Notification.create({
+      content: "Follow you",
+      transferer_id: currentUserId,
+      receiver_id: targetUserId,
+    });
+
+    res.status(200).send('Followed successfully');
+  } catch (err) {
+    res.status(500).send('Error following the user');
+  }
+};
+
+// Function to unfollow a user (DELETE)
+controller.deleteFollower = async (req, res) => {
+  const currentUserId = parseInt(req.session.userId);
+  const targetUserId = parseInt(req.params.id);
+
+  try {
+    const existingFollow = await models.Follower.findOne({
+      where: {
+        follower_id: currentUserId,
+        following_id: targetUserId,
+      },
+    });
+
+    if (!existingFollow) {
+      return res.status(400).send('You are not following the user');
+    }
+
+    await existingFollow.destroy(); // Unfollow the user
+    await models.Notification.destroy({
+      where: {
+        transferer_id: currentUserId,
+        receiver_id: targetUserId,
+      },
+    });
+
+    res.status(200).send('Unfollowed successfully');
+  } catch (err) {
+    res.status(500).send('Error unfollowing the user');
+  }
+};
   
   module.exports = controller;

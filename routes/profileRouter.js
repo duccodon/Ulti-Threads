@@ -6,7 +6,4 @@ const { showProfile, showIDProfile, addFollower, deleteFollower} = require('../c
 // router.get('/:id', showDetails);
 router.get('/', showProfile);
 router.get('/:id', showIDProfile); //view other user's profile
-router.post('/:id', addFollower);
-
-router.delete('/:id', deleteFollower);
 module.exports = router;
