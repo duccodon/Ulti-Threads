@@ -196,7 +196,9 @@ controller.showProfile = async (req, res) => {
 controller.showIDProfile = async (req, res) => {
   const loginId = req.session.userId;
   const userId = req.params.id;
-
+  if(userId == loginId){
+    return res.redirect("/Profile");
+  }
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
     if (err) {
       return res.status(500).send('Error retrieving user information');
