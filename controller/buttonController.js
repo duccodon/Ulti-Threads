@@ -1,28 +1,97 @@
 const controller = {};
 const models = require("../models");
 
-controller.likePost = async (req, res) => {
-    const currentUserId = parseInt(req.session.userId);
-    const threadId = parseInt(req.params.id);
-  
-    try {
-      await models.Like.create({
-          user_id: currentUserId,
-          thread_id: threadId,
-      });
-      console.log("current:", currentUserId);
-      console.log("target:", threadId);
-      // await models.Notification.create({
-      //     content: "Follow you",
-      //     transferer_id: currentUserId,
-      //     receiver_id: targetUserId,
-      // });
-      const likeCount = await models.Like.count({ where: { thread_id: threadId } });
-      res.status(200).json({ isLiked: true, likeCount });
+  controller.showCommentOverlay = async (req, res) => {
+    const postid = req.params.postid;
+    const userId = req.session.userId;
 
-      } catch (err) {
-      res.status(500).send('Error like the post');
+    console.log("User ID:", userId);
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
       }
+    });
+
+    const thread = await models.Thread.findOne({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      include: [
+        {model: models.User},
+        {model: models.Comment,
+          include: [{model: models.User,
+            attributes: ['username', 'profile_picture']
+          }]
+        },
+        {model: models.Media},
+      ],
+      where: {
+        id: postid
+      }
+    });
+
+    console.log(thread);
+    res.locals.thread = thread;
+    res.render("comment-overlay", {layout:false});
+  }
+
+  controller.showRepostOverlay = async (req, res) => {
+    const postid = req.params.postid;
+    const userId = req.session.userId;
+  
+    console.log("User ID:", userId);
+    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+      if (err) {
+        return res.status(500).send('Error retrieving user information');
+      }
+    });
+  
+    const thread = await models.Thread.findOne({
+      attributes: ['id', 'user_id', 'content', 'createdAt'],
+      include: [
+        {model: models.User},
+        {model: models.Comment,
+          include: [{model: models.User,
+            attributes: ['username', 'profile_picture']
+          }]
+        },
+        {model: models.Media},
+      ],
+      where: {
+        id: postid
+      }
+    });
+  
+    console.log(thread);
+    res.locals.thread = thread;
+    res.render("repost-overlay", {layout:false});
+  }
+
+
+  controller.likePost = async (req, res) => {
+      const currentUserId = parseInt(req.session.userId);
+      const threadId = parseInt(req.params.id);
+      const targetUserId = await models.Thread.findOne({
+        where: { id: threadId },
+        attributes: ['user_id'],
+      });
+      try {
+        await models.Like.create({
+            user_id: currentUserId,
+            thread_id: threadId,
+        });
+        if (targetUserId.user_id != currentUserId) {
+          await models.Notification.create({
+            content: "Like your post !",
+            redirect_url: `/Homepage/${threadId}`,
+            transferer_id: currentUserId,
+            receiver_id: targetUserId.user_id,
+          });
+        }
+        const likeCount = await models.Like.count({ where: { thread_id: threadId } });
+        res.status(200).json({ isLiked: true, likeCount });
+
+        } catch (err) {
+        res.status(500).send('Error like the post');
+        }
   }
   
   controller.unlikePost = async (req, res) => {
@@ -76,93 +145,42 @@ controller.likePost = async (req, res) => {
     return res.redirect('/Homepage');
 }
 
-controller.showCommentOverlay = async (req, res) => {
-  const postid = req.params.postid;
-  const userId = req.session.userId;
-
-  console.log("User ID:", userId);
-  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
-    if (err) {
-      return res.status(500).send('Error retrieving user information');
-    }
-  });
-
-  const thread = await models.Thread.findOne({
-    attributes: ['id', 'user_id', 'content', 'createdAt'],
-    include: [
-      {model: models.User},
-      {model: models.Comment,
-        include: [{model: models.User,
-          attributes: ['username', 'profile_picture']
-        }]
-      },
-      {model: models.Media},
-    ],
-    where: {
-      id: postid
-    }
-  });
-
-  console.log(thread);
-  res.locals.thread = thread;
-  res.render("comment-overlay", {layout:false});
-}
-
-controller.showRepostOverlay = async (req, res) => {
-    const postid = req.params.postid;
-    const userId = req.session.userId;
-  
-    console.log("User ID:", userId);
-    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
-      if (err) {
-        return res.status(500).send('Error retrieving user information');
-      }
-    });
-  
-    const thread = await models.Thread.findOne({
-      attributes: ['id', 'user_id', 'content', 'createdAt'],
-      include: [
-        {model: models.User},
-        {model: models.Comment,
-          include: [{model: models.User,
-            attributes: ['username', 'profile_picture']
-          }]
-        },
-        {model: models.Media},
-      ],
-      where: {
-        id: postid
-      }
-    });
-  
-    console.log(thread);
-    res.locals.thread = thread;
-    res.render("repost-overlay", {layout:false});
-  }
-
   controller.addComment = async (req, res) => {
     try {
       const threadId = req.params.postid; // Get thread ID from URL
       const { user_id, content, page } = req.body; // Get data from form inputs
+
+      const targetUserId = await models.Thread.findOne({
+        where: { id: threadId },
+        attributes: ['user_id'],
+      });
       // Input validation
       if (!user_id || !threadId || !content) {
           return res.status(400).send('All fields are required.');
       }
       // Save the comment to your database
         // Save the comment
-        const comment = await models.Comment.create({
+      await models.Comment.create({
           user_id: user_id,
           thread_id: threadId,
           content: content
       });
+      if (user_id != targetUserId.user_id) {
+        await models.Notification.create({
+          content: "Comment on your post !",
+          redirect_url: `/Homepage/${threadId}`,
+          transferer_id: user_id,
+          receiver_id: targetUserId.user_id,
+        });
+      }
+
       res.redirect(`/Homepage/${threadId}`);
   } catch (error) {
       console.error('Error saving comment:', error);
       res.status(500).send('An error occurred while saving the comment.');
   }
   }
-
-
+  
   controller.addRepost = async (req, res) => {
       try {
         const threadId = req.params.postid; // Get thread ID from URL
@@ -186,8 +204,16 @@ controller.showRepostOverlay = async (req, res) => {
           //return res.status(400).json({ success: false, message: 'You cannot repost your own thread.' });
           return res.redirect(`/Profile/`);
         }
+        if (user_id != thread_user_id) {
+          await models.Notification.create({
+            content: "Repost your post !",
+            redirect_url: `/Profile/${user_id}?tab=repost`,
+            transferer_id: user_id,
+            receiver_id: thread_user_id,
+          });
+        }
         // Save the repost to your database
-          const repost = await models.Repost.create({
+        await models.Repost.create({
             user_id: user_id,
             thread_id: threadId,
         });
@@ -198,32 +224,33 @@ controller.showRepostOverlay = async (req, res) => {
     }
   }
 
-controller.addFollower = async (req, res) => {
-  const currentUserId = parseInt(req.session.userId);
-  const targetUserId = parseInt(req.params.id);
-  console.log("current:", currentUserId);
-  console.log("target:", targetUserId);
+  controller.addFollower = async (req, res) => {
+    const currentUserId = parseInt(req.session.userId);
+    const targetUserId = parseInt(req.params.id);
+    console.log("current:", currentUserId);
+    console.log("target:", targetUserId);
 
-  try {
-    await models.Follower.create({
-      follower_id: currentUserId,
-      following_id: targetUserId,
-    });
+    try {
+      await models.Follower.create({
+        follower_id: currentUserId,
+        following_id: targetUserId,
+      });
 
-    await models.Notification.create({
-      content: "Follow you",
-      transferer_id: currentUserId,
-      receiver_id: targetUserId,
-    });
+      await models.Notification.create({
+        content: "Follow you",
+        redirect_url: `/Profile/${currentUserId}`,
+        transferer_id: currentUserId,
+        receiver_id: targetUserId,
+      });
 
-    res.status(200).send('Followed successfully');
-  } catch (err) {
-    res.status(500).send('Error following the user');
-  }
-};
+      res.status(200).send('Followed successfully');
+    } catch (err) {
+      res.status(500).send('Error following the user');
+    }
+  };
 
 // Function to unfollow a user (DELETE)
-controller.deleteFollower = async (req, res) => {
+  controller.deleteFollower = async (req, res) => {
   const currentUserId = parseInt(req.session.userId);
   const targetUserId = parseInt(req.params.id);
 
@@ -251,6 +278,6 @@ controller.deleteFollower = async (req, res) => {
   } catch (err) {
     res.status(500).send('Error unfollowing the user');
   }
-};
+  };
   
   module.exports = controller;

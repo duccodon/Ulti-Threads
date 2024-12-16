@@ -8,36 +8,42 @@ module.exports = {
         transferer_id: 1,
         content: "Follow you",
         is_read: false,
+        redirect_url: "/Profile/1",
       },
       {
         receiver_id: 8, 
         transferer_id: 1,
         content: "Follow you",
         is_read: false,
+        redirect_url: "/Profile/1",
       },
       {
         receiver_id: 8, 
         transferer_id: 2,
         content: "Follow you",
         is_read: false,
+        redirect_url: "/Profile/2",
       },
       {
         receiver_id: 8, 
         transferer_id: 3,
         content: "Follow you",
         is_read: false,
+        redirect_url: "/Profile/3",
       },
       {
         receiver_id: 8, 
         transferer_id: 4,
         content: "Follow you",
         is_read: false,
+        redirect_url: "/Profile/4",
       },
       {
         receiver_id: 8, 
         transferer_id: 5,
         content: "Follow you",
         is_read: false,
+        redirect_url: "/Profile/5",
       },
     ];
     items.forEach((item) => {

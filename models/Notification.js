@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      redirect_url: DataTypes.STRING, // Store the route or URL   
     },
     {
       sequelize,
