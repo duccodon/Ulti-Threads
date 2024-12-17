@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ulti Threads || {{headerName}}</title>
+    <title>Ulti Threads</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -17,6 +17,7 @@
 </head>
 
 <body class="bg-[#FAFAFA]">
+    <div id="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black opacity-50 z-20"></div>
     {{> header }}
     <!-- Popup for the plus button -->
     <div id="plus-popup"
@@ -77,7 +78,6 @@
     </div>
     <main class="fixed top-[5.4rem]">
         <div class="md:grid md:grid-cols-[6rem_auto_6rem] md:gap-x-[2rem] flex flex-col items-center">
-            <div id="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
             {{{ body }}}
             {{> sidebar }}
         </div>

@@ -81,6 +81,8 @@ const { fn, col, literal } = require("sequelize");
 
 controller.showHomepage = async (req, res) => {
   const userId = req.session.userId;
+  const { view } = req.query;
+  console.log(view);
   console.log("User ID:", userId);
 
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
@@ -102,54 +104,97 @@ controller.showHomepage = async (req, res) => {
     raw: true, 
   }).then((threads) => threads.map((thread) => thread.id)); 
 
-  res.locals.threads = (
-    await models.Thread.findAll({
-      attributes: {
+  if (view === "following") {
+    res.locals.threads = (
+      await models.Thread.findAll({
+        attributes: {
+          include: [[fn("COUNT", col("Likes.id")), "likeCount"]],
+        },
         include: [
-          [fn("COUNT", col("Likes.id")), "likeCount"], 
+          {
+            model: models.User, 
+            required: true,
+            include: [
+              {
+                model: models.Follower, 
+                where: { follower_id: userId }, 
+                required: true, 
+                attributes: [], 
+              },
+            ],
+          },
+          { model: models.Media },
+          {
+            model: models.Like,
+            attributes: [],
+            required: false,
+          },
+          {
+            model: models.Comment,
+            attributes: ["id"],
+            required: false,
+          },
+          {
+            model: models.Repost,
+            attributes: ["id"],
+            required: false,
+          },
         ],
-      },
-      include: [
-        { model: models.User }, 
-        { model: models.Media }, 
-        {
-          model: models.Like,
-          attributes: [], 
-          required: false,
-        },
-        {
-          model: models.Comment, 
-          attributes: ['id'], 
-          required: false, 
-        },
-        {
-          model: models.Repost, 
-          attributes: ['id'], 
-          required: false, 
-        },
-      ],
-      group: [
-        "Thread.id", 
-        "User.id", 
-        "Media.id", 
-        "Comments.id", 
-        "Reposts.id", 
-      ],
-      order: [["createdAt", "ASC"]], 
-    })
-  ).map(thread => {
-    const plainThread = thread.get({ plain: true });
-
-    plainThread.isLiked = likedThreadIds.includes(plainThread.id);
-    return plainThread;
-  });
+        group: ["Thread.id", "User.id", "Media.id", "Comments.id", "Reposts.id"],
+        order: [["id", "ASC"]],
+      })
+    ).map((thread) => {
+      const plainThread = thread.get({ plain: true });
   
-  
+      plainThread.isLiked = likedThreadIds.includes(plainThread.id);
+      return plainThread;
+    });
+  } else {
+    res.locals.threads = (
+      await models.Thread.findAll({
+        attributes: {
+          include: [[fn("COUNT", col("Likes.id")), "likeCount"]],
+        },
+        include: [
+          { model: models.User },
+          { model: models.Media },
+          {
+            model: models.Like,
+            attributes: [],
+            required: false,
+          },
+          {
+            model: models.Comment,
+            attributes: ["id"],
+            required: false,
+          },
+          {
+            model: models.Repost,
+            attributes: ["id"],
+            required: false,
+          },
+        ],
+        group: [
+          "Thread.id",
+          "User.id",
+          "Media.id",
+          "Comments.id",
+          "Reposts.id",
+        ],
+        order: [["createdAt", "ASC"]],
+      })
+    ).map((thread) => {
+      const plainThread = thread.get({ plain: true });
 
-  res.locals.threads.forEach(thread => {
-    console.log("thread data", thread);
-    console.log("comment length", thread.Comments.length);
-  })
+      plainThread.isLiked = likedThreadIds.includes(plainThread.id);
+      return plainThread;
+    });
+
+    // res.locals.threads.forEach(thread => {
+    //   console.log(thread);
+    // })
+  }
+
   res.render("homepage", { headerName: "Home", page: 1 });
 };
 

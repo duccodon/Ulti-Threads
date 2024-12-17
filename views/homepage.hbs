@@ -14,10 +14,12 @@
     {{#each threads}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
         <div class="flex gap-[1rem] text-black">
-          <a href="/Profile/{{User.id}}" class = "m-0 p-0" >
-          <img src="{{User.profile_picture}}"
-              class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden">
-          </a>
+          <div class="m-0 p-0">
+            <a href="/Profile/{{User.id}}" class="bg-black">
+              <img src="{{User.profile_picture}}"
+                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden">
+            </a>
+          </div>
           
           <div class="flex justify-between min-w-[85%]">
             <div class="flex gap-[1rem]">
@@ -70,14 +72,14 @@
           <i class="fa-regular fa-comment">
             <small
               class="text-[0.7rem] w-fit absolute left-[1rem] top-[1rem]">
-              {{Comments.length}},{{id}}
+              {{Comments.length}}
             </small>
           </i>
         </span>
         <span class="actionbutton retweet-button relative" data-post-id ="{{this.id}}">
           <i class="las la-retweet">
             <small
-              class="text-[0.7rem] w-fit absolute left-[1rem] top-[1rem]">
+              class="text-[0.7rem] w-fit absolute left-[1.1rem] top-[1rem]">
               {{Reposts.length}}
             </small>
           </i>
