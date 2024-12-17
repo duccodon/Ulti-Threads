@@ -2,10 +2,12 @@
   <form action="/" class="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden">
     <img src="{{currentUser.profile_picture}}"
       class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-    <input type="text" placeholder="What's new" id="plus-button-post"
-      class="justify-self-start w-full pl-4 mr-4 text-[13px] !outline-none" />
-    {{> button link="#" styling="bg-white text-black border border-black border-solid rounded-[.7rem]" text="<input
-      type='submit' value='Post' class='cursor-pointer' />" }}
+    <input type="text" placeholder="What's new" 
+      class="plus-button justify-self-start w-full pl-4 mr-4 text-[13px] !outline-none" />
+    <div
+      class="plus-button inline-block px-[2rem] py-[.6rem] font-medium cursor-pointer transition ease-in-out duration-300 text-sm hover:opacity-80 bg-white text-black border border-black border-solid rounded-[.7rem]">
+      Post
+    </div>
   </form>
 
   <div class="feeds">
@@ -43,22 +45,42 @@
           </span>
         </div>
 
-      <div class=" py-[.8rem] px-[3.7rem] flex gap-[1.5rem] items-center">
+      <div class=" py-[.8rem] px-[3.7rem] flex gap-[2rem] items-center">
         {{#if this.isLiked}}
         <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "unlike">
-          <i class="fa-solid fa-heart "></i>
-        </span>
+          <i class="fa-solid fa-heart ">
+            <small
+              class="text-[0.7rem] w-fit absolute left-[1rem] top-[1rem]">
+              {{likeCount}}
+            </small>
+          </i>
+        </span> 
         {{else}}
         <span class="actionbutton like-button relative" data-post-id = "{{this.id}}" data-user-id = "{{currentUser.id}}" button-id = "like">
-          <i class="fa-regular fa-heart "></i>
+          <i class="fa-regular fa-heart ">
+            <small
+              class="text-[0.7rem] w-fit absolute left-[1rem] top-[1rem]">
+              {{likeCount}}
+            </small>
+          </i>
         </span> 
         {{/if}}
 
         <span class="actionbutton comment-button relative" data-post-id ="{{this.id}}">
-          <i class="fa-regular fa-comment"></i>
+          <i class="fa-regular fa-comment">
+            <small
+              class="text-[0.7rem] w-fit absolute left-[1rem] top-[1rem]">
+              {{Comments.length}},{{id}}
+            </small>
+          </i>
         </span>
         <span class="actionbutton retweet-button relative" data-post-id ="{{this.id}}">
-          <i class="las la-retweet"></i>
+          <i class="las la-retweet">
+            <small
+              class="text-[0.7rem] w-fit absolute left-[1rem] top-[1rem]">
+              {{Reposts.length}}
+            </small>
+          </i>
         </span>
         <span class="actionbutton share-button relative">
           <i class="fa-solid fa-share"></i>

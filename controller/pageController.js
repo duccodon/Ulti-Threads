@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt'); // Ensure password security
 const { Op, where } = require('sequelize');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const { fn, col, literal } = require("sequelize");
 
 //const models = require('../models');
 //const { Op } = require('sequelize')
@@ -79,29 +80,77 @@ const crypto = require('crypto');
 // }
 
 controller.showHomepage = async (req, res) => {
-    const userId = req.session.userId;
-    console.log("User ID:", userId);
+  const userId = req.session.userId;
+  console.log("User ID:", userId);
 
-    res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
-      if (err) {
-        return res.status(500).send('Error retrieving user information');
-      }
-    });
-    res.locals.loggingInUser = res.locals.currentUser;
-    res.locals.threads = await models.Thread.findAll({
+  res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send("Error retrieving user information");
+    }
+  });
+  res.locals.loggingInUser = res.locals.currentUser;
+
+  const likedThreadIds = await models.Thread.findAll({
+    attributes: ["id"], 
+    include: [
+      {
+        model: models.Like,
+        required: true, 
+        where: { user_id: userId },
+      },
+    ],
+    raw: true, 
+  }).then((threads) => threads.map((thread) => thread.id)); 
+
+  res.locals.threads = (
+    await models.Thread.findAll({
+      attributes: {
         include: [
-            {model: models.User},
-            {model: models.Media},
-            {model: models.Like,
-              required: false,
-              where: { user_id: userId },
-            },
+          [fn("COUNT", col("Likes.id")), "likeCount"], 
         ],
-      });
-    res.locals.threads.forEach(thread => {
-        thread.isLiked = thread.Likes.length > 0;  // If the current user liked the thread, set isLiked to true
-    });
-    res.render("homepage", {headerName: "Home", page: 1});
+      },
+      include: [
+        { model: models.User }, 
+        { model: models.Media }, 
+        {
+          model: models.Like,
+          attributes: [], 
+          required: false,
+        },
+        {
+          model: models.Comment, 
+          attributes: ['id'], 
+          required: false, 
+        },
+        {
+          model: models.Repost, 
+          attributes: ['id'], 
+          required: false, 
+        },
+      ],
+      group: [
+        "Thread.id", 
+        "User.id", 
+        "Media.id", 
+        "Comments.id", 
+        "Reposts.id", 
+      ],
+      order: [["createdAt", "ASC"]], 
+    })
+  ).map(thread => {
+    const plainThread = thread.get({ plain: true });
+
+    plainThread.isLiked = likedThreadIds.includes(plainThread.id);
+    return plainThread;
+  });
+  
+  
+
+  res.locals.threads.forEach(thread => {
+    console.log("thread data", thread);
+    console.log("comment length", thread.Comments.length);
+  })
+  res.render("homepage", { headerName: "Home", page: 1 });
 };
 
 controller.showSearch = async (req, res) => {
