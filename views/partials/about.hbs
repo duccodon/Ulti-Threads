@@ -1,58 +1,72 @@
-    <div id="about-popup"
-        class="scrollbar fixed hidden ml-[calc(50vw)] md:mt-[50vh] w-full max-h-[80%] h-auto overflow-y-auto md:w-[36rem] transform translate-x-[-50%] md:translate-y-[-50%] bg-white md:rounded-[.8rem] p-2 z-20">
-        <div class="flex justify-between p-[.5rem] ">
-            <div id="close-about" class="px-[2rem] py-[1.2rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:opacity-80 bg-white text-black flex justify-center items-center h-[2rem] border
+<div id="about-popup"
+    class="scrollbar fixed hidden ml-[calc(50vw)] md:mt-[50vh] w-full max-h-[80%] h-auto overflow-y-auto md:w-[36rem] transform translate-x-[-50%] md:translate-y-[-50%] bg-white md:rounded-[.8rem] p-2 z-20">
+    <div class="flex justify-between p-[.5rem] ">
+        <div id="close-about" class="px-[2rem] py-[1.2rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:opacity-80 bg-white text-black flex justify-center items-center h-[2rem] border
                             border-black border-solid w-[5rem]">Cancel</div>
-            <div class = "pt-[0.35rem]">About</div>
-            <div class="w-[5rem]"></div>
-        </div>
-        <div id="about-content">
-            <div class="edit about overflow-y-auto max-h-[calc(80vh-4rem)] block px-6 py-4 my-0 border-y border-gray-300 bg-white rounded-lg">
+        <div class="pt-[0.35rem]">About</div>
+        <div class="w-[5rem]"></div>
+    </div>
+    <div id="about-content">
+        <div
+            class="edit about overflow-y-auto max-h-[calc(80vh-4rem)] block px-6 py-4 my-0 border-y border-gray-300 bg-white rounded-lg">
             {{#if isCurrentUser}}
-            <form action="/updateProfile" method="POST" enctype="multipart/form-data" class="space-y-6">
-                <div class="flex flex-col">
-                <label for="name" class="text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="name" name="name" class="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" value="{{currentUser.username}}" required>
+            <form action="" id="editProfileForm" onsubmit="editProfile(event)" enctype="multipart/form-data" class="space-y-6">
+                <div class="flex flex-row justify-between items-center">
+                    <div class="flex flex-col w-[80%]">
+                        <label for="name" class="text-sm font-medium text-gray-700">Username</label>
+                        <input type="text" id="name" name="username"
+                            class="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                            value="{{currentUser.username}}">
+                    </div>
+                
+                    <label for="image-upload" class="cursor-pointer">
+                        <img id="profile-preview" src="{{currentUser.profile_picture}}"
+                            class="mx-auto min-w-[3.5rem] min-h-[3.5rem] max-w-[3.5rem] max-h-[3.5rem] rounded-[50%] overflow-hidden">
+                    </label>
+                    <input type="file" id="image-upload" name="profile_picture" class="hidden" accept="image/*">
                 </div>
+
                 <div class="flex flex-col">
-                <label for="bio" class="text-sm font-medium text-gray-700">Bio</label>
-                <textarea id="bio" name="bio" rows="4" class="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" required>{{currentUser.bio}}</textarea>
+                    <label for="bio" class="text-sm font-medium text-gray-700">Bio</label>
+                    <textarea id="bio" name="bio" rows="4"
+                        class="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">{{currentUser.bio}}</textarea>
                 </div>
-                <button type="submit" class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
+
+                <button type="submit"
+                    class="border border-black border-solid w-full text-black p-2 rounded-lg bg-white hover:bg-black hover:text-white transition-all duration-300 mt-auto">
                     Confirm
                 </button>
             </form>
             {{else}}
             <div class="space-y-6">
                 <div class="flex flex-col">
-                <label class="text-sm font-medium text-gray-700">Username</label>
-                <p class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-100">{{currentUser.username}}</p>
+                    <label class="text-sm font-medium text-gray-700">Username</label>
+                    <p class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-100">{{currentUser.username}}</p>
                 </div>
                 <div class="flex flex-col">
-                <label class="text-sm font-medium text-gray-700">Bio</label>
-                <p class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-100">{{currentUser.bio}}</p>
+                    <label class="text-sm font-medium text-gray-700">Bio</label>
+                    <p class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-100">{{currentUser.bio}}</p>
                 </div>
             </div>
-            {{/if}}    
-            </div>
-        </div>  
+            {{/if}}
+        </div>
     </div>
-    
+</div>
+
 <script>
     let aboutButtons = document.querySelectorAll('.about-button');
     console.log(aboutButtons);
     aboutButtons.forEach(button => {
-        button.addEventListener('click', async function(event) {
-        const userId = button.getAttribute("user-id");
-        event.preventDefault(); // Prevent the default link behavior
-        var popup = document.getElementById('about-popup');
-        var overlay = document.getElementById('overlay');
-        const commentContent = document.getElementById("about-content");
-        popup.classList.toggle('hidden');
-        overlay.classList.toggle('hidden');
+        button.addEventListener('click', async function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+            var popup = document.getElementById('about-popup');
+            var overlay = document.getElementById('overlay');
+            const commentContent = document.getElementById("about-content");
+            popup.classList.toggle('hidden');
+            overlay.classList.toggle('hidden');
+        });
     });
-    });
-    document.getElementById('overlay').addEventListener('click', function() {
+    document.getElementById('overlay').addEventListener('click', function () {
         var popup = document.getElementById('about-popup');
         var overlay = document.getElementById('overlay');
         // Hide the popup and overlay
@@ -60,11 +74,48 @@
         overlay.classList.add('hidden');
     });
 
-  document.getElementById('close-about').addEventListener('click', function() {
-    var close = document.getElementById('about-popup');
-    close.classList.add('hidden');
-    overlay.classList.add('hidden');
-  });
+    document.getElementById('close-about').addEventListener('click', function () {
+        var close = document.getElementById('about-popup');
+        close.classList.add('hidden');
+        overlay.classList.add('hidden');
+    });
+
+    //edit profile
+    const inputFile = document.getElementById('image-upload');
+    const preview = document.getElementById('profile-preview');
+
+    inputFile.onchange = function () {
+        preview.src = URL.createObjectURL(inputFile.files[0]);
+    }
+
+    async function editProfile(event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  const formData = new FormData(document.querySelector("#editProfileForm")); // Collect form data
+  const data = Object.fromEntries(formData.entries()); // Convert FormData to an object (but file data needs to be handled separately)
+
+  // Append the file if selected
+  const fileInput = document.querySelector("#image-upload");
+  if (fileInput.files[0]) {
+    formData.append("profile_picture", fileInput.files[0]); // Ensure the file is added to FormData
+  }
+
+  // Send data to the server
+  try {
+    const res = await fetch("/Profile", {
+      method: "PUT",
+      body: formData, // Send FormData including the file
+    });
+
+    if (res.status === 200) {
+      location.reload(); // Reload page if successful
+    } else {
+      const errorMessage = await res.text();
+      throw new Error(errorMessage);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 </script>
-

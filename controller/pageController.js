@@ -229,6 +229,36 @@ controller.showActivity = async(req, res) => {
   res.render("activity", {headerName: "Activity", page: 3});
 }
 
+controller.editProfile = async (req, res) => {
+  console.log(req.body);
+  console.log("File uploaded:", req.file);
+  const {username, bio} = req.body;
+  const userId = req.session.userId;
+
+  let profile_picture = undefined;
+
+  if (req.file) {
+    profile_picture = `/img/profile/${req.file.filename}`; 
+  }
+
+  try {
+    await models.User.update(
+      {
+        ...(username !== undefined && { username }),
+        ...(profile_picture !== undefined && { profile_picture }),
+        ...(bio !== undefined && { bio }),
+      }, 
+      {
+      where: { id: userId },
+    });
+
+    res.send("User has been updated");
+  }catch(error){
+    console.error(error);
+    res.status(500).send("Cannot update user");
+  }
+}
+
 controller.showProfile = async (req, res) => {
 
     const userId = req.session.userId;
@@ -551,32 +581,6 @@ controller.addUser = async (req, res) => {
     console.error(error);
   }
 };
-
-/*controller.login = async (req, res) => {
-  const { username, password } = req.body; // Get login credentials from the request body
-
-  try {
-    // Find the user by username or email
-    const user = await models.User.findOne({
-      where: {
-        username: username, // Username is unique
-      },
-    });
-
-    if (user.password !== password) {
-      return res.render("login", {
-        layout: "account",
-        title: "Login",
-        errorMessage: "Invalid username or password.",
-      });
-    }
-
-    // Password is correct, redirect to Homepage
-    return res.redirect("/Homepage");
-  } catch (error) {
-    console.error(error);
-  }
-};*/
 
 controller.login = async (req, res) => {
   const { usernameOrEmail, password } = req.body; // Get login credentials from the request body
