@@ -89,33 +89,33 @@
     }
 
     async function editProfile(event) {
-  event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); // Prevent the default form submission
 
-  const formData = new FormData(document.querySelector("#editProfileForm")); // Collect form data
-  const data = Object.fromEntries(formData.entries()); // Convert FormData to an object (but file data needs to be handled separately)
+        const formData = new FormData(document.querySelector("#editProfileForm")); 
+        const data = Object.fromEntries(formData.entries()); 
 
-  // Append the file if selected
-  const fileInput = document.querySelector("#image-upload");
-  if (fileInput.files[0]) {
-    formData.append("profile_picture", fileInput.files[0]); // Ensure the file is added to FormData
-  }
+        // Append the file if selected
+        const fileInput = document.querySelector("#image-upload");
+        if (fileInput.files[0]) {
+            formData.append("profile_picture", fileInput.files[0]); 
+        }
 
-  // Send data to the server
-  try {
-    const res = await fetch("/Profile", {
-      method: "PUT",
-      body: formData, // Send FormData including the file
-    });
+        // Send data to the server
+        try {
+            const res = await fetch("/Profile", {
+                method: "PUT",
+                body: formData, // Send FormData including the file
+            });
 
-    if (res.status === 200) {
-      location.reload(); // Reload page if successful
-    } else {
-      const errorMessage = await res.text();
-      throw new Error(errorMessage);
+            if (res.status === 200) {
+                location.reload(); // Reload page if successful
+            } else {
+                const errorMessage = await res.text();
+                throw new Error(errorMessage);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 </script>

@@ -50,6 +50,7 @@ controller.verifyEmail = async (req, res) => {
 
 controller.verifyResetPass = async(req, res) => {
   const { token } = req.query;
+  const { password } = req.body;
 
   try {
     // Find the user with the matching verification token
@@ -60,8 +61,7 @@ controller.verifyResetPass = async(req, res) => {
       return res.redirect('/Login/ResetPass');
     }
 
-    //temp pass
-    const hashedResetPassword = await bcrypt.hash("12345", 10);
+    const hashedResetPassword = await bcrypt.hash(password, 10);
 
     user.resetToken = null;
     user.password = hashedResetPassword; 

@@ -79,11 +79,25 @@ const { fn, col, literal } = require("sequelize");
 //     res.render("details");
 // }
 
+controller.getUnreadNoti = async (req, res, next) => {
+  const userId = req.session.userId;
+  const notifications = await models.Notification.findAll({
+    include: [
+      {
+        model: models.User,
+        as: 'transfererFk', // Specify alias for transferer_id
+      },
+    ],
+    where: { receiver_id: userId },
+    order: [["id", "ASC"]],
+  });
+  res.locals.unreadNotiNum = notifications.filter(notification => !notification.is_read).length;
+  next();
+}
+
 controller.showHomepage = async (req, res) => {
   const userId = req.session.userId;
   const { view } = req.query;
-  console.log(view);
-  console.log("User ID:", userId);
 
   res.locals.currentUser = await models.User.findByPk(userId, (err, user) => {
     if (err) {
@@ -209,6 +223,39 @@ controller.showSearch = async (req, res) => {
   res.render("search", {headerName: "Search", page: 2});
 }
 
+controller.markRead = async (req, res) => {
+  const { notiId } = req.params;
+
+  try {
+    const noti = await models.Notification.findOne({ where: { id: notiId } });
+
+    if (!noti) {
+      return res.redirect('/Activity');
+    }
+
+    noti.is_read = true;
+    await noti.save();
+ 
+    res.send("Mark as read successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+};
+
+controller.deleteNoti = async (req, res) => {
+  const { notiId } = req.params;
+
+  try {
+    await models.Notification.destroy({ where: { id: notiId } });
+
+    res.send("Delete notification successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+}
+
 controller.showActivity = async(req, res) => {
   const userId = req.session.userId;
   res.locals.loggingInUser = await models.User.findByPk(userId, (err, user) => {
@@ -225,7 +272,10 @@ controller.showActivity = async(req, res) => {
       },
     ],
     where: { receiver_id: userId },
+    order: [["id", "ASC"]],
   });
+  // console.log("test thu ne", res.locals.notifications);
+
   res.render("activity", {headerName: "Activity", page: 3});
 }
 
@@ -270,13 +320,31 @@ controller.showProfile = async (req, res) => {
     });
     res.locals.loggingInUser = res.locals.currentUser;
 
-    res.locals.follower = await models.Follower.findAll({
+    const following = await models.User.findAll({
+      attributes: ["id"],
+      include: [
+        {
+          model: models.Follower,
+          where: { follower_id: userId },
+          required: true,
+          attributes: [],
+        },
+      ],
+    }).then((following) => following.map((following) => following.id)); 
+
+    res.locals.follower = ( await models.Follower.findAll({
       where: { following_id: userId },
       include: [
         {model: models.User, as: 'followerFk'},
       ]
+    })
+    ).map((eachFollower) => {
+      const plainFollower = eachFollower.get({ plain: true });
+      
+      plainFollower.isFollowed = following.includes(plainFollower.followerFk.id);
+      return plainFollower;
     });
-
+    
     res.locals.threads = await models.Thread.findAll({
       attributes: ['id', 'user_id', 'content', 'createdAt'],
       where: {

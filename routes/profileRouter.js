@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { showProfile, showIDProfile, editProfile} = require('../controller/pageController');
+const { showProfile, showIDProfile, editProfile, getUnreadNoti} = require('../controller/pageController');
 const multer = require("multer");
 const path = require("path");
 
@@ -16,6 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
+router.use('/', getUnreadNoti);
 router.get('/', showProfile);
 router.get('/:id', showIDProfile); //view other user's profile
 router.put('/', upload.single('profile_picture'), editProfile);

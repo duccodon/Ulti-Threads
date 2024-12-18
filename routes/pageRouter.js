@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { showHomepage } = require('../controller/pageController');
-const { showPostDetails } = require('../controller/pageController');
+const { showPostDetails, getUnreadNoti} = require('../controller/pageController');
 //const { addPost } = require('../controller/post');
 const multer = require("multer");
 const path = require("path");
@@ -22,6 +22,7 @@ const path = require("path");
 // router.use('/', init);
 // router.get('/', showList);
 // router.get('/:id', showDetails);
+router.use('/', getUnreadNoti);
 router.get('/', showHomepage);
 router.get('/:postid', showPostDetails);
 

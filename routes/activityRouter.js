@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const { showActivity } = require('../controller/pageController');
+const { showActivity, getUnreadNoti, markRead, deleteNoti} = require('../controller/pageController');
 
-// router.use('/', init);
-// router.get('/', showList);
-// router.get('/:id', showDetails);
+router.use('/', getUnreadNoti);
 router.get('/', showActivity);
+router.put('/:notiId', markRead);
+router.delete('/:notiId', deleteNoti);
 
 module.exports = router;

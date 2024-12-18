@@ -14,9 +14,15 @@
             <div
                 class="w-full h-full py-[1rem] following user flex flex-row justify-between gap-4 items-center border-b border-gray-300">
                 <h3 class="text-center text-sm font-medium">{{followerFk.username}}</h3>
-                <button class="px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold">
+                {{#if isFollowed}}
+                <button class="follow w-[6rem] px-4 py-1 text-white bg-black border border-black rounded-lg text-sm font-semibold" onclick="toggleFollow(this)">
                     Following
                 </button>
+                {{else}}
+                <button class="not-follow w-[6rem] px-4 py-1 text-black bg-white border border-black rounded-lg text-sm font-semibold" onclick="toggleFollow(this)">
+                    Not Following
+                </button>
+                {{/if}}
             </div>
         </div>
         {{/each}}
@@ -46,5 +52,18 @@
         close.classList.add('hidden');
         overlay.classList.add('hidden');
     })
+
+
+    function toggleFollow(button) {
+        if (button.classList.contains('follow')) {
+            button.classList.remove('follow', 'text-white', 'bg-black');
+            button.classList.add('not-follow', 'text-black', 'bg-white');
+            button.innerText = 'Not Following';
+        } else {
+            button.classList.remove('not-follow', 'text-black', 'bg-white');
+            button.classList.add('follow', 'text-white', 'bg-black');
+            button.innerText = 'Following';
+        }
+    }
 
 </script>

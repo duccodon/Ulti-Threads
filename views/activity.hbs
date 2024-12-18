@@ -10,7 +10,7 @@
 
     <div class="feeds">
         {{#each notifications}}
-        <div class="block pt-[1rem] px-[1rem] bg-[#FAFAFA]">
+        <div class="block pt-[1rem] px-[1rem] {{#if is_read}}bg-white{{else}}bg-[#FAFAFA]{{/if}}">
             <a href="{{redirect_url}}">
                 <div class="flex justify-between gap-[1rem] text-black">
                     <img src="{{transfererFk.profile_picture}}"
@@ -18,12 +18,20 @@
                     <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
                         <div class="flex flex-col gap-[.5rem]">
                             <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>{{transfererFk.username}} </h3>
+                                <h3>{{transfererFk.username}} {{id}}</h3>
                                 <h3 class="text-[#ccc]">{{content}}</h3>
                             </div>
                         </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
+        
+                        <div class="flex gap-[1rem] items-center">
+                            {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
+                            border-black border-solid rounded-[.7rem]" text="Follow"}}
+        
+                            <div class="flex flex-col h-full justify-between">
+                                <div class="cursor-pointer deleteNoti" data-id="{{id}}"><i class="fa-solid fa-trash"></i></div>
+                                <div class="cursor-pointer markRead" data-id="{{id}}"><i class="fa-solid fa-flag"></i></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -31,3 +39,55 @@
         {{/each}}
     </div>
 </div>
+
+<script>
+    //mark as read
+    document.querySelectorAll('.markRead').forEach((btnEdit) => {
+        const notiId = btnEdit.dataset.id;
+        btnEdit.addEventListener('click', (e) => {
+            markReadNoti(notiId);
+        });
+    });
+
+    async function markReadNoti(id) {
+        try {
+            const res = await fetch(`/Activity/${id}`, {
+                method: 'PUT',
+            })
+
+            if (res.status === 200) {
+                location.reload(); // Reload page if successful
+            } else {
+                const errorMessage = await res.text();
+                throw new Error(errorMessage);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    //delete noti
+    document.querySelectorAll('.deleteNoti').forEach((btnDelete) => {
+        const notiId = btnDelete.dataset.id;
+        btnDelete.addEventListener('click', (e) => {
+            deleteNoti(notiId);
+        });
+    });
+
+    async function deleteNoti(id) {
+        try {
+            const res = await fetch(`/Activity/${id}`, {
+                method: 'DELETE',
+            })
+
+            if (res.status === 200) {
+                location.reload(); // Reload page if successful
+            } else {
+                const errorMessage = await res.text();
+                throw new Error(errorMessage);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
