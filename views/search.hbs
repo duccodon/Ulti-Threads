@@ -15,7 +15,7 @@
 
         {{#each users}}
         <div class="block pt-[1rem] px-[1rem]">
-            <a href="/front-end/comment_post/comment_post.html">
+            <a href="/Profile/{{id}}">
                 <div class="flex justify-between gap-[1rem] text-black">
                     <img src="{{profile_picture}}"
                         class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
@@ -24,11 +24,8 @@
                             <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
                                 <h3>{{username}}</h3>
                                 <h3 class="text-[#ccc]">{{bio}}</h3>
-                                <div>100k followers</div>
                             </div>
                         </div>
-                        {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                        border-black border-solid rounded-[.7rem]" text="Follow"}}
                     </div>
                 </div>
             </a>

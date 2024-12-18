@@ -206,6 +206,14 @@ controller.showSearch = async (req, res) => {
     }
   });
   res.locals.users = await models.User.findAll();
+  res.locals.followers = await models.Follower.findAll({
+    include: [
+      {
+        model: models.User,
+        as: 'followerFk',
+      }
+    ],
+  });
   res.render("search", {headerName: "Search", page: 2});
 }
 
