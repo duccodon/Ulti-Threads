@@ -22,14 +22,25 @@
                                 <h3 class="text-[#ccc]">{{content}}</h3>
                             </div>
                         </div>
-        
+
                         <div class="flex gap-[1rem] items-center">
-                            {{> button link="#" styling="bg-white text-black py-[1.2rem] flex items-center h-[2rem] border
-                            border-black border-solid rounded-[.7rem]" text="Follow"}}
-        
+                            {{#if (includes ../followingIds transfererFk.id)}}
+                            <button class="follow-button bg-red-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
+                                data-user-id="{{transfererFk.id}}">
+                                Unfollow
+                            </button>
+                            {{else}}
+                            <button class="follow-button bg-blue-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
+                                data-user-id="{{transfererFk.id}}">
+                                Follow
+                            </button>
+                            {{/if}}
+
                             <div class="flex flex-col h-full justify-between">
-                                <div class="cursor-pointer deleteNoti" data-id="{{id}}"><i class="fa-solid fa-trash"></i></div>
-                                <div class="cursor-pointer markRead" data-id="{{id}}"><i class="fa-solid fa-flag"></i></div>
+                                <div class="cursor-pointer deleteNoti" data-id="{{id}}"><i
+                                        class="fa-solid fa-trash"></i></div>
+                                <div class="cursor-pointer markRead" data-id="{{id}}"><i class="fa-solid fa-flag"></i>
+                                </div>
                             </div>
                         </div>
                     </div>

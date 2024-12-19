@@ -41,7 +41,7 @@
                             class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden">
                     </a>
                 </div>
-        
+
                 <div class="flex justify-between min-w-[85%]">
                     <div class="flex gap-[1rem]">
                         <div class="flex flex-col gap-[.5rem]">
@@ -55,7 +55,7 @@
                                 <div class="content pb-1">
                                     {{{content}}}
                                 </div>
-        
+
                                 {{#each Media}}
                                 <div class="photo">
                                     <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <span class="edit">
                     <i class="fa-solid fa-ellipsis"></i>
                 </span>
@@ -87,6 +87,17 @@
                                 <h3 class="text-[#ccc]">{{bio}}</h3>
                             </div>
                         </div>
+                        {{#if (includes ../followingIds id)}}
+                        <button class="follow-button bg-red-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
+                            data-user-id="{{id}}">
+                            Unfollow
+                        </button>
+                        {{else}}
+                        <button class="follow-button bg-blue-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
+                            data-user-id="{{id}}">
+                            Follow
+                        </button>
+                        {{/if}}
                     </div>
                 </div>
             </a>

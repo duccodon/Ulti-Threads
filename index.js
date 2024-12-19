@@ -42,6 +42,9 @@ app.engine(
           allowProtoPropertiesByDefault: true,
       },
         helpers: {
+          includes: (array, value) => {
+            return Array.isArray(array) && array.includes(value);
+          },
             eq: function (a, b) {
               return a === b; // Return true if a and b are strictly equal
             },

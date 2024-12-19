@@ -194,7 +194,21 @@ controller.showSearch = async (req, res) => {
       return res.status(500).send("Error retrieving user information");
     }
   });
-  res.locals.users = await models.User.findAll();
+  res.locals.users = await models.User.findAll({
+    where: {
+      id: {
+        [Op.ne]: userId, // Exclude the logged-in user
+      },
+    },
+  });
+  const following = await models.Follower.findAll({
+    where: { follower_id: userId },
+    attributes: ['following_id'],
+  });
+
+  const followingIds = following.map(item => item.following_id);
+
+  res.locals.followingIds = followingIds; // Pass to the view
   res.render("search", { headerName: "Search", page: 2 });
 };
 
@@ -251,6 +265,14 @@ controller.showActivity = async(req, res) => {
   });
   // console.log("test thu ne", res.locals.notifications);
 
+  const following = await models.Follower.findAll({
+    where: { follower_id: userId },
+    attributes: ['following_id'],
+  });
+
+  const followingIds = following.map(item => item.following_id);
+
+  res.locals.followingIds = followingIds; // Pass to the view
   res.render("activity", {headerName: "Activity", page: 3});
 }
 
