@@ -7,77 +7,6 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const { fn, col, literal } = require("sequelize");
 
-//const models = require('../models');
-//const { Op } = require('sequelize')
-
-// controller.init = async(req, res, next) => {
-//     res.locals.categories = await models.Category.findAll({
-//         include: [{model: models.Blog}],
-//     });
-//     res.locals.tags = await models.Tag.findAll();
-//     next();
-// }
-
-// controller.showList = async(req, res) => {
-//     let limit = 2; //blogs limit
-//     let { category = 0, tag = 0, keyword = "", page = 1} = req.query;
-//     category = isNaN(category) ? 0 : parseInt(category);
-//     tag = isNaN(tag) ? 0: parseInt(tag);
-//     page = isNaN(page) ? 1 : parseInt(page);
-//     let offset = (page - 1) * limit;
-
-//     let options = {
-//         include: [{ model: models.Comment}],
-//         where: {},
-//     };
-
-//     if (category) {
-//         options.where.categoryId = category;
-//     }
-
-//     if (tag) {
-//         options.include.push({model: models.Tag, where: {id: tag}})
-//     }
-
-//     //search
-//     if (keyword.trim() != ""){
-//         options.where[Op.or] = {
-//             title: { [Op.iLike]: `%${keyword.trim()}%`},
-//             summary: { [Op.iLike]: `%${keyword.trim()}%`},
-//         }
-//     }
-
-//     //pagination
-//     let totalRows = await models.Blog.count({
-//         ...options, 
-//         distinct: true,
-//         col: "id",
-//     });
-//     res.locals.pagination = {
-//         page,
-//         limit,
-//         totalRows,
-//         queryParams: req.query,
-//     };
-
-//     let blogs = await models.Blog.findAll({...options, limit, offset});
-//     res.locals.blogs = blogs;
-//     res.render("index");
-// }
-
-// controller.showDetails = async(req, res) => {
-//     let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
-//     res.locals.blog = await models.Blog.findOne({
-//         where: {id},
-//         include: [
-//             {model: models.Comment},
-//             {model: models.User},
-//             {model: models.Category},
-//             {model: models.Tag},
-//         ]
-//     })
-//     res.render("details");
-// }
 
 controller.getUnreadNoti = async (req, res, next) => {
   const userId = req.session.userId;
@@ -214,14 +143,60 @@ controller.showHomepage = async (req, res) => {
 
 controller.showSearch = async (req, res) => {
   const userId = req.session.userId;
+  const { searching = "" } = req.query;
+
+  if (searching.trim() != "") {
+    let threadOptions = {
+      include: [
+        { model: models.User },
+        {
+          model: models.Media,
+          attributes: ['id', 'mediaUrl', 'createdAt'] // Specify which fields you want from Media
+        },
+      ],
+      where: {
+        // user_id: {
+        //   [Op.ne]: userId, 
+        // },
+      },
+      order: [["createdAt", "ASC"]],
+    };
+
+    let userOptions = {
+      where: {},
+      order: [["createdAt", "ASC"]],
+    };
+
+    threadOptions.where[Op.or] = {
+      content: { [Op.iLike]: `%${searching.trim()}%` },
+    };
+
+    userOptions.where[Op.or] = {
+      username: { [Op.iLike]: `%${searching.trim()}%` },
+      bio: { [Op.iLike]: `%${searching.trim()}%` },
+    };
+
+    let threads = await models.Thread.findAll({ ...threadOptions });
+    let users = await models.User.findAll({ ...userOptions });
+
+    threads = threads.map((thread) => ({ ...thread.toJSON(), type: "thread" }));
+    users = users.map((user) => ({ ...user.toJSON(), type: "user" }));
+    res.locals.searchResult = [...threads, ...users].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+  }else{
+    res.locals.searchResult = null;
+  }
+
+
   res.locals.loggingInUser = await models.User.findByPk(userId, (err, user) => {
     if (err) {
-      return res.status(500).send('Error retrieving user information');
+      return res.status(500).send("Error retrieving user information");
     }
   });
   res.locals.users = await models.User.findAll();
-  res.render("search", {headerName: "Search", page: 2});
-}
+  res.render("search", { headerName: "Search", page: 2 });
+};
 
 controller.markRead = async (req, res) => {
   const { notiId } = req.params;
@@ -459,62 +434,6 @@ controller.showIDProfile = async (req, res) => {
 
     res.render("profile", {headerName: "Profile", page: 4});
 }
-
-// Function to follow a user (POST)
-controller.addFollower = async (req, res) => {
-  const currentUserId = parseInt(req.session.userId);
-  const targetUserId = parseInt(req.params.id);
-  console.log("current:", currentUserId);
-  console.log("target:", targetUserId);
-
-  try {
-    await models.Follower.create({
-      follower_id: currentUserId,
-      following_id: targetUserId,
-    });
-
-    await models.Notification.create({
-      content: "Follow you",
-      transferer_id: currentUserId,
-      receiver_id: targetUserId,
-    });
-
-    res.status(200).send('Followed successfully');
-  } catch (err) {
-    res.status(500).send('Error following the user');
-  }
-};
-
-// Function to unfollow a user (DELETE)
-controller.deleteFollower = async (req, res) => {
-  const currentUserId = parseInt(req.session.userId);
-  const targetUserId = parseInt(req.params.id);
-
-  try {
-    const existingFollow = await models.Follower.findOne({
-      where: {
-        follower_id: currentUserId,
-        following_id: targetUserId,
-      },
-    });
-
-    if (!existingFollow) {
-      return res.status(400).send('You are not following the user');
-    }
-
-    await existingFollow.destroy(); // Unfollow the user
-    await models.Notification.destroy({
-      where: {
-        transferer_id: currentUserId,
-        receiver_id: targetUserId,
-      },
-    });
-
-    res.status(200).send('Unfollowed successfully');
-  } catch (err) {
-    res.status(500).send('Error unfollowing the user');
-  }
-};
 
 controller.showPostDetails = async (req, res) => {
     const postid = req.params.postid;

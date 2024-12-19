@@ -1,18 +1,79 @@
 <div
     class="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
-    <form action="/" class="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden">
+    <form action="/Search" method="GET" class="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden">
         <div class="inline-flex mx-auto bg-[#FAFAFA] rounded-[20px] p-4 w-[95%]">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Searching" id="create-post"
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="search" placeholder="Searching..." name="searching" id="searching"
                 class="bg-[#FAFAFA] justify-self-start w-full pl-4 mr-4 text-[13px] !outline-none" />
         </div>
     </form>
 
     <div class="feeds">
         <div class="px-[1.2rem] py-[.5rem] text-[14px]">
-            Recommendation
+            {{#if searchResult}}Search Result{{else}}Recommendation{{/if}}
         </div>
 
+        {{#if searchResult}}
+        {{#each searchResult}}
+        {{#if (eq type "user")}}
+        <div class="block pt-[1rem] px-[1rem]">
+            <a href="/Profile/{{id}}">
+                <div class="flex justify-between gap-[1rem] text-black">
+                    <img src="{{profile_picture}}"
+                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
+                        <div class="flex flex-col gap-[.5rem]">
+                            <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
+                                <h3>{{username}}</h3>
+                                <h3 class="text-[#ccc]">{{bio}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {{else}}
+        <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
+            <div class="flex gap-[1rem] text-black">
+                <div class="m-0 p-0">
+                    <a href="/Profile/{{User.id}}" class="bg-black">
+                        <img src="{{User.profile_picture}}"
+                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden">
+                    </a>
+                </div>
+        
+                <div class="flex justify-between min-w-[85%]">
+                    <div class="flex gap-[1rem]">
+                        <div class="flex flex-col gap-[.5rem]">
+                            <div class="ingo inline-flex gap-[10px] text-[.8rem]">
+                                <a href="/Profile/{{User.id}}">
+                                    <h3>{{User.username}}</h3>
+                                </a>
+                                <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
+                            </div>
+                            <a href="/Homepage/{{id}}">
+                                <div class="content pb-1">
+                                    {{{content}}}
+                                </div>
+        
+                                {{#each Media}}
+                                <div class="photo">
+                                    <img src="{{mediaUrl}}" class="w-full max-w-[100%] h-auto object-cover" />
+                                </div>
+                                {{/each}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        
+                <span class="edit">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </span>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+        {{else}}
         {{#each users}}
         <div class="block pt-[1rem] px-[1rem]">
             <a href="/Profile/{{id}}">
@@ -31,5 +92,6 @@
             </a>
         </div>
         {{/each}}
+        {{/if}}
     </div>
 </div>

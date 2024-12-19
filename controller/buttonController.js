@@ -267,12 +267,6 @@ const models = require("../models");
     }
 
     await existingFollow.destroy(); // Unfollow the user
-    await models.Notification.destroy({
-      where: {
-        transferer_id: currentUserId,
-        receiver_id: targetUserId,
-      },
-    });
 
     res.status(200).send('Unfollowed successfully');
   } catch (err) {
