@@ -16,7 +16,7 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     {{#if isCurrentUser}}
     <!-- If it's the current user, show the Edit button -->
     <button
-      class="about-button col-span-2 px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      class="about-button col-span-2 px-4 py-2 text-black bg-white border border-black transition ease-in-out duration-300 rounded-xl hover:bg-black hover:text-white"
       user-id="{{currentUser.id}}">
       Edit
     </button>
@@ -24,19 +24,19 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     <!-- If not the current user, show Follow and About buttons -->
       {{#if isFollowed}}
         <button
-          class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white follow-button"
+          class="px-4 py-2 text-black bg-white border border-black transition ease-in-out duration-300 rounded-xl hover:bg-black hover:text-white follow-button"
           data-user-id="{{currentUser.id}}">
           Unfollow
         </button>
       {{else}}
         <button
-          class="px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white follow-button"
+          class="px-4 py-2 text-black bg-white border border-black transition ease-in-out duration-300 rounded-xl hover:bg-black hover:text-white follow-button"
           data-user-id="{{currentUser.id}}">
           Follow
         </button>
       {{/if}}
     <button
-      class="about-button px-4 py-2 text-black bg-white border border-black rounded-xl hover:bg-black hover:text-white"
+      class="about-button px-4 py-2 text-black bg-white border border-black transition ease-in-out duration-300 rounded-xl hover:bg-black hover:text-white"
       user-id="{{currentUser.id}}">
       About
     </button>
@@ -65,7 +65,7 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
             <div class="flex flex-col gap-[.5rem]">
               <div class="ingo inline-flex gap-[10px] text-[.8rem]">
                 <h3>{{User.username}}</h3>
-                <h3 class="text-[#ccc]">{{timeAgo updatedAt}}</h3>
+                <h3 class="text-[#ccc]">{{timeAgo createdAt}}</h3>
               </div>
               <a href="/Homepage/{{id}}">
                 <div class="content pb-1">

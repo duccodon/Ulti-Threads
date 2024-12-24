@@ -76,31 +76,33 @@
         {{else}}
         {{#each users}}
         <div class="block pt-[1rem] px-[1rem]">
-            <a href="/Profile/{{id}}">
+
                 <div class="flex justify-between gap-[1rem] text-black">
                     <img src="{{profile_picture}}"
                         class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
                     <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
+                        <a href="/Profile/{{id}}" class = "flex flex-1">
                         <div class="flex flex-col gap-[.5rem]">
                             <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
                                 <h3>{{username}}</h3>
                                 <h3 class="text-[#ccc]">{{bio}}</h3>
                             </div>
                         </div>
+                        </a>
                         {{#if (includes ../followingIds id)}}
-                        <button class="follow-button bg-red-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
+                        <button class="follow-button border border-black bg-white text-black inline-block px-[2rem] py-0 font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
                             data-user-id="{{id}}">
                             Unfollow
                         </button>
                         {{else}}
-                        <button class="follow-button bg-blue-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
+                        <button class="follow-button border border-black bg-white text-black inline-block px-[2rem] py-0 font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
                             data-user-id="{{id}}">
                             Follow
                         </button>
                         {{/if}}
                     </div>
                 </div>
-            </a>
+
         </div>
         {{/each}}
         {{/if}}

@@ -11,30 +11,34 @@
     <div class="feeds">
         {{#each notifications}}
         <div class="block pt-[1rem] px-[1rem] {{#if is_read}}bg-white{{else}}bg-[#FAFAFA]{{/if}}">
-            <a href="{{redirect_url}}">
                 <div class="flex justify-between gap-[1rem] text-black">
                     <img src="{{transfererFk.profile_picture}}"
                         class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
                     <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
+                    <a href="{{redirect_url}}" class = "flex flex-1" onclick="handleMarkReadAndNavigate(event, {{id}}, '{{redirect_url}}')">
                         <div class="flex flex-col gap-[.5rem]">
                             <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
-                                <h3>{{transfererFk.username}} {{id}}</h3>
+                                <h3>{{transfererFk.username}}</h3>
                                 <h3 class="text-[#ccc]">{{content}}</h3>
                             </div>
                         </div>
-
+                    </a>
                         <div class="flex gap-[1rem] items-center">
-                            {{#if (includes ../followingIds transfererFk.id)}}
-                            <button class="follow-button bg-red-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
-                                data-user-id="{{transfererFk.id}}">
-                                Unfollow
-                            </button>
-                            {{else}}
-                            <button class="follow-button bg-blue-500 text-white py-[1.2rem] px-[2rem] rounded-[.7rem]"
-                                data-user-id="{{transfererFk.id}}">
-                                Follow
-                            </button>
+                            {{#if isFollowMessage}}
+                                {{#if (includes ../followingIds transfererFk.id)}}
+                                <button class="follow-button border border-black bg-white text-black inline-block px-[2rem] py-[.6rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
+                                    data-user-id="{{transfererFk.id}}">
+                                    Unfollow
+                                </button>
+                                {{else}}
+                                <button class="follow-button border border-black bg-white text-black inline-block px-[2rem] py-[.6rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
+                                    data-user-id="{{transfererFk.id}}">
+                                    Follow
+                                </button>
+                                {{/if}}
                             {{/if}}
+                            
+
 
                             <div class="flex flex-col h-full justify-between">
                                 <div class="cursor-pointer deleteNoti" data-id="{{id}}"><i
@@ -43,9 +47,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-            </a>
         </div>
         {{/each}}
     </div>
@@ -100,5 +104,17 @@
         } catch (error) {
             console.log(error);
         }
+    }
+
+    async function handleMarkReadAndNavigate(event, id, redirectUrl) {
+    event.preventDefault(); // Prevent default navigation
+
+    try {
+        await markReadNoti(id); // Call the markReadNoti function to mark the notification as read
+
+        window.location.href = redirectUrl;
+    } catch (error) {
+        console.error("Failed to mark notification as read:", error);
+    }
     }
 </script>

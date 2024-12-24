@@ -263,8 +263,12 @@ controller.showActivity = async(req, res) => {
     where: { receiver_id: userId },
     order: [["id", "ASC"]],
   });
-  // console.log("test thu ne", res.locals.notifications);
 
+  res.locals.notifications.forEach(notification => {
+    notification.isFollowMessage = notification.content === "Follow you";
+  });
+  
+  
   const following = await models.Follower.findAll({
     where: { follower_id: userId },
     attributes: ['following_id'],

@@ -7,8 +7,10 @@
                   </div>
                 <div class="post details block border-y border-[#ccc] pt-[1rem] px-[1rem]">
                         <div class="flex justify-between gap-[1rem] text-black">
-                        <img src="{{thread.User.profile_picture}}"
-                            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+                        <a href="/Profile/{{thread.User.id}}">
+                            <img src="{{thread.User.profile_picture}}"
+                                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+                        </a>
                         <div class="flex flex-1 gap-[1rem]">
                             <div class="flex flex-col gap-[.5rem]">
                                 <div class="ingo inline-flex gap-[10px] text-[.8rem]">
@@ -66,8 +68,10 @@
                     <!-- Comment Section -->
                     {{#each thread.Comments}}
                     <div class="comment pt-4 flex justify-between gap-4 text-black border-b border-gray-300">
+                        <a href="/Profile/{{this.user_id}}">
                         <img src="{{this.User.profile_picture}}"
                             class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-full overflow-hidden" />
+                        </a>
                         <div class="comment-container flex-1">
                             <div class="comment-content">
                                 <div class="comment-header inline-flex gap-2 text-sm">
@@ -79,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="comment-buttons m-[.5rem] py-[0.1rem] ">
-                                <span class="actionbutton like-button relative">
+                                <span class="actionbutton relative">
                                 <i class="fa-regular fa-heart"></i>
                                 </span>
                             </div>  
