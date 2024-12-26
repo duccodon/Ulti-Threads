@@ -142,7 +142,7 @@ const models = require("../models");
         });
     }
 
-    return res.redirect('/Homepage');
+    return res.redirect(`/Homepage/${newPost.id}`);
 }
 
   controller.addComment = async (req, res) => {

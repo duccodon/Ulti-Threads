@@ -333,6 +333,13 @@ controller.showProfile = async (req, res) => {
       ],
     }).then((following) => following.map((following) => following.id)); 
 
+    res.locals.following = await models.Follower.findAll({
+      where: { follower_id: userId },
+      include: [
+        {model: models.User, as: 'followingFk'},
+      ]
+    });
+
     res.locals.follower = ( await models.Follower.findAll({
       where: { following_id: userId },
       include: [
@@ -409,6 +416,13 @@ controller.showIDProfile = async (req, res) => {
     where: { following_id: userId },
     include: [
       {model: models.User, as: 'followerFk'},
+    ]
+  });
+
+  res.locals.following = await models.Follower.findAll({
+    where: { follower_id: userId },
+    include: [
+      {model: models.User, as: 'followingFk'},
     ]
   });
 
@@ -530,13 +544,13 @@ const sendVerificationEmail = async (email, verificationToken) => {
     },
   });
 
-  const verificationLink = `localhost:3000/CreateAccount/VerifyEmail?token=${verificationToken}`;
+  const verificationLink = `https://final-ulti-threads.onrender.com/CreateAccount/VerifyEmail?token=${verificationToken}`;
 
   const mailOptions = {
     from: 'ducnguyentemp@gmail.com',
     to: email,
     subject: 'Email Verification Link',
-    html: `<p>Please click the link below to verify your email:</p><p><a href="localhost:3000/CreateAccount/VerifyEmail?token=${verificationToken}">Click here to verify your email</a></p><p>The verification link is: localhost:3000/CreateAccount/VerifyEmail?token=${verificationToken}</p>`,
+    html: `<p>Please click the link below to verify your email:</p><p><a href="https://final-ulti-threads.onrender.com/CreateAccount/VerifyEmail?token=${verificationToken}">Click here to verify your email</a></p><p>The verification link is: https://final-ulti-threads.onrender.com/CreateAccount/VerifyEmail?token=${verificationToken}</p>`,
   };
 
   await transporter.sendMail(mailOptions);

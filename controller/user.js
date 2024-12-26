@@ -89,13 +89,13 @@ const sendResetPassEmail = async(email, resetToken) => {
     },
   });
 
-  const verificationLink = `localhost:3000/Login/VerifyReset?token=${resetToken}`;
+  const verificationLink = `https://final-ulti-threads.onrender.com/Login/VerifyReset?token=${resetToken}`;
 
   const mailOptions = {
     from: 'ducnguyentemp@gmail.com',
     to: email,
     subject: 'Reset Password Link',
-    html: `<p>Please click the link below to reset your password:</p><p><a href="localhost:3000/Login/VerifyReset?token=${resetToken}">Click here to reset your password</a></p><p>The reset link is: localhost:3000/Login/VerifyReset?token=${resetToken}</p>`,
+    html: `<p>Please click the link below to reset your password:</p><p><a href="https://final-ulti-threads.onrender.com/Login/VerifyReset?token=${resetToken}">Click here to reset your password</a></p><p>The reset link is: https://final-ulti-threads.onrender.com/Login/VerifyReset?token=${resetToken}</p>`,
   };
 
   await transporter.sendMail(mailOptions);
