@@ -1,4 +1,4 @@
-<div class="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] 
+<div class="scrollbar fixed top-[3.8rem] sm:top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-3.8rem)] sm:h-[calc(100vh-5*1vh-7rem)] md:h-[calc(100vh-5*1vh-2rem)] w-[100%] 
 md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
   <div class="info flex justify-between">
     <div class="username p-5">
@@ -8,7 +8,7 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
     </div>
     <div class="avatar p-5">
       <img src="{{currentUser.profile_picture}}" alt="Avatar"
-        class="w-24 h-24 rounded-full object-cover border border-gray-300">
+        class="min-w-[3rem] min-h-[3rem] max-w-[3rem] max-h-[3rem] md:w-24 md:h-24 rounded-full object-cover border border-gray-300">
     </div>
   </div>
 
@@ -54,10 +54,10 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
   <div id="post" class="tab-content hidden">
     {{#each threads}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
-      <div class="flex gap-[1rem] text-black">
+      <div class="flex gap-[.5rem] sm:gap-[1rem] text-black">
         <a href="/Profile/{{User.id}}" class="m-0 p-0">
           <img src="{{User.profile_picture}}"
-            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+            class="min-w-[1.8rem] min-h-[1.8rem] max-w-[1.8rem] max-h-[1.8rem] sm:min-w-[2.5rem] sm:min-h-[2.5rem] sm:max-w-[2.5rem] sm:max-h-[2.5rem] rounded-[50%] overflow-hidden" />
         </a>
 
         <div class="flex justify-between min-w-[85%]">
@@ -113,10 +113,10 @@ md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overfl
   <div id="repost" class="tab-content hidden">
     {{#each reposts}}
     <div class="block border-t border-[#ccc] py-[1rem] px-[1rem]">
-      <div class="flex gap-[1rem] text-black">
+      <div class="flex gap-[.5rem] sm:gap-[1rem] text-black">
         <a href="/Profile/{{Thread.User.id}}" class="m-0 p-0">
           <img src="{{Thread.User.profile_picture}}"
-            class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+            class="min-w-[1.8rem] min-h-[1.8rem] max-w-[1.8rem] max-h-[1.8rem] sm:min-w-[2.5rem] sm:min-h-[2.5rem] sm:max-w-[2.5rem] sm:max-h-[2.5rem] rounded-[50%] overflow-hidden" />
         </a>
 
         <div class="flex justify-between min-w-[85%]">

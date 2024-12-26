@@ -1,55 +1,57 @@
 <div
-    class="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
-    <form action="/" class="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden">
-        <div class="inline-flex mx-auto bg-[#FAFAFA] rounded-[20px] p-4 w-[95%]">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Searching" id="create-post"
-                class="bg-[#FAFAFA] justify-self-start w-full pl-4 mr-4 text-[13px] !outline-none" />
-        </div>
-    </form>
+    class="scrollbar fixed top-[3.8rem] sm:top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden">
 
     <div class="feeds">
         {{#each notifications}}
-        <div class="block pt-[1rem] px-[1rem] {{#if is_read}}bg-white{{else}}bg-[#FAFAFA]{{/if}}">
-                <div class="flex justify-between gap-[1rem] text-black">
-                    <img src="{{transfererFk.profile_picture}}"
-                        class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-                    <div class="flex justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
-                    <a href="{{redirect_url}}" class = "flex flex-1" onclick="handleMarkReadAndNavigate(event, {{id}}, '{{redirect_url}}')">
-                        <div class="flex flex-col gap-[.5rem]">
+        <div class="block pt-[.5rem] sm:pt-[1rem] px-[1rem] {{#if is_read}}bg-white{{else}}bg-[#FAFAFA]{{/if}}">
+            <div class="flex justify-between gap-[.5rem] sm:gap-[1rem] text-black">
+                <img src="{{transfererFk.profile_picture}}"
+                    class="min-w-[1.8rem] min-h-[1.8rem] max-w-[1.8rem] max-h-[1.8rem] sm:min-w-[2.5rem] sm:min-h-[2.5rem] sm:max-w-[2.5rem] sm:max-h-[2.5rem] rounded-[50%] overflow-hidden" />
+                <div class="flex sm:justify-between min-w-[90%] pb-[1rem] border-b border-[#ccc]">
+                    <a href="{{redirect_url}}" class="flex flex-1"
+                        onclick="handleMarkReadAndNavigate(event, {{id}}, '{{redirect_url}}')">
+                        <div class="w-[40%] flex flex-col gap-[.5rem]">
                             <div class="ingo flex flex-col gap-[10px] text-[.8rem]">
                                 <h3>{{transfererFk.username}}</h3>
                                 <h3 class="text-[#ccc]">{{content}}</h3>
                             </div>
                         </div>
                     </a>
-                        <div class="flex gap-[1rem] items-center">
-                            {{#if isFollowMessage}}
-                                {{#if (includes ../followingIds transfererFk.id)}}
-                                <button class="follow-button border border-black bg-white text-black inline-block px-[2rem] py-[.6rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
-                                    data-user-id="{{transfererFk.id}}">
-                                    Unfollow
-                                </button>
-                                {{else}}
-                                <button class="follow-button border border-black bg-white text-black inline-block px-[2rem] py-[.6rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
-                                    data-user-id="{{transfererFk.id}}">
-                                    Follow
-                                </button>
-                                {{/if}}
-                            {{/if}}
-                            
-
-
-                            <div class="flex flex-col h-full justify-between">
-                                <div class="cursor-pointer deleteNoti" data-id="{{id}}"><i
-                                        class="fa-solid fa-trash"></i></div>
-                                <div class="cursor-pointer markRead" data-id="{{id}}"><i class="fa-solid fa-flag"></i>
+                    <div class="flex gap-[.5rem] sm:gap-[1rem] items-center">
+                        {{#if isFollowMessage}}
+                        {{#if (includes ../followingIds transfererFk.id)}}
+                        <button
+                            class="follow-button border border-black bg-black text-white inline-block px-[.7rem] sm:px-[1.5rem] py-[.5rem] sm:py-[.7rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-white hover:text-black"
+                            data-user-id="{{transfererFk.id}}">
+                            Unfollow
+                        </button>
+                        {{else}}
+                        <button
+                            class="follow-button border border-black bg-white text-black inline-block px-[1.2rem] sm:px-[2rem] py-[.5rem] sm:py-[.7rem] font-medium rounded-[.6rem] cursor-pointer transition ease-in-out duration-300 text-sm hover:bg-black hover:text-white"
+                            data-user-id="{{transfererFk.id}}">
+                            Follow
+                        </button>
+                        {{/if}}
+                        {{/if}}
+        
+        
+                        <div class="flex gap-[.8rem] items-center">
+                            <i id="toggle-icon-{{id}}" class="fa-solid fa-angle-left transition-transform duration-1000 ease-in-out"
+                                onclick="showActivityFunction({{id}})"></i>
+                            <div id="icons-{{id}}"
+                                class="activityFunction hidden flex flex-col h-full justify-between transform translate-x-full opacity-0 transition-all duration-1000 ease-in-out">
+                                <div class="cursor-pointer deleteNoti" data-id="{{id}}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
+                                <div class="cursor-pointer markRead" data-id="{{id}}">
+                                    <i class="fa-solid fa-flag"></i>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+        
                 </div>
+            </div>
         </div>
         {{/each}}
     </div>
@@ -107,14 +109,34 @@
     }
 
     async function handleMarkReadAndNavigate(event, id, redirectUrl) {
-    event.preventDefault(); // Prevent default navigation
+        event.preventDefault(); // Prevent default navigation
 
-    try {
-        await markReadNoti(id); // Call the markReadNoti function to mark the notification as read
+        try {
+            await markReadNoti(id); 
 
-        window.location.href = redirectUrl;
-    } catch (error) {
-        console.error("Failed to mark notification as read:", error);
+            window.location.href = redirectUrl;
+        } catch (error) {
+            console.error("Failed to mark notification as read:", error);
+        }
     }
+
+    //show delete and flag
+    function showActivityFunction(id) {
+        const iconsContainer = document.getElementById(`icons-${id}`);
+        const toggleIcon = document.getElementById(`toggle-icon-${id}`);
+
+        if (iconsContainer.classList.contains('hidden')) {
+            iconsContainer.classList.remove('hidden');
+            setTimeout(() => {
+                iconsContainer.classList.remove('translate-x-full', 'opacity-0');
+            }, 500); 
+        } else {
+            iconsContainer.classList.add('translate-x-full', 'opacity-0');
+            setTimeout(() => {
+                iconsContainer.classList.add('hidden');
+            }, 500); 
+        }
+
+        toggleIcon.classList.toggle('rotate-180');
     }
 </script>

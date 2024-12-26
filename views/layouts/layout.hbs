@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 
-<body class="bg-[#FAFAFA]">
+<body class="bg-[#FAFAFA] text-[13px] md:text-[17px]">
     <div id="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black opacity-50 z-20"></div>
     {{> header }}
     <!-- Popup for the plus button -->
@@ -35,10 +35,10 @@
                 <div class="flex flex-row gap-[.5rem] w-full">
                     <div class="info flex flex-col w-full gap-[5px] text-[.8rem]">
                         <h3>{{loggingInUser.username}}</h3>
-                        <form action="/Button/Create" method="POST" enctype="multipart/form-data" class="overflow-y-auto w-full h-[90%] md:h-[30rem] flex flex-col">
+                        <form action="/Button/Create" method="POST" enctype="multipart/form-data" class="overflow-y-auto overflow-x-hidden w-[90%] sm:w-full h-[90%] md:h-[30rem] flex flex-col">
                             <input type="text" name="userId" class="hidden" value="{{loggingInUser.id}}">
                             <textarea id="post-content" name="content"
-                                class="min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
+                                class="md:min-w-[30rem] max-h-[80%] md:max-h-[15rem] rounded-lg outline-none resize-none overflow-y-auto"
                                 placeholder="What's on your mind?"
                                 oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"
                                 required></textarea>
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <main class="fixed top-[5.4rem]">
+    <main class="fixed top-[3.8rem] sm:top-[5.4rem]">
         <div class="md:grid md:grid-cols-[6rem_auto_6rem] md:gap-x-[2rem] flex flex-col items-center">
             {{{ body }}}
             {{> sidebar }}

@@ -1,23 +1,24 @@
-<div class="scrollbar fixed top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden z-3">
-  <form action="/" class="mx-4 my-auto items-center justify-between py-[1rem] md:flex hidden">
+<div class="scrollbar fixed top-[3.8rem] sm:top-[5.4rem] left-1/2 transform translate-x-[-50%] h-[calc(100vh-5*1vh-3.8rem)] sm:h-[calc(100vh-5*1vh-7rem)] md:h-[calc(100vh-5*1vh-2rem)] w-[100%] md:w-[38rem] bg-white rounded-[1rem] border border-[#ccc] overflow-y-auto overflow-x-hidden z-3">
+  <div class="mx-4 my-auto items-center gap-[1rem] py-[1rem] md:flex hidden">
     <img src="{{currentUser.profile_picture}}"
       class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden" />
-    <input type="text" placeholder="What's new" 
-      class="plus-button justify-self-start w-full pl-4 mr-4 text-[13px] !outline-none" />
+    <div class="plus-button justify-self-start w-full pl-4 mr-4 text-[13px] bg-[#FAFAFA] rounded-[2rem] px-[.5rem] py-[.5rem]">
+      What's new
+    </div>
     <div
       class="plus-button inline-block px-[2rem] py-[.6rem] font-medium cursor-pointer transition ease-in-out duration-300 text-sm hover:opacity-80 bg-white text-black border border-black border-solid rounded-[.7rem]">
       Post
     </div>
-  </form>
+  </div>
 
   <div class="feeds">
     {{#each threads}}
     <div class="block border-t border-[#ccc] pt-[1rem] px-[1rem]">
-        <div class="flex gap-[1rem] text-black">
+        <div class="flex gap-[.5rem] md:gap-[1rem] text-black">
           <div class="m-0 p-0">
             <a href="/Profile/{{User.id}}" class="bg-black">
               <img src="{{User.profile_picture}}"
-                class="min-w-[2.5rem] min-h-[2.5rem] max-w-[2.5rem] max-h-[2.5rem] rounded-[50%] overflow-hidden">
+                class="min-w-[1.8rem] min-h-[1.8rem] max-w-[1.8rem] max-h-[1.8rem] sm:min-w-[2.5rem] sm:min-h-[2.5rem] sm:max-w-[2.5rem] sm:max-h-[2.5rem] rounded-[50%] overflow-hidden">
             </a>
           </div>
           

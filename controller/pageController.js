@@ -84,7 +84,7 @@ controller.showHomepage = async (req, res) => {
           },
         ],
         group: ["Thread.id", "User.id", "Media.id", "Comments.id", "Reposts.id"],
-        order: [["id", "ASC"]],
+        order: [["createdAt", "DESC"]],
       })
     ).map((thread) => {
       const plainThread = thread.get({ plain: true });
@@ -124,7 +124,7 @@ controller.showHomepage = async (req, res) => {
           "Comments.id",
           "Reposts.id",
         ],
-        order: [["createdAt", "ASC"]],
+        order: [["createdAt", "DESC"]],
       })
     ).map((thread) => {
       const plainThread = thread.get({ plain: true });
@@ -361,7 +361,8 @@ controller.showProfile = async (req, res) => {
           required: false,
           where: { user_id: userId },
         },
-      ]
+      ],
+      order: [["createdAt", "DESC"]],
     });
 
     res.locals.reposts = await models.Repost.findAll({
@@ -376,6 +377,7 @@ controller.showProfile = async (req, res) => {
           ],
         },
       ],
+      order: [["createdAt", "DESC"]],
     });
 
     const isCurrentUser = true;
@@ -549,7 +551,7 @@ controller.addUser = async (req, res) => {
       return res.render("create", {
         layout: "account",
         title: "Sign Up",
-        errorMessage: `An account with this email: ${email} is already exists.`,
+        errorMessage: `An account with this email: ${email} has already existed.`,
       });
     }
 
@@ -558,7 +560,7 @@ controller.addUser = async (req, res) => {
       return res.render("create", {
         layout: "account",
         title: "Sign Up",
-        errorMessage: `An account with this phone number: ${phonenumber} is already exists.`,
+        errorMessage: `An account with this phone number: ${phonenumber} has already existed.`,
       });
     }
 
@@ -567,7 +569,15 @@ controller.addUser = async (req, res) => {
       return res.render("create", {
         layout: "account",
         title: "Sign Up",
-        errorMessage: `An account with this username: ${username} is already exists.`,
+        errorMessage: `An account with this username: ${username} has already existed.`,
+      });
+    }
+
+    if (!/[a-zA-Z]/.test(password) || !/\d/.test(password)){
+      return res.render("create", {
+        layout: "account",
+        title: "Sign Up",
+        errorMessage: `Your password is not qualified.`,
       });
     }
 

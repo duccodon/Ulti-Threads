@@ -6,7 +6,6 @@ module.exports = {
       {
         mediaUrl: "/img/post/champion.jpg",
         thread_id: 1,
-
       },
       {
         mediaUrl: "/img/post/champion.jpg",

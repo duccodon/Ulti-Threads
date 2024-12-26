@@ -41,7 +41,7 @@ module.exports = {
           },
           {
             content: "Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque.",
-            user_id: 7,
+            user_id: 1,
             thread_id: 5,
  
           },
@@ -59,14 +59,14 @@ module.exports = {
           },
           {
             content: "Ut venenatis tellus in metus vulputate eu scelerisque felis.",
-            user_id: 7,
-            thread_id: 7,
+            user_id: 1,
+            thread_id: 1,
  
           },
           {
             content: "Nunc consequat interdum varius sit amet. Dui id ornare arcu odio ut sem.",
             user_id: 4,
-            thread_id: 8,
+            thread_id: 2,
  
           },
 
@@ -90,7 +90,7 @@ module.exports = {
           },
           {
             content: "Nisl purus in mollis nunc sed id semper risus in. Mi in nulla posuere sollicitudin.",
-            user_id: 7,
+            user_id: 3,
             thread_id: 11,
  
           },
@@ -132,7 +132,7 @@ module.exports = {
           },
           {
             content: "Pellentesque dignissim enim sit amet venenatis urna cursus eget. Sit amet cursus sit amet.",
-            user_id: 7,
+            user_id: 3,
             thread_id: 17,
  
           },
@@ -186,7 +186,7 @@ module.exports = {
           },
           {
             content: "Morbi tristique senectus et netus et malesuada. Egestas integer eget aliquet.",
-            user_id: 7,
+            user_id: 4,
             thread_id: 26,
  
           },
@@ -211,7 +211,7 @@ module.exports = {
           },
           {
             content: "In hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper.",
-            user_id: 7,
+            user_id: 1,
             thread_id: 30,
  
           },

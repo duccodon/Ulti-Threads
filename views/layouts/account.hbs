@@ -17,7 +17,7 @@
 <body class="bg-white overflow-x-hidden">
     {{#if errorMessage}}
     <div id="popup"
-        class="fixed ml-[calc(50vw)] mt-[20vh] h-auto w-[36rem] transform translate-x-[-50%] translate-y-[-50%] bg-black rounded-[.8rem] px-[2rem] py-[.5rem] z-20">
+        class="fixed w-[80%] sm:w-[400px] ml-[calc(50vw)] mt-[15vh] h-auto w-[36rem] transform translate-x-[-50%] translate-y-[-50%] bg-black rounded-[.8rem] px-[2rem] py-[.5rem] z-20">
         <div class="inline-flex justify-between w-full text-white">
             <div>{{errorMessage}}</div>
             <div>
@@ -26,6 +26,7 @@
         </div>
     </div>
     {{/if}}
+
     <img class="cover w-full mt-[-2%] object-cover block" src="/img/assets/background.webp" alt="Description of image">
     {{{ body }}}
     {{> footer }}
